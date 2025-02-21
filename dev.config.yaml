@@ -1,0 +1,11 @@
+MODE_ENV: dev
+
+NAME_DB: cms_ecommerce
+USER_DB: postgres
+PASS_DB: 123456
+PORT_DB: 5432
+HOST_DB: localhost
+URL_DB: postgresql://postgres:123456@localhost:5432/cms_ecommerce?sslmode=disable
+
+NAME_APP: cms_server
+PORT_APP: 8008
