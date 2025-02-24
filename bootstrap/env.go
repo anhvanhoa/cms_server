@@ -33,9 +33,9 @@ func NewEnv() *Env {
 	mode := os.Getenv("ENV_MODE")
 	viper.SetConfigType("yaml")
 	if mode == "production" {
-		viper.SetConfigFile(absPath + "/prod.config")
+		viper.SetConfigName("prod.config")
 	} else {
-		viper.SetConfigFile(absPath + "/dev.config")
+		viper.SetConfigName("dev.config")
 	}
 	viper.AddConfigPath(absPath)
 	err = viper.ReadInConfig()

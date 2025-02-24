@@ -6,7 +6,7 @@ import (
 
 type MailProvider struct {
 	tableName  struct{}  `pg:"mail_providers,alias:mp"`
-	Email      string    `pg:"email,unique"`
+	Email      string    `pg:"email,pk"`
 	Password   string    `pg:"password"`
 	UserName   string    `pg:"user_name"`
 	Port       string    `pg:"port"`
