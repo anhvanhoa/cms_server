@@ -26,8 +26,8 @@ func (lh *loginHandler) Login(c *fiber.Ctx) error {
 	var body modelauth.LoginReq
 
 	if err := c.BodyParser(&body); err != nil {
-		res := pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
-		return c.Status(res.GetCode()).JSON(res)
+		err := pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
+		return lh.log.Log(c, err)
 	}
 
 	if _, err := govalidator.ValidateStruct(body); err != nil {

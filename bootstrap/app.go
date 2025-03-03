@@ -9,16 +9,21 @@ import (
 )
 
 type Application struct {
-	Env *Env
-	DB  *pg.DB
-	Log pkglog.Logger
+	Env         *Env
+	DB          *pg.DB
+	Log         pkglog.Logger
+	QueneClient QueueClient
+	TM          *TransactionManager
 }
 
 func App() *Application {
-	env := NewEnv()
+	env := Env{}
+	NewEnv(&env)
 
 	logConfig := pkglog.NewConfig()
 	log := pkglog.InitLogger(logConfig, zapcore.DebugLevel, env.IsProduction())
+
+	qc := NewQueueClient(&env)
 
 	entities := []interface{}{
 		new(entity.User),
@@ -64,15 +69,16 @@ func App() *Application {
 		new(entity.Menu),
 	}
 
-	db := NewPostgresDB(env, entities)
+	db := NewPostgresDB(&env, entities, log)
+
+	// tm := NewTransactionManager(db, log)
+
 	RegisterValidator()
 	return &Application{
-		Env: env,
-		DB:  db,
-		Log: log,
+		Env:         &env,
+		DB:          db,
+		Log:         log,
+		QueneClient: qc,
+		// TM:          tm,
 	}
-}
-
-func (app *Application) ClosePostgresDB() {
-	ClosePostgresDB(app.DB)
 }

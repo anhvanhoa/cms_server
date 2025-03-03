@@ -9,13 +9,14 @@ import (
 
 type Validator interface {
 	customEmailOrPhoneValidator(str string, params ...string) bool
+	isPhoneNumber(str, local string) bool
 }
 
 type validator struct{}
 
 func RegisterValidator() {
 	v := &validator{}
-	
+
 	govalidator.ParamTagRegexMap["email_phone"] = regexp.MustCompile(`^email_phone\((\w+)\)$`)
 	govalidator.ParamTagMap["email_phone"] = govalidator.ParamValidator(v.customEmailOrPhoneValidator)
 }

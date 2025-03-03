@@ -9,22 +9,30 @@ import (
 	"github.com/spf13/viper"
 )
 
+type queue struct {
+	Addr        string
+	DB          int
+	Password    string
+	MaxIdle     int
+	MaxActive   int
+	IdleTimeout int
+	Network     string
+	Concurrency int
+	Queues      map[string]int
+}
+
 type Env struct {
 	MODE_ENV string
 
-	PORT_DB string
-	NAME_DB string
-	USER_DB string
-	PASS_DB string
-	HOST_DB string
-	URL_DB  string
+	URL_DB string
 
 	NAME_APP string
 	PORT_APP string
+
+	QUEUE *queue
 }
 
-func NewEnv() *Env {
-	env := &Env{}
+func NewEnv(env any) {
 	absPath, err := filepath.Abs("./")
 	if err != nil {
 		log.Fatal("Error getting the absolute path:", err)
@@ -47,8 +55,6 @@ func NewEnv() *Env {
 	if err != nil {
 		panic("Error unmarshalling config file, " + err.Error())
 	}
-
-	return env
 }
 
 func (env *Env) IsProduction() bool {
