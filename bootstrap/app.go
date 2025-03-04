@@ -13,7 +13,6 @@ type Application struct {
 	DB          *pg.DB
 	Log         pkglog.Logger
 	QueneClient QueueClient
-	TM          *TransactionManager
 }
 
 func App() *Application {
@@ -71,14 +70,11 @@ func App() *Application {
 
 	db := NewPostgresDB(&env, entities, log)
 
-	// tm := NewTransactionManager(db, log)
-
 	RegisterValidator()
 	return &Application{
 		Env:         &env,
 		DB:          db,
 		Log:         log,
 		QueneClient: qc,
-		// TM:          tm,
 	}
 }

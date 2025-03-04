@@ -26,7 +26,6 @@ func NewPostgresDB(env *Env, entities []any, log pkglog.Logger) *pg.DB {
 		db.AddQueryHook(pgdebug.NewDebugHook())
 		db.AddQueryHook(database.NewQueryHook())
 	}
-
 	// Create the tables
 	for _, entity := range entities {
 		err := db.Model(entity).CreateTable(&orm.CreateTableOptions{

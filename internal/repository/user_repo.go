@@ -7,9 +7,10 @@ import (
 )
 
 type UserRepository interface {
-	CreateUser(entity.User) (entity.UserInfor, error)
+	CreateUser(entity.User, ...*pg.Tx) (entity.UserInfor, error)
 	GetUserByEmailOrPhone(val string) (entity.User, error)
 	CheckUserExist(val string) (bool, error)
+	RunInTransaction(fn func(tx *pg.Tx) error) error
 }
 
 type userRepositoryImpl struct {
@@ -22,7 +23,27 @@ func NewUserRepository(db *pg.DB) UserRepository {
 	}
 }
 
-func (ur *userRepositoryImpl) CreateUser(user entity.User) (entity.UserInfor, error) {
+func (ur *userRepositoryImpl) RunInTransaction(fn func(tx *pg.Tx) error) error {
+	tx, err := ur.db.BeginContext(ur.db.Context())
+	if err != nil {
+		return err
+	}
+
+	// Nếu có lỗi thì rollback
+	if err := fn(tx); err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	// Commit transaction
+	return tx.Commit()
+}
+
+func (ur *userRepositoryImpl) CreateUser(user entity.User, txs ...*pg.Tx) (entity.UserInfor, error) {
+	if len(txs) > 0 {
+		_, err := txs[0].Model(&user).Insert()
+		return user.GetInfor(), err
+	}
 	_, err := ur.db.Model(&user).Insert()
 	return user.GetInfor(), err
 }

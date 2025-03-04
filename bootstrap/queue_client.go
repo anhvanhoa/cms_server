@@ -8,6 +8,16 @@ import (
 	"github.com/hibiken/asynq"
 )
 
+type To string
+
+type Payload struct {
+	Provider  string
+	Tos       *[]To
+	To        *To
+	Templates string
+	Data      map[string]any
+}
+
 type QueueClient interface {
 	NewTask(typeTask string, payload map[string]any, opts ...asynq.Option) (*asynq.Task, error)
 	NewTaskMailSystem(payload map[string]any, opts ...asynq.Option) (*asynq.Task, error)

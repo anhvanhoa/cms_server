@@ -47,12 +47,15 @@ func (rh *registerHandler) Register(c *fiber.Ctx) error {
 		return rh.log.Log(c, err)
 	}
 
-	user, err := rh.registerUsecase.CreateUser(body)
-	if err != nil {
+	user, tpl, err := rh.registerUsecase.CreateUser(body)
+	if pg.ErrNoRows == err {
+		err := pkgres.NewErr("Không tìm thấy mẫu email").NotFound()
+		return rh.log.Log(c, err)
+	} else if err != nil {
 		return rh.log.Log(c, err)
 	}
 
-	err = rh.registerUsecase.SendMail("register", user)
+	err = rh.registerUsecase.SendMail(tpl, "register", user)
 	if pg.ErrNoRows == err {
 		err := pkgres.NewErr("Không tìm thấy mẫu email").NotFound()
 		return rh.log.Log(c, err)
@@ -69,7 +72,7 @@ func NewRegisterHandler(registerUsecase auth.RegisterUsecase, log pkglog.Logger)
 	}
 }
 
-func NewRouteRegisterHandler(db *pg.DB, log pkglog.Logger, qc bootstrap.QueueClient, tm *bootstrap.TransactionManager) RegisterHandler {
-	registerUsecase := auth.NewRegisterUsecase(repository.NewUserRepository(db), repository.NewMailTplRepository(db), qc, tm)
+func NewRouteRegisterHandler(db *pg.DB, log pkglog.Logger, qc bootstrap.QueueClient) RegisterHandler {
+	registerUsecase := auth.NewRegisterUsecase(repository.NewUserRepository(db), repository.NewMailTplRepository(db), qc)
 	return NewRegisterHandler(registerUsecase, log)
 }

@@ -12,8 +12,6 @@ func main() {
 	env := app.Env
 	db := app.DB
 	log := app.Log
-	tm := app.TM
-
 	defer db.Close()
 	defer app.QueneClient.Close()
 
@@ -25,7 +23,7 @@ func main() {
 	})
 
 	// Registering the route
-	router.InitRouter(fiberApp, db, log, app.QueneClient, tm)
+	router.InitRouter(fiberApp, db, log, app.QueneClient)
 
 	if err := fiberApp.Listen(":" + env.PORT_APP); err != nil {
 		log.Fatal("Error starting the server: " + err.Error())
