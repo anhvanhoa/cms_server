@@ -8,20 +8,18 @@ import (
 	"github.com/hibiken/asynq"
 )
 
-type To string
-
 type Payload struct {
-	Provider  string
-	Tos       *[]To
-	To        *To
-	Templates string
-	Data      map[string]any
+	Provider string
+	Tos      *[]string
+	To       *string
+	Template string
+	Data     map[string]any
 }
 
 type QueueClient interface {
-	NewTask(typeTask string, payload map[string]any, opts ...asynq.Option) (*asynq.Task, error)
-	NewTaskMailSystem(payload map[string]any, opts ...asynq.Option) (*asynq.Task, error)
-	NewTaskSms(payload map[string]any, opts ...asynq.Option) (*asynq.Task, error)
+	NewTask(typeTask string, payload Payload, opts ...asynq.Option) (*asynq.Task, error)
+	NewTaskMailSystem(payload Payload, opts ...asynq.Option) (*asynq.Task, error)
+	NewTaskSms(payload Payload, opts ...asynq.Option) (*asynq.Task, error)
 	Enqueue(task *asynq.Task, opts ...asynq.Option) (*asynq.TaskInfo, error)
 	Ping() error
 	Close()
@@ -52,7 +50,7 @@ func (qc *queueClient) Close() {
 	qc.client.Close()
 }
 
-func (qc *queueClient) NewTask(typeTask string, payload map[string]any, opts ...asynq.Option) (*asynq.Task, error) {
+func (qc *queueClient) NewTask(typeTask string, payload Payload, opts ...asynq.Option) (*asynq.Task, error) {
 	defaultOpts := []asynq.Option{
 		asynq.MaxRetry(qc.retry),
 		asynq.Timeout(qc.timeout),
@@ -65,11 +63,11 @@ func (qc *queueClient) NewTask(typeTask string, payload map[string]any, opts ...
 	return asynq.NewTask(typeTask, pl, opts...), nil
 }
 
-func (qc *queueClient) NewTaskMailSystem(payload map[string]any, opts ...asynq.Option) (*asynq.Task, error) {
+func (qc *queueClient) NewTaskMailSystem(payload Payload, opts ...asynq.Option) (*asynq.Task, error) {
 	return qc.NewTask(string(constants.QUEUE_EMAIL_SYSTEM), payload, opts...)
 }
 
-func (qc *queueClient) NewTaskSms(payload map[string]any, opts ...asynq.Option) (*asynq.Task, error) {
+func (qc *queueClient) NewTaskSms(payload Payload, opts ...asynq.Option) (*asynq.Task, error) {
 	return qc.NewTask(string(constants.QUEUE_SMS), payload, opts...)
 }
 

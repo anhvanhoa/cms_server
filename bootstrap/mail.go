@@ -5,7 +5,6 @@ import (
 	"log"
 	"time"
 
-	"github.com/cbroglie/mustache"
 	"github.com/wneessen/go-mail"
 )
 
@@ -21,6 +20,7 @@ type ConfigMail struct {
 }
 
 type MailProvider interface {
+	SetProvider(cf *ConfigMail) MailProvider
 	SendMail(to []string, subject, body string, data map[string]any) error
 	// SendMailWithAttachment(to []string, subject, body, attachment string) error
 }
@@ -37,37 +37,38 @@ func (m *mailProvider) SendMail(to []string, subject, body string, data map[stri
 	m.mail.SetGenHeader("X-Mailer", m.config.Mailer)
 	m.mail.SetGenHeader("Date", time.Now().Format(time.RFC1123Z))
 	m.mail.Subject(subject)
-
-	if content, err := mustache.ParseString(body); err != nil {
-		return err
-	} else if body, err = content.Render(data); err != nil {
-		return err
-	} else {
-		m.mail.AddAlternativeString(mail.TypeTextHTML, body)
-	}
+	m.mail.AddAlternativeString(mail.TypeTextHTML, body)
 	m.mail.FromFormat(m.config.Name, m.config.Email)
 	m.mail.To(to...)
-
-	if err := m.provider.Send(m.mail); err != nil {
+	if err := m.provider.DialAndSend(m.mail); err != nil {
 		return err
 	}
 	return nil
 }
 
-func NewMailProvider(cf *ConfigMail) (MailProvider, error) {
-	provider, err := mail.NewClient(
-		cf.Host, mail.WithPort(cf.Port),
-		mail.WithTLSConfig(cf.TSL),
+func (m *mailProvider) SetProvider(cf *ConfigMail) MailProvider {
+	opts := []mail.Option{
+		mail.WithSMTPAuth(mail.SMTPAuthPlain),
+		mail.WithTLSPortPolicy(mail.TLSMandatory),
+		mail.WithPort(cf.Port),
 		mail.WithUsername(cf.UserName),
 		mail.WithPassword(cf.Password),
-	)
+	}
+	if cf.TSL != nil {
+		opts = append(opts, mail.WithTLSConfig(cf.TSL))
+	}
+
+	provider, err := mail.NewClient(cf.Host, opts...)
 	if err != nil {
 		log.Fatalf("Failed to create mail provider: %v", err)
-		return nil, err
 	}
+	m.provider = provider
+	m.config = cf
+	return m
+}
+
+func NewMailProvider() (MailProvider, error) {
 	return &mailProvider{
-		mail:     mail.NewMsg(),
-		provider: provider,
-		config:   cf,
+		mail: mail.NewMsg(),
 	}, nil
 }

@@ -9,7 +9,7 @@ type MailProvider struct {
 	Email      string    `pg:"email,pk"`
 	Password   string    `pg:"password"`
 	UserName   string    `pg:"user_name"`
-	Port       string    `pg:"port"`
+	Port       int       `pg:"port"`
 	Host       string    `pg:"host"`
 	Encryption string    `pg:"encryption"`
 	Mailer     string    `pg:"mailer"`
