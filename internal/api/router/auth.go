@@ -5,7 +5,7 @@ import authhandler "cms-server/internal/api/handler/auth"
 func (r *Router) initAuthRouter() {
 	authRouter := r.app.Group("/auth")
 	lh := authhandler.NewRouteLoginHandler(r.db, r.log)
-	rh := authhandler.NewRouteRegisterHandler(r.db, r.log, r.qr)
+	rh := authhandler.NewRouteRegisterHandler(r.db, r.log, r.qr, r.env)
 	authRouter.Post("/login", lh.Login)
 	authRouter.Post("/register", rh.Register)
 	// authRouter.Post("/forgot-password", r.ForgotPassword)

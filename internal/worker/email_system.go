@@ -74,7 +74,6 @@ func (e *EmailSystem) ProcessTask(ctx context.Context, task *asynq.Task) error {
 		Port:     provider.Port,
 		UserName: provider.UserName,
 		Password: provider.Password,
-		Mailer:   provider.Mailer,
 		Email:    provider.Email,
 		Name:     provider.Name,
 		TSL:      &tls.Config{InsecureSkipVerify: true},

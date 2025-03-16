@@ -13,14 +13,22 @@ type Router struct {
 	app *fiber.App
 	log pkglog.Logger
 	qr  bootstrap.QueueClient
+	env *bootstrap.Env
 }
 
-func InitRouter(app *fiber.App, db *pg.DB, log pkglog.Logger, qr bootstrap.QueueClient) {
+func InitRouter(
+	app *fiber.App,
+	db *pg.DB,
+	log pkglog.Logger,
+	qr bootstrap.QueueClient,
+	env *bootstrap.Env,
+) {
 	router := &Router{
 		db:  db,
 		app: app,
 		log: log,
 		qr:  qr,
+		env: env,
 	}
 	router.initAuthRouter()
 }

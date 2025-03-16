@@ -5,4 +5,5 @@ type RegisterReq struct {
 	FullName        string `valid:"required~Vui lòng nhập họ và tên"`
 	Password        string `valid:"required~Vui lòng nhập mật khẩu,minstringlength(6)~Mật khẩu phải có ít nhất 6 ký tự"`
 	ConfirmPassword string `valid:"required~Vui lòng xác nhận mật khẩu"`
+	Code            string
 }

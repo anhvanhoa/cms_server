@@ -12,7 +12,6 @@ type MailProvider struct {
 	Port       int       `pg:"port"`
 	Host       string    `pg:"host"`
 	Encryption string    `pg:"encryption"`
-	Mailer     string    `pg:"mailer"`
 	Name       string    `pg:"name"`
 	TypeId     string    `pg:"type_id"`
 	Type       TypeMail  `pg:"rel:has-one"`

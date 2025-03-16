@@ -13,7 +13,6 @@ type ConfigMail struct {
 	Port     int
 	UserName string
 	Password string
-	Mailer   string
 	Email    string
 	Name     string
 	TSL      *tls.Config
@@ -34,7 +33,6 @@ type mailProvider struct {
 func (m *mailProvider) SendMail(to []string, subject, body string, data map[string]any) error {
 	m.mail.SetGenHeader("Content-Type", "text/html")
 	m.mail.SetGenHeader("charset", "utf-8")
-	m.mail.SetGenHeader("X-Mailer", m.config.Mailer)
 	m.mail.SetGenHeader("Date", time.Now().Format(time.RFC1123Z))
 	m.mail.Subject(subject)
 	m.mail.AddAlternativeString(mail.TypeTextHTML, body)

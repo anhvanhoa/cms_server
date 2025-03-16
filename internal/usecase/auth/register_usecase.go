@@ -6,10 +6,12 @@ import (
 	"cms-server/internal/entity"
 	modelauth "cms-server/internal/model/auth"
 	"cms-server/internal/repository"
+	pkgjwt "cms-server/pkg/jwt"
 	"runtime"
 	"time"
 
 	"github.com/alexedwards/argon2id"
+	"github.com/diebietse/gotp/v2"
 	"github.com/go-pg/pg/v10"
 	gonanoid "github.com/matoous/go-nanoid/v2"
 )
@@ -17,8 +19,10 @@ import (
 type RegisterUsecase interface {
 	CheckUserExist(email string) (bool, error)
 	hashPassword(password string) (string, error)
+	GengerateCode(time time.Time) (string, error)
 	CreateUser(user modelauth.RegisterReq) (entity.UserInfor, *entity.MailTemplate, error)
-	SendMail(tpl *entity.MailTemplate, code string, user entity.UserInfor) error
+	GengerateToken(data pkgjwt.RegisterClaims) (string, error)
+	SendMail(tpl *entity.MailTemplate, token string, user entity.UserInfor) error
 }
 
 type registerUsecaseImpl struct {
@@ -26,8 +30,10 @@ type registerUsecaseImpl struct {
 	mailTplRepo       repository.MailTemplateRepository
 	mailHistoryRepo   repository.MailHistoryRepository
 	statusHistoryRepo repository.StatusHistoryRepository
+	jwt               pkgjwt.JWT
 	qc                bootstrap.QueueClient
 	tx                repository.ManagerTransaction
+	env               *bootstrap.Env
 }
 
 func NewRegisterUsecase(
@@ -35,8 +41,10 @@ func NewRegisterUsecase(
 	mailTplRepo repository.MailTemplateRepository,
 	mailHistoryRepo repository.MailHistoryRepository,
 	statusHistoryRepo repository.StatusHistoryRepository,
+	jwt pkgjwt.JWT,
 	qc bootstrap.QueueClient,
 	tx repository.ManagerTransaction,
+	env *bootstrap.Env,
 ) RegisterUsecase {
 	return &registerUsecaseImpl{
 		userRepo:          userRepo,
@@ -45,13 +53,19 @@ func NewRegisterUsecase(
 		statusHistoryRepo: statusHistoryRepo,
 		qc:                qc,
 		tx:                tx,
+		env:               env,
+		jwt:               jwt,
 	}
 }
 
 func (uc *registerUsecaseImpl) CheckUserExist(email string) (bool, error) {
 	return uc.userRepo.CheckUserExist(email)
 }
-
+func (uc *registerUsecaseImpl) GengerateCode(time time.Time) (string, error) {
+	secret, _ := gotp.DecodeBase32(uc.env.SECRET_OTP)
+	hotp, _ := gotp.NewHOTP(secret)
+	return hotp.At(int(time.Unix()))
+}
 func (uc *registerUsecaseImpl) hashPassword(password string) (string, error) {
 	params := argon2id.Params{
 		Memory:      64 * 1024,
@@ -70,10 +84,11 @@ func (uc *registerUsecaseImpl) CreateUser(user modelauth.RegisterReq) (entity.Us
 		return userInfo, tpl, err
 	}
 	newUser := entity.User{
-		ID:       id,
-		Email:    user.Email,
-		Password: user.Password,
-		FullName: user.FullName,
+		ID:         id,
+		Email:      user.Email,
+		Password:   user.Password,
+		FullName:   user.FullName,
+		CodeVerify: user.Code,
 	}
 
 	if newUser.Password, err = uc.hashPassword(newUser.Password); err != nil {
@@ -91,10 +106,13 @@ func (uc *registerUsecaseImpl) CreateUser(user modelauth.RegisterReq) (entity.Us
 	})
 	return userInfo, tpl, err
 }
-
-func (uc *registerUsecaseImpl) SendMail(tlp *entity.MailTemplate, code string, user entity.UserInfor) error {
+func (uc *registerUsecaseImpl) GengerateToken(data pkgjwt.RegisterClaims) (string, error) {
+	return uc.jwt.GenRegisterToken(data)
+}
+func (uc *registerUsecaseImpl) SendMail(tlp *entity.MailTemplate, token string, user entity.UserInfor) error {
+	link := uc.env.FRONTEND_URL + "/verify/" + token
 	data := map[string]any{
-		"code": code,
+		"link": link,
 		"user": user,
 	}
 	task, err := uc.qc.NewTaskMailSystem(bootstrap.Payload{

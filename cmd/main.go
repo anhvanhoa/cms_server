@@ -23,7 +23,7 @@ func main() {
 	})
 
 	// Registering the route
-	router.InitRouter(fiberApp, db, log, app.QueneClient)
+	router.InitRouter(fiberApp, db, log, app.QueneClient, env)
 
 	if err := fiberApp.Listen(":" + env.PORT_APP); err != nil {
 		log.Fatal("Error starting the server: " + err.Error())

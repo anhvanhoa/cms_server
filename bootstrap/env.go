@@ -30,6 +30,12 @@ type Env struct {
 	PORT_APP string
 
 	QUEUE *queue
+
+	SECRET_OTP string
+
+	JWT_SECRET string
+
+	FRONTEND_URL string
 }
 
 func NewEnv(env any) {

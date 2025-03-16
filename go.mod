@@ -14,6 +14,8 @@ require (
 )
 
 require (
+	github.com/diebietse/gotp/v2 v2.0.4 // indirect
+	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 	github.com/segmentio/asm v1.0.1 // indirect
 	github.com/segmentio/encoding v0.2.21 // indirect
