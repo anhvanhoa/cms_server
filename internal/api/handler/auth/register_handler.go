@@ -42,21 +42,21 @@ func (rh *registerHandler) Register(c *fiber.Ctx) error {
 		return rh.log.Log(c, err)
 	}
 
-	if isExist, err := rh.registerUsecase.CheckUserExist(body.Email); err != nil {
+	if u, err := rh.registerUsecase.CheckUserExist(body.Email); err != nil && err != pg.ErrNoRows {
 		return rh.log.Log(c, err)
-	} else if isExist {
+	} else if u.ID != "" && u.Veryfied != nil {
 		err := pkgres.NewErr("Tài khoản đã tồn tại, vui lòng thử lại !").Code(fiber.StatusBadRequest)
 		return rh.log.Log(c, err)
 	}
 
-	time := time.Now().Add(time.Minute * 5)
+	time := time.Now().Add(time.Minute * 10)
 	if opt, err := rh.registerUsecase.GengerateCode(time); err != nil {
 		return rh.log.Log(c, err)
 	} else {
 		body.Code = opt
 	}
 
-	user, tpl, err := rh.registerUsecase.CreateUser(body)
+	user, tpl, err := rh.registerUsecase.CreateOrUpdateUser(body)
 	if pg.ErrNoRows == err {
 		err := pkgres.NewErr("Không tìm thấy mẫu email").NotFound()
 		return rh.log.Log(c, err)
@@ -64,7 +64,7 @@ func (rh *registerHandler) Register(c *fiber.Ctx) error {
 		return rh.log.Log(c, err)
 	}
 
-	claims := pkgjwt.NewRegisterClaims(body.Code, time)
+	claims := pkgjwt.NewRegisterClaims(user.ID, body.Code, time)
 	token, err := rh.registerUsecase.GengerateToken(claims)
 	if err != nil {
 		return rh.log.Log(c, err)

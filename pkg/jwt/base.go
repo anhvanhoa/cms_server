@@ -28,8 +28,8 @@ func (j *jwtImpl) GenRegisterToken(data RegisterClaims) (string, error) {
 	return token.SignedString([]byte(j.secretKey))
 }
 
-func (j *jwtImpl) verify(token string) (*jwt.Token, error) {
-	t, err := jwt.ParseWithClaims(token, &jwt.MapClaims{}, func(t *jwt.Token) (interface{}, error) {
+func (j *jwtImpl) verifyClaim(token string, data jwt.Claims) (*jwt.Token, error) {
+	t, err := jwt.ParseWithClaims(token, data, func(t *jwt.Token) (interface{}, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, jwt.ErrInvalidKeyType
 		}
@@ -39,11 +39,12 @@ func (j *jwtImpl) verify(token string) (*jwt.Token, error) {
 }
 
 func (j *jwtImpl) VerifyRegisterToken(token string) (*RegisterClaims, error) {
-	t, err := j.verify(token)
+	t, err := j.verifyClaim(token, &RegisterClaims{})
 	if err != nil {
 		return nil, err
 	}
-	if claim, ok := t.Claims.(*RegisterClaims); ok {
+	claim, ok := t.Claims.(*RegisterClaims)
+	if ok {
 		return claim, nil
 	}
 	return nil, ErrParseToken

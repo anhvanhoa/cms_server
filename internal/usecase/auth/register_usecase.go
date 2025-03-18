@@ -17,10 +17,10 @@ import (
 )
 
 type RegisterUsecase interface {
-	CheckUserExist(email string) (bool, error)
+	CheckUserExist(email string) (entity.User, error)
 	hashPassword(password string) (string, error)
 	GengerateCode(time time.Time) (string, error)
-	CreateUser(user modelauth.RegisterReq) (entity.UserInfor, *entity.MailTemplate, error)
+	CreateOrUpdateUser(user modelauth.RegisterReq) (entity.UserInfor, *entity.MailTemplate, error)
 	GengerateToken(data pkgjwt.RegisterClaims) (string, error)
 	SendMail(tpl *entity.MailTemplate, token string, user entity.UserInfor) error
 }
@@ -58,8 +58,8 @@ func NewRegisterUsecase(
 	}
 }
 
-func (uc *registerUsecaseImpl) CheckUserExist(email string) (bool, error) {
-	return uc.userRepo.CheckUserExist(email)
+func (uc *registerUsecaseImpl) CheckUserExist(email string) (entity.User, error) {
+	return uc.userRepo.GetUserByEmail(email)
 }
 func (uc *registerUsecaseImpl) GengerateCode(time time.Time) (string, error) {
 	secret, _ := gotp.DecodeBase32(uc.env.SECRET_OTP)
@@ -76,7 +76,7 @@ func (uc *registerUsecaseImpl) hashPassword(password string) (string, error) {
 	}
 	return argon2id.CreateHash(password, &params)
 }
-func (uc *registerUsecaseImpl) CreateUser(user modelauth.RegisterReq) (entity.UserInfor, *entity.MailTemplate, error) {
+func (uc *registerUsecaseImpl) CreateOrUpdateUser(user modelauth.RegisterReq) (entity.UserInfor, *entity.MailTemplate, error) {
 	var userInfo entity.UserInfor
 	var tpl *entity.MailTemplate
 	id, err := gonanoid.New(10)
@@ -96,8 +96,21 @@ func (uc *registerUsecaseImpl) CreateUser(user modelauth.RegisterReq) (entity.Us
 	}
 
 	err = uc.tx.RunInTransaction(func(tx *pg.Tx) error {
-		if userInfo, err = uc.userRepo.CreateUser(newUser, tx); err != nil {
+		if isExist, err := uc.userRepo.CheckUserExist(newUser.Email); err != nil {
 			return err
+		} else if !isExist {
+			if userInfo, err = uc.userRepo.CreateUser(newUser, tx); err != nil {
+				return err
+			}
+		} else {
+			newUser.ID = "" // Nó sẽ không cập nhập ID bởi ID là khóa chính | thêm cho dễ hiểu
+			if ok, err := uc.userRepo.UpdateUserByEmail(newUser.Email, newUser, tx); err != nil {
+				return err
+			} else if u, err := uc.userRepo.GetUserByEmail(newUser.Email); ok && err == nil {
+				userInfo = u.GetInfor()
+			} else {
+				return err
+			}
 		}
 		if tpl, err = uc.mailTplRepo.GetMailTplById(constants.TPL_REGISTER_MAIL); err != nil {
 			return err

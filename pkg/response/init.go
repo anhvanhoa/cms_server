@@ -13,6 +13,7 @@ type ErrorApp struct {
 func NewErr(msg string) *ErrorApp {
 	return &ErrorApp{
 		Message: msg,
+		code:    http.StatusInternalServerError,
 	}
 }
 

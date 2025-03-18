@@ -8,12 +8,14 @@ import (
 
 type RegisterClaims struct {
 	Code string
+	Id   string
 	jwt.RegisteredClaims
 }
 
-func NewRegisterClaims(code string, exp time.Time) RegisterClaims {
+func NewRegisterClaims(id, code string, exp time.Time) RegisterClaims {
 	return RegisterClaims{
 		Code: code,
+		Id:   id,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(exp),
 			Subject:   "Đăng ký tài khoản",

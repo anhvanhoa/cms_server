@@ -13,7 +13,7 @@ type User struct {
 	Bio        string     `pg:"bio"`
 	Address    string     `pg:"address"`
 	CodeVerify string     `pg:"code_verify"`
-	Veryfied   bool       `pg:"veryfied"`
+	Veryfied   *time.Time `pg:"veryfied"`
 	CreatedBy  string     `pg:"created_by"`
 	Birthday   *time.Time `pg:"birthday"`
 	CreatedAt  time.Time  `pg:"created_at"`

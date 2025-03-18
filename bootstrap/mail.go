@@ -41,6 +41,7 @@ func (m *mailProvider) SendMail(to []string, subject, body string, data map[stri
 	if err := m.provider.DialAndSend(m.mail); err != nil {
 		return err
 	}
+	m.mail.Reset()
 	return nil
 }
 
