@@ -1,11 +1,8 @@
 package constants
 
-// enum queue
-
-type QueueMail string
-type QueueSms string
+type QueueType string
 
 const (
-	QUEUE_EMAIL_SYSTEM QueueMail = "email:system"
-	QUEUE_SMS          QueueSms  = "sms"
+	QUEUE_EMAIL_SYSTEM QueueType = "email:system"
+	QUEUE_SMS          QueueType = "sms"
 )

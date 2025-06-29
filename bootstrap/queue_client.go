@@ -2,28 +2,12 @@ package bootstrap
 
 import (
 	"cms-server/constants"
+	queueS "cms-server/internal/service/queue"
 	"encoding/json"
 	"time"
 
 	"github.com/hibiken/asynq"
 )
-
-type Payload struct {
-	Provider string
-	Tos      *[]string
-	To       *string
-	Template string
-	Data     map[string]any
-}
-
-type QueueClient interface {
-	NewTask(typeTask string, payload Payload, opts ...asynq.Option) (*asynq.Task, error)
-	NewTaskMailSystem(payload Payload, opts ...asynq.Option) (*asynq.Task, error)
-	NewTaskSms(payload Payload, opts ...asynq.Option) (*asynq.Task, error)
-	Enqueue(task *asynq.Task, opts ...asynq.Option) (*asynq.TaskInfo, error)
-	Ping() error
-	Close()
-}
 
 type queueClient struct {
 	client  *asynq.Client
@@ -32,7 +16,7 @@ type queueClient struct {
 }
 
 // NewQueueClient creates a new queue client
-func NewQueueClient(env *Env) QueueClient {
+func NewQueueClient(env *Env) *queueClient {
 	client := asynq.NewClient(asynq.RedisClientOpt{
 		Addr:     env.QUEUE.Addr,
 		DB:       env.QUEUE.DB,
@@ -46,11 +30,23 @@ func NewQueueClient(env *Env) QueueClient {
 	}
 }
 
-func (qc *queueClient) Close() {
-	qc.client.Close()
+func (qc *queueClient) EnqueueMail(payload queueS.Payload) (string, error) {
+	return qc.EnqueueAnyTask(constants.QUEUE_EMAIL_SYSTEM, payload)
 }
 
-func (qc *queueClient) NewTask(typeTask string, payload Payload, opts ...asynq.Option) (*asynq.Task, error) {
+func (qc *queueClient) EnqueueAnyTask(taskType constants.QueueType, payload queueS.Payload) (string, error) {
+	task, err := qc.NewTask(string(taskType), payload)
+	if err != nil {
+		return "", err
+	}
+	i, err := qc.client.Enqueue(task)
+	if err != nil {
+		return "", err
+	}
+	return i.ID, nil
+}
+
+func (qc *queueClient) NewTask(typeTask string, payload queueS.Payload, opts ...asynq.Option) (*asynq.Task, error) {
 	defaultOpts := []asynq.Option{
 		asynq.MaxRetry(qc.retry),
 		asynq.Timeout(qc.timeout),
@@ -63,16 +59,8 @@ func (qc *queueClient) NewTask(typeTask string, payload Payload, opts ...asynq.O
 	return asynq.NewTask(typeTask, pl, opts...), nil
 }
 
-func (qc *queueClient) NewTaskMailSystem(payload Payload, opts ...asynq.Option) (*asynq.Task, error) {
-	return qc.NewTask(string(constants.QUEUE_EMAIL_SYSTEM), payload, opts...)
-}
-
-func (qc *queueClient) NewTaskSms(payload Payload, opts ...asynq.Option) (*asynq.Task, error) {
-	return qc.NewTask(string(constants.QUEUE_SMS), payload, opts...)
-}
-
-func (qc *queueClient) Enqueue(task *asynq.Task, opts ...asynq.Option) (*asynq.TaskInfo, error) {
-	return qc.client.Enqueue(task, opts...)
+func (qc *queueClient) Close() {
+	qc.client.Close()
 }
 
 func (qc *queueClient) Ping() error {

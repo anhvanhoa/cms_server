@@ -2,7 +2,7 @@ package main
 
 import (
 	"cms-server/bootstrap"
-	"cms-server/internal/api/router"
+	"cms-server/infrastructure/api/router"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -12,6 +12,7 @@ func main() {
 	env := app.Env
 	db := app.DB
 	log := app.Log
+	cache := app.Cache
 	defer db.Close()
 	defer app.QueneClient.Close()
 
@@ -23,7 +24,7 @@ func main() {
 	})
 
 	// Registering the route
-	router.InitRouter(fiberApp, db, log, app.QueneClient, env)
+	router.InitRouter(fiberApp, db, log, app.QueneClient, env, cache)
 
 	if err := fiberApp.Listen(":" + env.PORT_APP); err != nil {
 		log.Fatal("Error starting the server: " + err.Error())

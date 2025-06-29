@@ -1,34 +1,41 @@
-package auth
+package authUC
 
 import (
+	pkgjwt "cms-server/infrastructure/service/jwt"
 	"cms-server/internal/entity"
 	"cms-server/internal/repository"
-	pkgjwt "cms-server/pkg/jwt"
+	serviceJwt "cms-server/internal/service/jwt"
 	"time"
 )
 
 type VerifyAccountUsecase interface {
-	VerifyRegister(t string) (*pkgjwt.RegisterClaims, error)
+	VerifyRegister(t string) (*serviceJwt.VerifyClaims, error)
 	GetUserById(id string) (entity.User, error)
 	VerifyAccount(id string) error
 }
 
 type verifyAccountUsecaseImpl struct {
-	userRepo repository.UserRepository
-	jwt      pkgjwt.JWT
+	userRepo    repository.UserRepository
+	sessionRepo repository.SessionRepository
+	jwt         serviceJwt.JwtService
 }
 
 func NewVerifyAccountUsecase(
 	userRepo repository.UserRepository,
-	jwt pkgjwt.JWT,
+	sessionRepo repository.SessionRepository,
+	jwt serviceJwt.JwtService,
 ) VerifyAccountUsecase {
 	return &verifyAccountUsecaseImpl{
 		userRepo,
+		sessionRepo,
 		jwt,
 	}
 }
 
-func (u *verifyAccountUsecaseImpl) VerifyRegister(t string) (*pkgjwt.RegisterClaims, error) {
+func (u *verifyAccountUsecaseImpl) VerifyRegister(t string) (*serviceJwt.VerifyClaims, error) {
+	if isExist := u.sessionRepo.TokenExists(t); !isExist {
+		return nil, pkgjwt.ErrTokenNotFound
+	}
 	data, err := u.jwt.VerifyRegisterToken(t)
 	if err != nil {
 		return nil, err

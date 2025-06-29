@@ -1,0 +1,38 @@
+package router
+
+import (
+	"cms-server/bootstrap"
+	pkglog "cms-server/infrastructure/service/logger"
+	"cms-server/internal/service/queue"
+
+	"github.com/go-pg/pg/v10"
+	"github.com/gofiber/fiber/v2"
+)
+
+type Router struct {
+	db    *pg.DB
+	app   *fiber.App
+	log   pkglog.Logger
+	qr    queue.QueueClient
+	env   *bootstrap.Env
+	cache bootstrap.RedisConfigImpl
+}
+
+func InitRouter(
+	app *fiber.App,
+	db *pg.DB,
+	log pkglog.Logger,
+	qr queue.QueueClient,
+	env *bootstrap.Env,
+	cache bootstrap.RedisConfigImpl,
+) {
+	router := &Router{
+		db:    db,
+		app:   app,
+		log:   log,
+		qr:    qr,
+		env:   env,
+		cache: cache,
+	}
+	router.initAuthRouter()
+}

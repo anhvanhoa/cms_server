@@ -21,6 +21,22 @@ type queue struct {
 	Queues      map[string]int
 }
 
+type jwtSecret struct {
+	Access  string
+	Refresh string
+	Verify  string
+}
+
+type dbCache struct {
+	Addr        string
+	DB          int
+	Password    string
+	MaxIdle     int
+	MaxActive   int
+	IdleTimeout int
+	Network     string
+}
+
 type Env struct {
 	MODE_ENV string
 
@@ -28,14 +44,18 @@ type Env struct {
 
 	NAME_APP string
 	PORT_APP string
+	HOST_APP string
 
-	QUEUE *queue
+	QUEUE    *queue
+	DB_CACHE *dbCache
 
 	SECRET_OTP string
 
-	JWT_SECRET string
+	JWT_SECRET *jwtSecret
 
 	FRONTEND_URL string
+
+	TEST_EMAIL string
 }
 
 func NewEnv(env any) {

@@ -1,8 +1,8 @@
 package bootstrap
 
 import (
+	pkglog "cms-server/infrastructure/service/logger"
 	"cms-server/internal/entity"
-	pkglog "cms-server/pkg/logger"
 
 	"github.com/go-pg/pg/v10"
 	"go.uber.org/zap/zapcore"
@@ -12,7 +12,8 @@ type Application struct {
 	Env         *Env
 	DB          *pg.DB
 	Log         pkglog.Logger
-	QueneClient QueueClient
+	QueneClient *queueClient
+	Cache       RedisConfigImpl
 }
 
 func App() *Application {
@@ -24,7 +25,7 @@ func App() *Application {
 
 	qc := NewQueueClient(&env)
 
-	entities := []interface{}{
+	entities := []any{
 		new(entity.User),
 		new(entity.Media),
 		new(entity.Session),
@@ -69,6 +70,16 @@ func App() *Application {
 	}
 
 	db := NewPostgresDB(&env, entities, log)
+	configRedis := NewRedisConfig(
+		env.DB_CACHE.Addr,
+		env.DB_CACHE.Password,
+		env.DB_CACHE.DB,
+		env.DB_CACHE.Network,
+		env.DB_CACHE.MaxIdle,
+		env.DB_CACHE.MaxActive,
+		env.DB_CACHE.IdleTimeout,
+	)
+	cache := NewRedis(configRedis)
 
 	RegisterValidator()
 	return &Application{
@@ -76,5 +87,6 @@ func App() *Application {
 		DB:          db,
 		Log:         log,
 		QueneClient: qc,
+		Cache:       cache,
 	}
 }

@@ -1,8 +1,8 @@
 package bootstrap
 
 import (
-	"cms-server/pkg/database"
-	pkglog "cms-server/pkg/logger"
+	"cms-server/infrastructure/service/database"
+	pkglog "cms-server/infrastructure/service/logger"
 
 	"github.com/go-pg/pg/extra/pgdebug/v10"
 	"github.com/go-pg/pg/v10"

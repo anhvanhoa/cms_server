@@ -21,7 +21,6 @@ type ConfigMail struct {
 type MailProvider interface {
 	SetProvider(cf *ConfigMail) MailProvider
 	SendMail(to []string, subject, body string, data map[string]any) error
-	// SendMailWithAttachment(to []string, subject, body, attachment string) error
 }
 
 type mailProvider struct {
@@ -66,8 +65,8 @@ func (m *mailProvider) SetProvider(cf *ConfigMail) MailProvider {
 	return m
 }
 
-func NewMailProvider() (MailProvider, error) {
+func NewMailProvider() MailProvider {
 	return &mailProvider{
 		mail: mail.NewMsg(),
-	}, nil
+	}
 }
