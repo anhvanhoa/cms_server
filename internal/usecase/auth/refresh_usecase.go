@@ -3,6 +3,7 @@ package authUC
 import (
 	"cms-server/internal/entity"
 	"cms-server/internal/repository"
+	"cms-server/internal/service/cache"
 	serviceJwt "cms-server/internal/service/jwt"
 	"time"
 )
@@ -19,17 +20,20 @@ type refreshUsecaseImpl struct {
 	sessionRepo repository.SessionRepository
 	jwtAccess   serviceJwt.JwtService
 	jwtRefresh  serviceJwt.JwtService
+	cache       cache.RedisConfigImpl
 }
 
 func NewRefreshUsecase(
 	sessionRepo repository.SessionRepository,
 	jwtAccess serviceJwt.JwtService,
 	jwtRefresh serviceJwt.JwtService,
+	cache cache.RedisConfigImpl,
 ) RefreshUsecase {
 	return &refreshUsecaseImpl{
 		sessionRepo: sessionRepo,
 		jwtAccess:   jwtAccess,
 		jwtRefresh:  jwtRefresh,
+		cache:       cache,
 	}
 }
 
@@ -68,15 +72,22 @@ func (uc *refreshUsecaseImpl) GengerateRefreshToken(id string, fullName string, 
 	if err != nil {
 		return "", err
 	}
-	if err := uc.sessionRepo.CreateSession(entity.Session{
+
+	session := entity.Session{
 		Token:     token,
 		UserID:    id,
 		Os:        os,
 		Type:      entity.SessionTypeAuth,
 		ExpiredAt: exp,
 		CreatedAt: time.Now(),
-	}); err != nil {
-		return "", err
+	}
+
+	if err := uc.cache.Set(token, []byte(id), time.Until(exp)); err != nil {
+		if err := uc.sessionRepo.CreateSession(session); err != nil {
+			return "", err
+		}
+	} else {
+		go uc.sessionRepo.CreateSession(session)
 	}
 	return token, nil
 }

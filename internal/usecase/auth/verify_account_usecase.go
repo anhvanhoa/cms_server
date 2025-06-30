@@ -4,6 +4,7 @@ import (
 	pkgjwt "cms-server/infrastructure/service/jwt"
 	"cms-server/internal/entity"
 	"cms-server/internal/repository"
+	"cms-server/internal/service/cache"
 	serviceJwt "cms-server/internal/service/jwt"
 	"time"
 )
@@ -18,24 +19,33 @@ type verifyAccountUsecaseImpl struct {
 	userRepo    repository.UserRepository
 	sessionRepo repository.SessionRepository
 	jwt         serviceJwt.JwtService
+	cache       cache.RedisConfigImpl
 }
 
 func NewVerifyAccountUsecase(
 	userRepo repository.UserRepository,
 	sessionRepo repository.SessionRepository,
 	jwt serviceJwt.JwtService,
+	cache cache.RedisConfigImpl,
 ) VerifyAccountUsecase {
 	return &verifyAccountUsecaseImpl{
 		userRepo,
 		sessionRepo,
 		jwt,
+		cache,
 	}
 }
 
 func (u *verifyAccountUsecaseImpl) VerifyRegister(t string) (*serviceJwt.VerifyClaims, error) {
-	if isExist := u.sessionRepo.TokenExists(t); !isExist {
-		return nil, pkgjwt.ErrTokenNotFound
+	if _, err := u.cache.Get(t); err != nil {
+		if isExist := u.sessionRepo.TokenExists(t); !isExist {
+			return nil, pkgjwt.ErrTokenNotFound
+		}
+	} else {
+		go u.sessionRepo.DeleteSessionAuthByToken(t)
+		go u.cache.Delete(t)
 	}
+
 	data, err := u.jwt.VerifyRegisterToken(t)
 	if err != nil {
 		return nil, err

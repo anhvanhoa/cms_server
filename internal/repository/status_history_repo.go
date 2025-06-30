@@ -2,10 +2,10 @@ package repository
 
 import (
 	"cms-server/internal/entity"
-
-	"github.com/go-pg/pg/v10"
+	"context"
 )
 
 type StatusHistoryRepository interface {
-	Create(data *entity.StatusHistory, txs ...*pg.Tx) error
+	Create(data *entity.StatusHistory) error
+	Tx(ctx context.Context) StatusHistoryRepository
 }

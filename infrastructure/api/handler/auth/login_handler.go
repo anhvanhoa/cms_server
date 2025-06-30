@@ -5,9 +5,11 @@ import (
 	"cms-server/constants"
 	authModel "cms-server/infrastructure/model/auth"
 	"cms-server/infrastructure/repo"
+	argonS "cms-server/infrastructure/service/argon"
 	pkgjwt "cms-server/infrastructure/service/jwt"
 	pkglog "cms-server/infrastructure/service/logger"
 	pkgres "cms-server/infrastructure/service/response"
+	"cms-server/internal/service/cache"
 	authUC "cms-server/internal/usecase/auth"
 	"errors"
 	"time"
@@ -94,12 +96,15 @@ func NewRouteLoginHandler(
 	db *pg.DB,
 	log pkglog.Logger,
 	env *bootstrap.Env,
+	cache cache.RedisConfigImpl,
 ) LoginHandler {
 	loginUsecase := authUC.NewLoginUsecase(
 		repo.NewUserRepository(db),
 		repo.NewSessionRepository(db),
 		pkgjwt.NewJWT(env.JWT_SECRET.Access),
 		pkgjwt.NewJWT(env.JWT_SECRET.Refresh),
+		argonS.NewArgon(),
+		cache,
 	)
 	return NewLoginHandler(loginUsecase, log, env)
 }

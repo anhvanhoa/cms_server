@@ -6,6 +6,7 @@ import (
 	pkgjwt "cms-server/infrastructure/service/jwt"
 	pkglog "cms-server/infrastructure/service/logger"
 	pkgres "cms-server/infrastructure/service/response"
+	"cms-server/internal/service/cache"
 	authUC "cms-server/internal/usecase/auth"
 
 	"github.com/go-pg/pg/v10"
@@ -61,11 +62,13 @@ func NewVerifyAccountHandler(
 	db *pg.DB,
 	log pkglog.Logger,
 	env *bootstrap.Env,
+	cache cache.RedisConfigImpl,
 ) VerifyAccountHandler {
 	vau := authUC.NewVerifyAccountUsecase(
 		repo.NewUserRepository(db),
 		repo.NewSessionRepository(db),
 		pkgjwt.NewJWT(env.JWT_SECRET.Verify),
+		cache,
 	)
 	return &verifyAccountHandler{
 		vau,

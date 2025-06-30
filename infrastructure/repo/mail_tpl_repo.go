@@ -4,11 +4,13 @@ import (
 	"cms-server/constants"
 	"cms-server/internal/entity"
 	"cms-server/internal/repository"
+	"context"
 
 	"github.com/go-pg/pg/v10"
 )
+
 type mailTemplateRepositoryImpl struct {
-	db *pg.DB
+	db pg.DBI
 }
 
 func NewMailTplRepository(db *pg.DB) repository.MailTemplateRepository {
@@ -23,4 +25,11 @@ func (mtr *mailTemplateRepositoryImpl) GetMailTplById(id string) (*entity.MailTe
 		Where("status = ?", constants.STATUS_ACTICE).
 		Select()
 	return &tml, err
+}
+
+func (mtr *mailTemplateRepositoryImpl) Tx(ctx context.Context) repository.MailTemplateRepository {
+	tx := getTx(ctx, mtr.db)
+	return &mailTemplateRepositoryImpl{
+		db: tx,
+	}
 }

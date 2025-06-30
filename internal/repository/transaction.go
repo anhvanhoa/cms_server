@@ -2,16 +2,11 @@ package repository
 
 import (
 	"context"
-
-	"github.com/go-pg/pg/v10"
 )
 
-type Tx interface {
-	Commit() error
-	Rollback() error
-}
-
 type ManagerTransaction interface {
-	RunInTransaction(fn func(tx *pg.Tx) error) error
-	Do(fn func(ctx context.Context) error) error
+	RunInTransaction(fn func(ctx context.Context) error) error
+	Begin() (context.Context, error)
+	Commit(ctx context.Context) error
+	Rollback(ctx context.Context) error
 }

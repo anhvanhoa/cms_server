@@ -3,12 +3,13 @@ package repo
 import (
 	"cms-server/internal/entity"
 	"cms-server/internal/repository"
+	"context"
 
 	"github.com/go-pg/pg/v10"
 )
 
 type sessionRepositoryImpl struct {
-	db *pg.DB
+	db pg.DBI
 }
 
 func NewSessionRepository(db *pg.DB) repository.SessionRepository {
@@ -70,6 +71,10 @@ func (sr *sessionRepositoryImpl) DeleteSessionAuthByToken(token string) error {
 	return sr.DeleteSessionByTypeAndToken(entity.SessionTypeAuth, token)
 }
 
+func (sr *sessionRepositoryImpl) DeleteSessionVerifyByToken(token string) error {
+	return sr.DeleteSessionByTypeAndToken(entity.SessionTypeVerify, token)
+}
+
 func (sr *sessionRepositoryImpl) DeleteAllSessionsExpired() error {
 	_, err := sr.db.Model(&entity.Session{}).
 		Where("expired_at < NOW()").
@@ -78,4 +83,11 @@ func (sr *sessionRepositoryImpl) DeleteAllSessionsExpired() error {
 		return err
 	}
 	return nil
+}
+
+func (sr *sessionRepositoryImpl) Tx(ctx context.Context) repository.SessionRepository {
+	tx := getTx(ctx, sr.db)
+	return &sessionRepositoryImpl{
+		db: tx,
+	}
 }

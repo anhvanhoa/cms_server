@@ -1,6 +1,7 @@
 package bootstrap
 
 import (
+	"cms-server/internal/service/cache"
 	"context"
 	"time"
 
@@ -23,14 +24,7 @@ type RedisIntance struct {
 	ctx    context.Context
 }
 
-type RedisConfigImpl interface {
-	Set(key string, value any, time time.Duration) error
-	Get(key string) (string, error)
-	Del(key string) error
-	Ping() error
-}
-
-func NewRedis(c RedisConfig) RedisConfigImpl {
+func NewRedis(c RedisConfig) cache.RedisConfigImpl {
 	var ctx = context.Background()
 	client := redis.NewClient(&redis.Options{
 		Addr:         c.Addr,
@@ -55,7 +49,7 @@ func NewRedis(c RedisConfig) RedisConfigImpl {
 	return ri
 }
 
-func (ri *RedisIntance) Set(key string, value any, time time.Duration) error {
+func (ri *RedisIntance) Set(key string, value []byte, time time.Duration) error {
 	err := ri.client.Set(ri.ctx, key, value, time).Err()
 	if err != nil {
 		return err
@@ -63,15 +57,15 @@ func (ri *RedisIntance) Set(key string, value any, time time.Duration) error {
 	return nil
 }
 
-func (ri *RedisIntance) Get(key string) (string, error) {
+func (ri *RedisIntance) Get(key string) ([]byte, error) {
 	value, err := ri.client.Get(ri.ctx, key).Result()
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	return value, nil
+	return []byte(value), nil
 }
 
-func (ri *RedisIntance) Del(key string) error {
+func (ri *RedisIntance) Delete(key string) error {
 	err := ri.client.Del(ri.ctx, key).Err()
 	if err != nil {
 		return err
@@ -79,13 +73,29 @@ func (ri *RedisIntance) Del(key string) error {
 	return nil
 }
 
-func (ri *RedisIntance) Ping() error {
-	_, err := ri.client.Ping(ri.ctx).Result()
+func (ri *RedisIntance) Reset() error {
+	err := ri.client.FlushAll(ri.ctx).Err()
 	if err != nil {
 		return err
 	}
 	return nil
 }
+
+func (ri *RedisIntance) Close() error {
+	err := ri.client.Close()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// func (ri *RedisIntance) Ping() error {
+// 	_, err := ri.client.Ping(ri.ctx).Result()
+// 	if err != nil {
+// 		return err
+// 	}
+// 	return nil
+// }
 
 func NewRedisConfig(
 	addr, password string, db int, network string,

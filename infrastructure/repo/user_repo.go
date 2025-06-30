@@ -21,11 +21,7 @@ func NewUserRepository(db *pg.DB) repository.UserRepository {
 	}
 }
 
-func (ur *userRepository) CreateUser(user entity.User, txs ...*pg.Tx) (entity.UserInfor, error) {
-	if len(txs) > 0 {
-		_, err := txs[0].Model(&user).Insert()
-		return user.GetInfor(), err
-	}
+func (ur *userRepository) CreateUser(user entity.User) (entity.UserInfor, error) {
 	_, err := ur.db.Model(&user).Insert()
 	return user.GetInfor(), err
 }
@@ -43,7 +39,7 @@ func (ur *userRepository) CheckUserExist(val string) (bool, error) {
 	return isExist, err
 }
 
-func (ur *userRepository) UpdateUser(id string, user entity.User, txs ...*pg.Tx) (entity.UserInfor, error) {
+func (ur *userRepository) UpdateUser(id string, user entity.User) (entity.UserInfor, error) {
 	var setClauses []string
 	var params []interface{}
 
@@ -78,14 +74,11 @@ func (ur *userRepository) UpdateUser(id string, user entity.User, txs ...*pg.Tx)
 
 	setQuery := strings.Join(setClauses, ", ")
 
-	var err error
-	if len(txs) > 0 {
-		_, err = txs[0].Model(&user).Where("id = ?", id).Set(setQuery, params...).Update()
-	} else {
-		_, err = ur.db.Model(&user).Where("id = ?", id).Set(setQuery, params...).Update()
+	if _, err := ur.db.Model(&user).Where("id = ?", id).Set(setQuery, params...).Update(); err != nil {
+		return entity.UserInfor{}, err
 	}
 
-	return user.GetInfor(), err
+	return user.GetInfor(), nil
 }
 
 func (ur *userRepository) GetUserByID(id string) (entity.User, error) {
@@ -100,11 +93,7 @@ func (ur *userRepository) GetUserByEmail(email string) (entity.User, error) {
 	return user, err
 }
 
-func (ur *userRepository) UpdateUserByEmail(email string, user entity.User, txs ...*pg.Tx) (bool, error) {
-	if len(txs) > 0 {
-		r, err := txs[0].Model(&user).Where("email = ?", email).Update()
-		return r.RowsAffected() != -1, err
-	}
+func (ur *userRepository) UpdateUserByEmail(email string, user entity.User) (bool, error) {
 	r, err := ur.db.Model(&user).Where("email = ?", email).Update(&user)
 	return r.RowsAffected() != -1, err
 }

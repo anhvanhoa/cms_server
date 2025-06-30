@@ -7,6 +7,7 @@ import (
 	pkgjwt "cms-server/infrastructure/service/jwt"
 	pkglog "cms-server/infrastructure/service/logger"
 	pkgres "cms-server/infrastructure/service/response"
+	"cms-server/internal/service/cache"
 	authUC "cms-server/internal/usecase/auth"
 	"time"
 
@@ -40,11 +41,13 @@ func NewRouteRefreshHandler(
 	db *pg.DB,
 	log pkglog.Logger,
 	env *bootstrap.Env,
+	cache cache.RedisConfigImpl,
 ) RefreshHandler {
 	refreshUsecase := authUC.NewRefreshUsecase(
 		repo.NewSessionRepository(db),
 		pkgjwt.NewJWT(env.JWT_SECRET.Access),
 		pkgjwt.NewJWT(env.JWT_SECRET.Refresh),
+		cache,
 	)
 	return NewRefreshHandler(refreshUsecase, log, env)
 }
@@ -57,10 +60,7 @@ func (rh *refreshHandler) Refresh(c *fiber.Ctx) error {
 		return rh.log.Log(c, err)
 	}
 
-	if err := rh.refreshUsecase.ClearSessionExpired(); err != nil {
-		err := pkgres.NewErr("Không thể làm mới phiên làm việc").InternalServerError()
-		return rh.log.Log(c, err)
-	}
+	go rh.refreshUsecase.ClearSessionExpired()
 
 	claims, err := rh.refreshUsecase.VerifyToken(refresh)
 	if err != nil {

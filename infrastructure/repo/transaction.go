@@ -3,6 +3,7 @@ package repo
 import (
 	"cms-server/internal/repository"
 	"context"
+	"errors"
 
 	"github.com/go-pg/pg/v10"
 )
@@ -11,31 +12,17 @@ type managerTransaction struct {
 	db *pg.DB
 }
 
+var ErrTxContextKey error = errors.New("no transaction in context")
+
 func NewManagerTransaction(db *pg.DB) repository.ManagerTransaction {
 	return &managerTransaction{
 		db: db,
 	}
 }
 
-func (mt *managerTransaction) RunInTransaction(fn func(tx *pg.Tx) error) error {
-	tx, err := mt.db.BeginContext(mt.db.Context())
-	if err != nil {
-		return err
-	}
-
-	// Nếu có lỗi thì rollback
-	if err := fn(tx); err != nil {
-		tx.Rollback()
-		return err
-	}
-
-	// Commit transaction
-	return tx.Commit()
-}
-
 type txContextKey struct{}
 
-func (mt *managerTransaction) Do(fn func(ctx context.Context) error) error {
+func (mt *managerTransaction) RunInTransaction(fn func(ctx context.Context) error) error {
 	tx, err := mt.db.BeginContext(mt.db.Context())
 	if err != nil {
 		return err
@@ -46,7 +33,31 @@ func (mt *managerTransaction) Do(fn func(ctx context.Context) error) error {
 		tx.Rollback()
 		return err
 	}
-
 	// Commit transaction
 	return tx.Commit()
+}
+
+func (mt *managerTransaction) Begin() (context.Context, error) {
+	ctx := mt.db.Context()
+	tx, err := mt.db.BeginContext(ctx)
+	if err != nil {
+		return ctx, err
+	}
+	return context.WithValue(ctx, txContextKey{}, tx), nil
+}
+
+func (mt *managerTransaction) Commit(ctx context.Context) error {
+	tx, ok := ctx.Value(txContextKey{}).(*pg.Tx)
+	if !ok {
+		return ErrTxContextKey
+	}
+	return tx.Commit()
+}
+
+func (mt *managerTransaction) Rollback(ctx context.Context) error {
+	tx, ok := ctx.Value(txContextKey{}).(*pg.Tx)
+	if !ok {
+		return ErrTxContextKey
+	}
+	return tx.Rollback()
 }

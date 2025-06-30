@@ -3,6 +3,7 @@ package bootstrap
 import (
 	pkglog "cms-server/infrastructure/service/logger"
 	"cms-server/internal/entity"
+	"cms-server/internal/service/cache"
 
 	"github.com/go-pg/pg/v10"
 	"go.uber.org/zap/zapcore"
@@ -13,7 +14,7 @@ type Application struct {
 	DB          *pg.DB
 	Log         pkglog.Logger
 	QueneClient *queueClient
-	Cache       RedisConfigImpl
+	Cache       cache.RedisConfigImpl
 }
 
 func App() *Application {

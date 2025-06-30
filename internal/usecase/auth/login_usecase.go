@@ -3,10 +3,10 @@ package authUC
 import (
 	"cms-server/internal/entity"
 	"cms-server/internal/repository"
+	"cms-server/internal/service/argon"
+	"cms-server/internal/service/cache"
 	serviceJwt "cms-server/internal/service/jwt"
 	"time"
-
-	"github.com/alexedwards/argon2id"
 )
 
 type LoginUsecase interface {
@@ -21,6 +21,8 @@ type loginUsecaseImpl struct {
 	sessionRepo repository.SessionRepository
 	jwtAccess   serviceJwt.JwtService
 	jwtRefresh  serviceJwt.JwtService
+	argon       argon.Argon
+	cache       cache.RedisConfigImpl
 }
 
 func NewLoginUsecase(
@@ -28,12 +30,16 @@ func NewLoginUsecase(
 	sessionRepo repository.SessionRepository,
 	jwtAccess serviceJwt.JwtService,
 	jwtRefresh serviceJwt.JwtService,
+	argon argon.Argon,
+	cache cache.RedisConfigImpl,
 ) LoginUsecase {
 	return &loginUsecaseImpl{
 		userRepo,
 		sessionRepo,
 		jwtAccess,
 		jwtRefresh,
+		argon,
+		cache,
 	}
 }
 
@@ -42,11 +48,11 @@ func (uc *loginUsecaseImpl) GetUserByEmailOrPhone(val string) (entity.User, erro
 }
 
 func (uc *loginUsecaseImpl) CheckHashPassword(password, hash string) bool {
-	match, err := argon2id.ComparePasswordAndHash(password, hash)
+	mach, err := uc.argon.VerifyPassword(hash, password)
 	if err != nil {
 		return false
 	}
-	return match
+	return mach
 }
 
 func (uc *loginUsecaseImpl) GengerateAccessToken(id string, fullName string, exp time.Time) (string, error) {
@@ -58,15 +64,22 @@ func (uc *loginUsecaseImpl) GengerateRefreshToken(id string, fullName string, ex
 	if err != nil {
 		return "", err
 	}
-	if err := uc.sessionRepo.CreateSession(entity.Session{
+
+	session := entity.Session{
 		Token:     token,
 		UserID:    id,
 		Os:        os,
 		Type:      (entity.SessionTypeAuth),
 		ExpiredAt: exp,
 		CreatedAt: time.Now(),
-	}); err != nil {
-		return "", err
+	}
+
+	if err := uc.cache.Set(token, []byte(id), time.Until(exp)); err != nil {
+		if err := uc.sessionRepo.CreateSession(session); err != nil {
+			return "", err
+		}
+	} else {
+		go uc.sessionRepo.CreateSession(session)
 	}
 	return token, nil
 }

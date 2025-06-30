@@ -3,12 +3,13 @@ package repo
 import (
 	"cms-server/internal/entity"
 	"cms-server/internal/repository"
+	"context"
 
 	"github.com/go-pg/pg/v10"
 )
 
 type mailProviderRepositoryImpl struct {
-	db *pg.DB
+	db pg.DBI
 }
 
 func NewMailProviderRepository(db *pg.DB) repository.MailProviderRepository {
@@ -21,4 +22,11 @@ func (mhr *mailProviderRepositoryImpl) GetMailProviderByEmail(email string) (*en
 	var mail entity.MailProvider
 	err := mhr.db.Model(&mail).Where("email = ?", email).Select()
 	return &mail, err
+}
+
+func (mhr *mailProviderRepositoryImpl) Tx(ctx context.Context) repository.MailProviderRepository {
+	tx := getTx(ctx, mhr.db)
+	return &mailProviderRepositoryImpl{
+		db: tx,
+	}
 }

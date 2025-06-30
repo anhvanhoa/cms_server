@@ -5,9 +5,12 @@ import (
 	"cms-server/constants"
 	authModel "cms-server/infrastructure/model/auth"
 	"cms-server/infrastructure/repo"
+	argonS "cms-server/infrastructure/service/argon"
+	goidS "cms-server/infrastructure/service/goid"
 	pkgjwt "cms-server/infrastructure/service/jwt"
 	pkglog "cms-server/infrastructure/service/logger"
 	pkgres "cms-server/infrastructure/service/response"
+	"cms-server/internal/service/cache"
 	"cms-server/internal/service/queue"
 	authUC "cms-server/internal/usecase/auth"
 	"time"
@@ -53,11 +56,7 @@ func (rh *registerHandler) Register(c *fiber.Ctx) error {
 	}
 
 	expAt := time.Now().Add(time.Second * constants.VerifyExpiredAt)
-	if opt, err := rh.registerUsecase.GengerateCode(expAt, rh.env.SECRET_OTP); err != nil {
-		return rh.log.Log(c, err)
-	} else {
-		body.Code = opt
-	}
+	body.Code = rh.registerUsecase.GengerateCode(6)
 	os := c.Get("User-Agent")
 	dataRegister := authUC.RegisterReq{
 		Email:           body.Email,
@@ -97,6 +96,7 @@ func NewRouteRegisterHandler(
 	log pkglog.Logger,
 	qc queue.QueueClient,
 	env *bootstrap.Env,
+	cache cache.RedisConfigImpl,
 ) RegisterHandler {
 	registerUsecase := authUC.NewRegisterUsecase(
 		repo.NewUserRepository(db),
@@ -107,6 +107,9 @@ func NewRouteRegisterHandler(
 		pkgjwt.NewJWT(env.JWT_SECRET.Verify),
 		qc,
 		repo.NewManagerTransaction(db),
+		goidS.NewGoId(),
+		argonS.NewArgon(),
+		cache,
 	)
 	return NewRegisterHandler(registerUsecase, log, env)
 }

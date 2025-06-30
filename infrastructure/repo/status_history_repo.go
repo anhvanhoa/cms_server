@@ -3,12 +3,13 @@ package repo
 import (
 	"cms-server/internal/entity"
 	"cms-server/internal/repository"
+	"context"
 
 	"github.com/go-pg/pg/v10"
 )
 
 type statusHistoryRepositoryImpl struct {
-	db *pg.DB
+	db pg.DBI
 }
 
 func NewStatusHistoryRepository(db *pg.DB) repository.StatusHistoryRepository {
@@ -17,11 +18,14 @@ func NewStatusHistoryRepository(db *pg.DB) repository.StatusHistoryRepository {
 	}
 }
 
-func (shr *statusHistoryRepositoryImpl) Create(data *entity.StatusHistory, txs ...*pg.Tx) error {
-	if len(txs) > 0 {
-		_, err := txs[0].Model(data).Insert()
-		return err
-	}
+func (shr *statusHistoryRepositoryImpl) Create(data *entity.StatusHistory) error {
 	_, err := shr.db.Model(data).Insert()
 	return err
+}
+
+func (shr *statusHistoryRepositoryImpl) Tx(ctx context.Context) repository.StatusHistoryRepository {
+	tx := getTx(ctx, shr.db)
+	return &statusHistoryRepositoryImpl{
+		db: tx,
+	}
 }

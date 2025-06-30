@@ -4,6 +4,7 @@ import (
 	"cms-server/constants"
 	queueS "cms-server/internal/service/queue"
 	"encoding/json"
+	"log"
 	"time"
 
 	"github.com/hibiken/asynq"
@@ -23,6 +24,11 @@ func NewQueueClient(env *Env) *queueClient {
 		Password: env.QUEUE.Password,
 		Network:  env.QUEUE.Network,
 	})
+
+	if client.Ping() != nil {
+		log.Fatal("Failed to connect to the queue server: " + client.Ping().Error())
+	}
+
 	return &queueClient{
 		client:  client,
 		retry:   5,

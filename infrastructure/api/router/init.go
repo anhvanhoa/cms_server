@@ -3,6 +3,7 @@ package router
 import (
 	"cms-server/bootstrap"
 	pkglog "cms-server/infrastructure/service/logger"
+	"cms-server/internal/service/cache"
 	"cms-server/internal/service/queue"
 
 	"github.com/go-pg/pg/v10"
@@ -15,7 +16,7 @@ type Router struct {
 	log   pkglog.Logger
 	qr    queue.QueueClient
 	env   *bootstrap.Env
-	cache bootstrap.RedisConfigImpl
+	cache cache.RedisConfigImpl
 }
 
 func InitRouter(
@@ -24,7 +25,7 @@ func InitRouter(
 	log pkglog.Logger,
 	qr queue.QueueClient,
 	env *bootstrap.Env,
-	cache bootstrap.RedisConfigImpl,
+	cache cache.RedisConfigImpl,
 ) {
 	router := &Router{
 		db:    db,
