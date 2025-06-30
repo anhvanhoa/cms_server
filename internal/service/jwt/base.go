@@ -7,6 +7,8 @@ type JwtService interface {
 	VerifyRegisterToken(token string) (*VerifyClaims, error)
 	GenAuthToken(id, fullName string, exp time.Time) (string, error)
 	VerifyAuthToken(token string) (*AuthClaims, error)
+	GenForgotPasswordToken(id, code string, exp time.Time) (string, error)
+	VerifyForgotPasswordToken(token string) (*ForgotPasswordClaims, error)
 }
 
 type RegisteredClaims struct {
@@ -18,6 +20,12 @@ type RegisteredClaims struct {
 }
 
 type VerifyClaims struct {
+	Code string
+	Id   string
+	RegisteredClaims
+}
+
+type ForgotPasswordClaims struct {
 	Code string
 	Id   string
 	RegisteredClaims

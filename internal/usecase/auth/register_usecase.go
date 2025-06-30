@@ -93,7 +93,7 @@ func (uc *registerUsecaseImpl) GengerateCode(length int8) string {
 	return string(result)
 }
 func (uc *registerUsecaseImpl) hashPassword(password string) (string, error) {
-	return uc.argon.SetSaltLength(16).HashPassword(password)
+	return uc.argon.HashPassword(password)
 }
 
 func (uc *registerUsecaseImpl) Register(user RegisterReq, os string, exp time.Time) (ResRegister, error) {

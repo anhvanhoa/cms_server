@@ -24,3 +24,22 @@ func NewAuthClaims(id, fullName string, exp time.Time) AuthClaims {
 		},
 	}
 }
+
+type ForgotPasswordClaims struct {
+	Code string
+	Id   string
+	jwt.RegisteredClaims
+}
+
+func NewForgotClaims(id, code string, exp time.Time) ForgotPasswordClaims {
+	return ForgotPasswordClaims{
+		Code: code,
+		Id:   id,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(exp),
+			Subject:   "Lấy lại mật khẩu " + id,
+			NotBefore: jwt.NewNumericDate(time.Now()),
+			IssuedAt:  jwt.NewNumericDate(time.Now()),
+		},
+	}
+}

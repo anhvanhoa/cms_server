@@ -14,7 +14,7 @@ type Router struct {
 	db    *pg.DB
 	app   *fiber.App
 	log   pkglog.Logger
-	qr    queue.QueueClient
+	qc    queue.QueueClient
 	env   *bootstrap.Env
 	cache cache.RedisConfigImpl
 }
@@ -23,7 +23,7 @@ func InitRouter(
 	app *fiber.App,
 	db *pg.DB,
 	log pkglog.Logger,
-	qr queue.QueueClient,
+	qc queue.QueueClient,
 	env *bootstrap.Env,
 	cache cache.RedisConfigImpl,
 ) {
@@ -31,7 +31,7 @@ func InitRouter(
 		db:    db,
 		app:   app,
 		log:   log,
-		qr:    qr,
+		qc:    qc,
 		env:   env,
 		cache: cache,
 	}

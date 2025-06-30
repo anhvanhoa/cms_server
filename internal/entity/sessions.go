@@ -16,7 +16,7 @@ const (
 type Session struct {
 	tableName struct{}    `pg:"sessions,alias:s"`
 	Token     string      `pg:"token,pk"`
-	UserID    string      `pg:"user_id"`
+	UserID    string      `pg:"user_id,pk"`
 	User      *User       `pg:"rel:has-one"`
 	Type      SessionType `pg:"type"`
 	Os        string      `pg:"os"`

@@ -25,6 +25,7 @@ type jwtSecret struct {
 	Access  string
 	Refresh string
 	Verify  string
+	Forgot  string
 }
 
 type dbCache struct {

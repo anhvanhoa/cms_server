@@ -108,7 +108,7 @@ func NewRouteRegisterHandler(
 		qc,
 		repo.NewManagerTransaction(db),
 		goidS.NewGoId(),
-		argonS.NewArgon(),
+		argonS.NewArgon().SetSaltLength(constants.SaltLength),
 		cache,
 	)
 	return NewRegisterHandler(registerUsecase, log, env)

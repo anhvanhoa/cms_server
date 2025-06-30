@@ -38,7 +38,7 @@ func NewRefreshUsecase(
 }
 
 func (uc *refreshUsecaseImpl) GetSessionByToken(token string) (entity.Session, error) {
-	session, err := uc.sessionRepo.GetSessionByToken(token)
+	session, err := uc.sessionRepo.GetSessionAliveByToken(entity.SessionTypeAuth, token)
 	if err != nil {
 		return entity.Session{}, err
 	}

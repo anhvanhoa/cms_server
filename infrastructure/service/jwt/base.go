@@ -91,3 +91,31 @@ func (j *jwtImpl) VerifyAuthToken(token string) (*serviceJwt.AuthClaims, error) 
 		},
 	}, nil
 }
+
+func (j *jwtImpl) GenForgotPasswordToken(id, fullName string, exp time.Time) (string, error) {
+	data := NewForgotClaims(id, fullName, exp)
+	token := j.generateToken(data)
+	return token.SignedString([]byte(j.secretKey))
+}
+
+func (j *jwtImpl) VerifyForgotPasswordToken(token string) (*serviceJwt.ForgotPasswordClaims, error) {
+	t, err := j.verifyClaim(token, &ForgotPasswordClaims{})
+	if err != nil {
+		return nil, err
+	}
+	claim, ok := t.Claims.(*ForgotPasswordClaims)
+	if !ok {
+		return nil, ErrParseToken
+	}
+	return &serviceJwt.ForgotPasswordClaims{
+		Code: claim.Code,
+		Id:   claim.Id,
+		RegisteredClaims: serviceJwt.RegisteredClaims{
+			ExpiresAt: claim.ExpiresAt.Time,
+			Subject:   claim.Subject,
+			Audience:  claim.Audience,
+			NotBefore: claim.NotBefore.Time,
+			IssuedAt:  claim.IssuedAt.Time,
+		},
+	}, nil
+}

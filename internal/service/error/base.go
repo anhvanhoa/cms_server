@@ -14,3 +14,17 @@ type ErrorApp interface {
 	Conflict() ErrorApp
 	InternalServerError() ErrorApp
 }
+
+type errorApp struct {
+	message string
+}
+
+func NewErrorApp(message string) *errorApp {
+	return &errorApp{
+		message: message,
+	}
+}
+
+func (e *errorApp) Error() string {
+	return e.message
+}
