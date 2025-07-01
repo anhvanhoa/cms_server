@@ -8,16 +8,18 @@ import (
 
 func (h *TypeMailHandlerImpl) Update(c *fiber.Ctx) error {
 	id := c.Params("id")
-	type req struct {
-		Name      string `json:"name"`
-		UpdatedBy string `json:"updated_by"`
-	}
-	var body req
+	var body updateReq
 	if err := c.BodyParser(&body); err != nil {
 		err = pkgres.Err(err).BadReq()
 		return h.log.Log(c, err)
 	}
-	if err := h.updateUseCase.Update(id, body.Name, body.UpdatedBy); err != nil {
+
+	if err := h.validate.ValidateStruct(&body); err != nil {
+		err := pkgres.NewErr(err.Message).SetData(err.Data).BadReq()
+		return h.log.Log(c, err)
+	}
+
+	if err := h.updateUseCase.Update(id, body.Name); err != nil {
 		err = pkgres.Err(err).BadReq()
 		return h.log.Log(c, err)
 	}

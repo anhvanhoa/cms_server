@@ -40,8 +40,8 @@ func (tmr *typeMailRepositoryImpl) GetAll() ([]*entity.TypeMail, error) {
 	return tms, err
 }
 
-func (tmr *typeMailRepositoryImpl) Update(typeMail entity.TypeMail) error {
-	_, err := tmr.db.Model(&typeMail).WherePK().Update()
+func (tmr *typeMailRepositoryImpl) Update(id string, typeMail entity.TypeMail, cols ...string) error {
+	_, err := tmr.db.Model(&typeMail).Where("id = ?", id).UpdateNotZero()
 	return err
 }
 

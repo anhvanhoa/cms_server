@@ -7,6 +7,6 @@ type TypeMailRepo interface {
 	GetByID(id string) (*entity.TypeMail, error)
 	GetAll() ([]*entity.TypeMail, error)
 	GetAllWithPagination(limit, offset int) ([]*entity.TypeMail, int, error)
-	Update(typeMail entity.TypeMail) error
+	Update(id string, typeMail entity.TypeMail, cols ...string) error
 	Delete(id string) error
 }

@@ -7,9 +7,9 @@ import (
 )
 
 func (h *TypeMailHandlerImpl) GetAll(c *fiber.Ctx) error {
-	limit := c.QueryInt("pageSize", 10)
-	offset := c.QueryInt("offset", 0)
-	result, err := h.getAllUseCase.GetAll(limit, offset)
+	pageSize := c.QueryInt("pageSize", 10)
+	page := c.QueryInt("page", 1)
+	result, err := h.getAllUseCase.GetAll(pageSize, page)
 	if err != nil {
 		err = pkgres.Err(err).BadReq()
 		return h.log.Log(c, err)

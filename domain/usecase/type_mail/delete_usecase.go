@@ -26,6 +26,9 @@ func NewDeleteUseCase(
 }
 
 func (uc *deleteUseCaseImpl) Delete(id string) error {
+	if _, err := uc.typeMailRepo.GetByID(id); err != nil {
+		return ErrTypeMailNotFound
+	}
 	err := uc.typeMailRepo.Delete(id)
 	if err != nil {
 		return ErrDeleteTypeMail

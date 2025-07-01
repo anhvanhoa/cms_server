@@ -6,6 +6,7 @@ import (
 	pkglog "cms-server/infrastructure/service/logger"
 
 	"github.com/go-pg/pg/v10"
+	valid "github.com/go-playground/validator/v10"
 	"go.uber.org/zap/zapcore"
 )
 
@@ -15,6 +16,7 @@ type Application struct {
 	Log         pkglog.Logger
 	QueneClient *queueClient
 	Cache       cache.RedisConfigImpl
+	Valid       *valid.Validate
 }
 
 func App() *Application {
@@ -23,7 +25,7 @@ func App() *Application {
 
 	logConfig := pkglog.NewConfig()
 	log := pkglog.InitLogger(logConfig, zapcore.DebugLevel, env.IsProduction())
-
+	valid := valid.New()
 	qc := NewQueueClient(&env)
 
 	entities := []any{
@@ -89,5 +91,6 @@ func App() *Application {
 		Log:         log,
 		QueneClient: qc,
 		Cache:       cache,
+		Valid:       valid,
 	}
 }

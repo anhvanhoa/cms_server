@@ -7,16 +7,19 @@ import (
 )
 
 func (h *TypeMailHandlerImpl) Create(c *fiber.Ctx) error {
-	type req struct {
-		Name      string `json:"name"`
-		CreatedBy string `json:"created_by"`
-	}
-	var body req
+	var body createReq
 	if err := c.BodyParser(&body); err != nil {
-		err = pkgres.Err(err).BadReq()
+		err = pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
 		return h.log.Log(c, err)
 	}
-	if err := h.createUseCase.Create(body.Name, body.CreatedBy); err != nil {
+
+	if err := h.validate.ValidateStruct(&body); err != nil {
+		err := pkgres.NewErr(err.Message).SetData(err.Data).BadReq()
+		return h.log.Log(c, err)
+	}
+
+	CreatedBy := "1" // fix
+	if err := h.createUseCase.Create(body.Name, CreatedBy); err != nil {
 		err = pkgres.Err(err).BadReq()
 		return h.log.Log(c, err)
 	}

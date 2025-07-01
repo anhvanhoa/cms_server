@@ -13,7 +13,7 @@ var (
 )
 
 type GetAllUseCase interface {
-	GetAll(limit, offset int) (common.PaginationResult[*entity.TypeMail], error)
+	GetAll(pageSize, page int) (common.PaginationResult[*entity.TypeMail], error)
 }
 
 type getAllUseCaseImpl struct {
@@ -28,7 +28,15 @@ func NewGetAllUseCase(
 	}
 }
 
-func (uc *getAllUseCaseImpl) GetAll(limit, offset int) (common.PaginationResult[*entity.TypeMail], error) {
+func (uc *getAllUseCaseImpl) GetAll(pageSize, page int) (common.PaginationResult[*entity.TypeMail], error) {
+	if pageSize <= 0 {
+		pageSize = 10
+	}
+	if page <= 0 {
+		page = 1
+	}
+	limit := pageSize
+	offset := (page - 1) * pageSize
 	typeMails, total, err := uc.typeMailRepo.GetAllWithPagination(limit, offset)
 	totalPages := int(math.Ceil(float64(total) / float64(limit)))
 	result := common.PaginationResult[*entity.TypeMail]{
@@ -36,7 +44,7 @@ func (uc *getAllUseCaseImpl) GetAll(limit, offset int) (common.PaginationResult[
 		Total:      total,
 		TotalPages: totalPages,
 		PageSize:   limit,
-		Page:       totalPages + 1,
+		Page:       page,
 	}
 
 	if err != nil {

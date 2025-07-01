@@ -8,11 +8,12 @@ import (
 )
 
 var (
-	ErrUpdateTypeMail = serviceError.NewErrorApp("Không thể cập nhật loại mail")
+	ErrUpdateTypeMail   = serviceError.NewErrorApp("Không thể cập nhật loại mail")
+	ErrTypeMailNotFound = serviceError.NewErrorApp("Loại mail không tồn tại")
 )
 
 type UpdateUseCase interface {
-	Update(id string, name string, updatedBy string) error
+	Update(id string, name string) error
 }
 
 type updateUseCaseImpl struct {
@@ -27,15 +28,19 @@ func NewUpdateUseCase(
 	}
 }
 
-func (uc *updateUseCaseImpl) Update(id string, name string, updatedBy string) error {
+func (uc *updateUseCaseImpl) Update(id string, name string) error {
+	if _, err := uc.typeMailRepo.GetByID(id); err != nil {
+		return ErrTypeMailNotFound
+	}
+
 	updatedAt := time.Now()
 	typeMail := entity.TypeMail{
 		Name:      name,
 		UpdatedAt: &updatedAt,
 	}
-	err := uc.typeMailRepo.Update(typeMail)
+	err := uc.typeMailRepo.Update(id, typeMail, "name", "updated_at")
 	if err != nil {
-		return ErrUpdateTypeMail
+		return err
 	}
 	return nil
 }

@@ -16,9 +16,9 @@ func main() {
 	db := app.DB
 	log := app.Log
 	cacheApp := app.Cache
+	valid := app.Valid
 	defer db.Close()
 	defer app.QueneClient.Close()
-
 	fiberApp := fiber.New(fiber.Config{
 		AppName:       env.NAME_APP,
 		CaseSensitive: true,
@@ -40,7 +40,7 @@ func main() {
 	})))
 
 	// Registering the route
-	router.InitRouter(fiberApp, db, log, app.QueneClient, env, cacheApp)
+	router.InitRouter(fiberApp, db, log, app.QueneClient, env, cacheApp, valid)
 
 	if err := fiberApp.Listen(":" + env.PORT_APP); err != nil {
 		log.Fatal("Error starting the server: " + err.Error())
