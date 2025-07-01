@@ -18,6 +18,7 @@ type SessionRepository interface {
 	DeleteSessionVerifyByToken(token string) error
 	DeleteSessionForgotByToken(token string) error
 	DeleteAllSessionsExpired() error
+	DeleteAllSessionsForgot() error
 	DeleteSessionForgotByTokenAndIdUser(token, idUser string) error
 	Tx(ctx context.Context) SessionRepository
 }

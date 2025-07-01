@@ -42,8 +42,10 @@ func (u *verifyAccountUsecaseImpl) VerifyRegister(t string) (*serviceJwt.VerifyC
 			return nil, pkgjwt.ErrTokenNotFound
 		}
 	} else {
-		go u.sessionRepo.DeleteSessionAuthByToken(t)
-		go u.cache.Delete(t)
+		go func() {
+			u.sessionRepo.DeleteSessionAuthByToken(t)
+			u.cache.Delete(t)
+		}()
 	}
 
 	data, err := u.jwt.VerifyRegisterToken(t)

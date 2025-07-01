@@ -121,6 +121,16 @@ func (sr *sessionRepositoryImpl) DeleteSessionForgotByTokenAndIdUser(token, idUs
 	return nil
 }
 
+func (sr *sessionRepositoryImpl) DeleteAllSessionsForgot() error {
+	_, err := sr.db.Model(&entity.Session{}).
+		Where("type = ?", entity.SessionTypeForgot).
+		Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (sr *sessionRepositoryImpl) Tx(ctx context.Context) repository.SessionRepository {
 	tx := getTx(ctx, sr.db)
 	return &sessionRepositoryImpl{

@@ -127,6 +127,10 @@ func (m *mockSessionRepo) DeleteAllSessionsExpired() error {
 func (m *mockSessionRepo) DeleteSessionForgotByTokenAndIdUser(token, idUser string) error {
 	return nil
 }
+func (m *mockSessionRepo) DeleteAllSessionsForgot() error {
+	return nil
+}
+
 func (m *mockSessionRepo) Tx(ctx context.Context) repository.SessionRepository {
 	return m
 }

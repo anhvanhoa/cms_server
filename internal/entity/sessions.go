@@ -24,6 +24,10 @@ type Session struct {
 	CreatedAt time.Time   `pg:"created_at"`
 }
 
+func (s *Session) IsExpired() bool {
+	return time.Now().After(s.ExpiredAt)
+}
+
 func (s *Session) NameTable() any {
 	return s.tableName
 }

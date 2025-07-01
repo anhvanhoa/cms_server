@@ -11,15 +11,17 @@ func (r *Router) initAuthRouter() {
 	fh := authhandler.NewRouteForgotHandler(r.db, r.log, r.env, r.qc, r.cache)
 	rth := authhandler.NewRouteResetByTokenHandler(r.db, r.log, r.cache, r.env)
 	rch := authhandler.NewRouteResetByCodeHandler(r.db, r.log, r.cache, r.env)
+	cth := authhandler.NewRouterTokenHandler(r.db, r.log)
+	cch := authhandler.NewRouterCodeHandler(r.db, r.log)
+	logoutH := authhandler.NewRouterLogoutHandler(r.db, r.log, r.env, r.cache)
 	authRouter.Post("/login", lh.Login)
 	authRouter.Post("/register", rh.Register)
 	authRouter.Post("/verify/:t", vah.VerifyAccount)
 	authRouter.Post("/forgot-password", fh.Forgot)
-	// authRouter.Get("/forgot-password", rth.ResetPassword) ?token=...
+	authRouter.Get("/forgot-password", cth.CheckToken) //?token=...
 	authRouter.Post("/reset-password", rth.ResetPassword)
-	// authRouter.Post("/check-code/reset-password", rch.ResetPassword) body: {code:"...", email:"..."}
+	authRouter.Post("/check-code/forgot-password", cch.CheckCode) //body: {code:"...", email:"..."}
 	authRouter.Post("/reset-password/code", rch.ResetPassword)
 	authRouter.Post("/refresh", rfh.Refresh)
-	// authRouter.Post("/logout", r.Logout)
-	// authRouter.Post("/me", r.Me)
+	authRouter.Post("/logout", logoutH.Logout)
 }

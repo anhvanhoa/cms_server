@@ -98,6 +98,8 @@ func (uc *forgotPasswordUsecaseImpl) saveCodeOrToken(typeForgot ForgotPasswordTy
 }
 
 func (uc *forgotPasswordUsecaseImpl) SendEmailForgotPassword(user entity.UserInfor, code, link string) error {
+	go uc.sessionRepo.DeleteAllSessionsForgot()
+
 	tpl, err := uc.mailTplRepo.GetMailTplById(constants.TPL_FORGOT_MAIL)
 	if err != nil {
 		return repository.ErrNotFoundTpl
@@ -140,13 +142,13 @@ func (uc *forgotPasswordUsecaseImpl) SendEmailForgotPassword(user entity.UserInf
 }
 
 func (uc *forgotPasswordUsecaseImpl) ForgotPassword(email, os string, method ForgotPasswordType) (ForgotPasswordRes, error) {
+
 	var resForgotPassword ForgotPasswordRes
 	user, err := uc.userRepo.GetUserByEmail(email)
 	if err != nil {
 		return resForgotPassword, err
 	}
 	resForgotPassword.User = user.GetInfor()
-
 	exp := time.Now().Add(constants.ForgotExpiredAt * time.Minute)
 	switch method {
 	case ForgotByCode:
