@@ -1,7 +1,7 @@
 package argonS
 
 import (
-	"cms-server/internal/service/argon"
+	"cms-server/domain/service/argon"
 
 	"github.com/alexedwards/argon2id"
 )

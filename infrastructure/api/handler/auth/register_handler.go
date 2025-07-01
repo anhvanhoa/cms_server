@@ -1,18 +1,10 @@
-package authhandler
+package handler
 
 import (
-	"cms-server/bootstrap"
 	"cms-server/constants"
+	authUC "cms-server/domain/usecase/auth"
 	authModel "cms-server/infrastructure/model/auth"
-	"cms-server/infrastructure/repo"
-	argonS "cms-server/infrastructure/service/argon"
-	goidS "cms-server/infrastructure/service/goid"
-	pkgjwt "cms-server/infrastructure/service/jwt"
-	pkglog "cms-server/infrastructure/service/logger"
 	pkgres "cms-server/infrastructure/service/response"
-	"cms-server/internal/service/cache"
-	"cms-server/internal/service/queue"
-	authUC "cms-server/internal/usecase/auth"
 	"time"
 
 	"github.com/asaskevich/govalidator"
@@ -20,17 +12,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type RegisterHandler interface {
-	Register(c *fiber.Ctx) error
-}
-
-type registerHandler struct {
-	registerUsecase authUC.RegisterUsecase
-	log             pkglog.Logger
-	env             *bootstrap.Env
-}
-
-func (rh *registerHandler) Register(c *fiber.Ctx) error {
+func (rh *authHandlerImpl) Register(c *fiber.Ctx) error {
 	var body authModel.RegisterReq
 
 	if err := c.BodyParser(&body); err != nil {
@@ -48,7 +30,7 @@ func (rh *registerHandler) Register(c *fiber.Ctx) error {
 		return rh.log.Log(c, err)
 	}
 
-	if u, err := rh.registerUsecase.CheckUserExist(body.Email); err != nil && err != pg.ErrNoRows {
+	if u, err := rh.registerUc.CheckUserExist(body.Email); err != nil && err != pg.ErrNoRows {
 		return rh.log.Log(c, err)
 	} else if u.ID != "" && u.Veryfied != nil {
 		err := pkgres.NewErr("Tài khoản đã tồn tại, vui lòng thử lại !").Code(fiber.StatusBadRequest)
@@ -56,7 +38,7 @@ func (rh *registerHandler) Register(c *fiber.Ctx) error {
 	}
 
 	expAt := time.Now().Add(time.Second * constants.VerifyExpiredAt)
-	body.Code = rh.registerUsecase.GengerateCode(6)
+	body.Code = rh.registerUc.GengerateCode(6)
 	os := c.Get("User-Agent")
 	dataRegister := authUC.RegisterReq{
 		Email:           body.Email,
@@ -65,7 +47,7 @@ func (rh *registerHandler) Register(c *fiber.Ctx) error {
 		ConfirmPassword: body.ConfirmPassword,
 		Code:            body.Code,
 	}
-	res, err := rh.registerUsecase.Register(dataRegister, os, expAt)
+	res, err := rh.registerUc.Register(dataRegister, os, expAt)
 	if pg.ErrNoRows == err {
 		err := pkgres.NewErr("Không tìm thấy mẫu email").NotFound()
 		return rh.log.Log(c, err)
@@ -73,7 +55,7 @@ func (rh *registerHandler) Register(c *fiber.Ctx) error {
 		return rh.log.Log(c, err)
 	}
 
-	err = rh.registerUsecase.SendMail(res.MailTpl, res.UserInfor, rh.env.FRONTEND_URL+"/auth/verify/"+res.Token)
+	err = rh.registerUc.SendMail(res.MailTpl, res.UserInfor, rh.env.FRONTEND_URL+"/auth/verify/"+res.Token)
 	if pg.ErrNoRows == err {
 		err := pkgres.NewErr("Không tìm thấy mẫu email").NotFound()
 		return rh.log.Log(c, err)
@@ -81,35 +63,4 @@ func (rh *registerHandler) Register(c *fiber.Ctx) error {
 		return rh.log.Log(c, err)
 	}
 	return c.JSON(pkgres.ResData(res.UserInfor).SetMessage("Đăng ký thành công"))
-}
-
-func NewRegisterHandler(registerUsecase authUC.RegisterUsecase, log pkglog.Logger, env *bootstrap.Env) RegisterHandler {
-	return &registerHandler{
-		registerUsecase: registerUsecase,
-		log:             log,
-		env:             env,
-	}
-}
-
-func NewRouteRegisterHandler(
-	db *pg.DB,
-	log pkglog.Logger,
-	qc queue.QueueClient,
-	env *bootstrap.Env,
-	cache cache.RedisConfigImpl,
-) RegisterHandler {
-	registerUsecase := authUC.NewRegisterUsecase(
-		repo.NewUserRepository(db),
-		repo.NewMailTplRepository(db),
-		repo.NewMailHistoryRepository(db),
-		repo.NewStatusHistoryRepository(db),
-		repo.NewSessionRepository(db),
-		pkgjwt.NewJWT(env.JWT_SECRET.Verify),
-		qc,
-		repo.NewManagerTransaction(db),
-		goidS.NewGoId(),
-		argonS.NewArgon().SetSaltLength(constants.SaltLength),
-		cache,
-	)
-	return NewRegisterHandler(registerUsecase, log, env)
 }

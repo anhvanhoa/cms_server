@@ -1,8 +1,8 @@
 package repo
 
 import (
-	"cms-server/internal/entity"
-	"cms-server/internal/repository"
+	"cms-server/domain/entity"
+	"cms-server/domain/repository"
 	"context"
 
 	"github.com/go-pg/pg/v10"

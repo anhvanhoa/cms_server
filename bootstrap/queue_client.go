@@ -2,7 +2,7 @@ package bootstrap
 
 import (
 	"cms-server/constants"
-	queueS "cms-server/internal/service/queue"
+	queueS "cms-server/domain/service/queue"
 	"encoding/json"
 	"log"
 	"time"

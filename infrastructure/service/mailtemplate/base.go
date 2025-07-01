@@ -1,7 +1,7 @@
 package mailtemplate
 
 import (
-	mailtpl "cms-server/internal/service/mailTpl"
+	mailtpl "cms-server/domain/service/mailTpl"
 
 	"github.com/cbroglie/mustache"
 )

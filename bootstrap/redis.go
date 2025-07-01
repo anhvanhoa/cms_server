@@ -1,7 +1,7 @@
 package bootstrap
 
 import (
-	"cms-server/internal/service/cache"
+	"cms-server/domain/service/cache"
 	"context"
 	"time"
 

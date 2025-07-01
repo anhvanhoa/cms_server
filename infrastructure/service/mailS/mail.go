@@ -3,10 +3,10 @@ package mailS
 import (
 	"cms-server/bootstrap"
 	"cms-server/constants"
+	"cms-server/domain/schedule"
+	serviceLogger "cms-server/domain/service/logger"
 	"cms-server/infrastructure/repo"
 	"cms-server/infrastructure/service/mailtemplate"
-	"cms-server/internal/schedule"
-	serviceLogger "cms-server/internal/service/logger"
 	"context"
 
 	"github.com/go-pg/pg/v10"

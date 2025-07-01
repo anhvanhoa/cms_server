@@ -1,7 +1,7 @@
 package pkgjwt
 
 import (
-	serviceJwt "cms-server/internal/service/jwt"
+	serviceJwt "cms-server/domain/service/jwt"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"

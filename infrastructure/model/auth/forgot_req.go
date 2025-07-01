@@ -1,6 +1,6 @@
 package authModel
 
-import authUC "cms-server/internal/usecase/auth"
+import authUC "cms-server/domain/usecase/auth"
 
 type ForgotPasswordReq struct {
 	Email string                    `valid:"required~Vui lòng nhập email, email~Email không đúng định dạng"`

@@ -1,8 +1,8 @@
 package pkglog
 
 import (
+	serviceLogger "cms-server/domain/service/logger"
 	pkgres "cms-server/infrastructure/service/response"
-	serviceLogger "cms-server/internal/service/logger"
 	"fmt"
 	"os"
 	"time"

@@ -1,8 +1,8 @@
 package pkgres
 
 import (
-	serviceError "cms-server/internal/service/error"
-	serviceRes "cms-server/internal/service/response"
+	serviceError "cms-server/domain/service/error"
+	serviceRes "cms-server/domain/service/response"
 	"net/http"
 )
 

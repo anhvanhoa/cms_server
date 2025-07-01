@@ -1,16 +1,9 @@
-package authhandler
+package handler
 
 import (
-	"cms-server/bootstrap"
 	"cms-server/constants"
 	authModel "cms-server/infrastructure/model/auth"
-	"cms-server/infrastructure/repo"
-	argonS "cms-server/infrastructure/service/argon"
-	pkgjwt "cms-server/infrastructure/service/jwt"
-	pkglog "cms-server/infrastructure/service/logger"
 	pkgres "cms-server/infrastructure/service/response"
-	"cms-server/internal/service/cache"
-	authUC "cms-server/internal/usecase/auth"
 	"errors"
 	"time"
 
@@ -19,17 +12,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type LoginHandler interface {
-	Login(c *fiber.Ctx) error
-}
-
-type loginHandler struct {
-	loginUsecase authUC.LoginUsecase
-	log          pkglog.Logger
-	env          *bootstrap.Env
-}
-
-func (lh *loginHandler) Login(c *fiber.Ctx) error {
+func (lh *authHandlerImpl) Login(c *fiber.Ctx) error {
 	var body authModel.LoginReq
 
 	if err := c.BodyParser(&body); err != nil {
@@ -42,7 +25,7 @@ func (lh *loginHandler) Login(c *fiber.Ctx) error {
 		return lh.log.Log(c, err)
 	}
 
-	user, err := lh.loginUsecase.GetUserByEmailOrPhone(body.Identifier)
+	user, err := lh.loginUc.GetUserByEmailOrPhone(body.Identifier)
 	if errors.Is(err, pg.ErrNoRows) {
 		err := pkgres.NewErr("Tài khoản không hợp lệ, hãy kiểm tra lại").Code(fiber.StatusBadRequest)
 		return lh.log.Log(c, err)
@@ -52,15 +35,15 @@ func (lh *loginHandler) Login(c *fiber.Ctx) error {
 		return lh.log.Log(c, err)
 	}
 
-	if !lh.loginUsecase.CheckHashPassword(body.Password, user.Password) {
+	if !lh.loginUc.CheckHashPassword(body.Password, user.Password) {
 		err := pkgres.NewErr("Mật khẩu không chính xác, hãy kiểm tra lại").Code(fiber.StatusBadRequest)
 		return lh.log.Log(c, err)
 	}
 	timeAccess := time.Now().Add(constants.AccessExpiredAt * time.Second)
-	access, _ := lh.loginUsecase.GengerateAccessToken(user.ID, user.FullName, timeAccess)
+	access, _ := lh.loginUc.GengerateAccessToken(user.ID, user.FullName, timeAccess)
 	timeRefresh := time.Now().Add(constants.RefreshExpiredAt * time.Second)
 	os := c.Get("User-Agent")
-	refresh, _ := lh.loginUsecase.GengerateRefreshToken(user.ID, user.FullName, timeRefresh, os)
+	refresh, _ := lh.loginUc.GengerateRefreshToken(user.ID, user.FullName, timeRefresh, os)
 
 	c.Cookie(&fiber.Cookie{
 		Name:     constants.KeyCookieAccessToken,
@@ -82,29 +65,4 @@ func (lh *loginHandler) Login(c *fiber.Ctx) error {
 	})
 
 	return c.JSON(pkgres.ResData(user.GetInfor()).SetMessage("Đăng nhập thành công"))
-}
-
-func NewLoginHandler(loginUsecase authUC.LoginUsecase, log pkglog.Logger, env *bootstrap.Env) LoginHandler {
-	return &loginHandler{
-		loginUsecase: loginUsecase,
-		log:          log,
-		env:          env,
-	}
-}
-
-func NewRouteLoginHandler(
-	db *pg.DB,
-	log pkglog.Logger,
-	env *bootstrap.Env,
-	cache cache.RedisConfigImpl,
-) LoginHandler {
-	loginUsecase := authUC.NewLoginUsecase(
-		repo.NewUserRepository(db),
-		repo.NewSessionRepository(db),
-		pkgjwt.NewJWT(env.JWT_SECRET.Access),
-		pkgjwt.NewJWT(env.JWT_SECRET.Refresh),
-		argonS.NewArgon(),
-		cache,
-	)
-	return NewLoginHandler(loginUsecase, log, env)
 }

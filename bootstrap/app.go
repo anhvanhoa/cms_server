@@ -1,9 +1,9 @@
 package bootstrap
 
 import (
+	"cms-server/domain/entity"
+	"cms-server/domain/service/cache"
 	pkglog "cms-server/infrastructure/service/logger"
-	"cms-server/internal/entity"
-	"cms-server/internal/service/cache"
 
 	"github.com/go-pg/pg/v10"
 	"go.uber.org/zap/zapcore"

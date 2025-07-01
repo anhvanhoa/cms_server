@@ -2,9 +2,9 @@ package router
 
 import (
 	"cms-server/bootstrap"
+	"cms-server/domain/service/cache"
+	"cms-server/domain/service/queue"
 	pkglog "cms-server/infrastructure/service/logger"
-	"cms-server/internal/service/cache"
-	"cms-server/internal/service/queue"
 
 	"github.com/go-pg/pg/v10"
 	"github.com/gofiber/fiber/v2"
@@ -36,4 +36,5 @@ func InitRouter(
 		cache: cache,
 	}
 	router.initAuthRouter()
+	router.initTypeMailRouter()
 }
