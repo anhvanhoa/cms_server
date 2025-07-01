@@ -1,0 +1,4845 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>bootstrap: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">cms-server/bootstrap/app.go (0.0%)</option>
+				
+				<option value="file1">cms-server/bootstrap/database.go (0.0%)</option>
+				
+				<option value="file2">cms-server/bootstrap/env.go (0.0%)</option>
+				
+				<option value="file3">cms-server/bootstrap/mail.go (0.0%)</option>
+				
+				<option value="file4">cms-server/bootstrap/queue_client.go (0.0%)</option>
+				
+				<option value="file5">cms-server/bootstrap/redis.go (0.0%)</option>
+				
+				<option value="file6">cms-server/bootstrap/validator.go (0.0%)</option>
+				
+				<option value="file7">cms-server/cmd/main.go (0.0%)</option>
+				
+				<option value="file8">cms-server/cmd/queue/main.go (0.0%)</option>
+				
+				<option value="file9">cms-server/infrastructure/api/handler/auth/forgot_handler.go (0.0%)</option>
+				
+				<option value="file10">cms-server/infrastructure/api/handler/auth/login_handler.go (0.0%)</option>
+				
+				<option value="file11">cms-server/infrastructure/api/handler/auth/refresh_handler.go (0.0%)</option>
+				
+				<option value="file12">cms-server/infrastructure/api/handler/auth/register_handler.go (0.0%)</option>
+				
+				<option value="file13">cms-server/infrastructure/api/handler/auth/reset_code_handler.go (0.0%)</option>
+				
+				<option value="file14">cms-server/infrastructure/api/handler/auth/reset_token_handler.go (0.0%)</option>
+				
+				<option value="file15">cms-server/infrastructure/api/handler/auth/verify_account_handler.go (0.0%)</option>
+				
+				<option value="file16">cms-server/infrastructure/api/router/auth.go (0.0%)</option>
+				
+				<option value="file17">cms-server/infrastructure/api/router/init.go (0.0%)</option>
+				
+				<option value="file18">cms-server/infrastructure/repo/base.go (0.0%)</option>
+				
+				<option value="file19">cms-server/infrastructure/repo/mail_history_repo.go (0.0%)</option>
+				
+				<option value="file20">cms-server/infrastructure/repo/mail_provider_repo.go (0.0%)</option>
+				
+				<option value="file21">cms-server/infrastructure/repo/mail_tpl_repo.go (0.0%)</option>
+				
+				<option value="file22">cms-server/infrastructure/repo/session_repo.go (0.0%)</option>
+				
+				<option value="file23">cms-server/infrastructure/repo/status_history_repo.go (0.0%)</option>
+				
+				<option value="file24">cms-server/infrastructure/repo/transaction.go (0.0%)</option>
+				
+				<option value="file25">cms-server/infrastructure/repo/user_repo.go (0.0%)</option>
+				
+				<option value="file26">cms-server/infrastructure/service/argon/base.go (0.0%)</option>
+				
+				<option value="file27">cms-server/infrastructure/service/database/hook.go (0.0%)</option>
+				
+				<option value="file28">cms-server/infrastructure/service/goid/base.go (0.0%)</option>
+				
+				<option value="file29">cms-server/infrastructure/service/jwt/auth.go (0.0%)</option>
+				
+				<option value="file30">cms-server/infrastructure/service/jwt/base.go (0.0%)</option>
+				
+				<option value="file31">cms-server/infrastructure/service/jwt/verify.go (0.0%)</option>
+				
+				<option value="file32">cms-server/infrastructure/service/logger/base.go (0.0%)</option>
+				
+				<option value="file33">cms-server/infrastructure/service/mailS/mail.go (0.0%)</option>
+				
+				<option value="file34">cms-server/infrastructure/service/mailtemplate/base.go (0.0%)</option>
+				
+				<option value="file35">cms-server/infrastructure/service/response/init.go (0.0%)</option>
+				
+				<option value="file36">cms-server/internal/entity/activity_log.go (0.0%)</option>
+				
+				<option value="file37">cms-server/internal/entity/attribute.go (0.0%)</option>
+				
+				<option value="file38">cms-server/internal/entity/attribute_value.go (0.0%)</option>
+				
+				<option value="file39">cms-server/internal/entity/banner.go (0.0%)</option>
+				
+				<option value="file40">cms-server/internal/entity/cart.go (0.0%)</option>
+				
+				<option value="file41">cms-server/internal/entity/cart_item.go (0.0%)</option>
+				
+				<option value="file42">cms-server/internal/entity/category.go (0.0%)</option>
+				
+				<option value="file43">cms-server/internal/entity/comment.go (0.0%)</option>
+				
+				<option value="file44">cms-server/internal/entity/coupon.go (0.0%)</option>
+				
+				<option value="file45">cms-server/internal/entity/like.go (0.0%)</option>
+				
+				<option value="file46">cms-server/internal/entity/mail_history.go (0.0%)</option>
+				
+				<option value="file47">cms-server/internal/entity/mail_provider.go (0.0%)</option>
+				
+				<option value="file48">cms-server/internal/entity/mail_status.go (0.0%)</option>
+				
+				<option value="file49">cms-server/internal/entity/mail_template.go (0.0%)</option>
+				
+				<option value="file50">cms-server/internal/entity/media.go (0.0%)</option>
+				
+				<option value="file51">cms-server/internal/entity/menu.go (0.0%)</option>
+				
+				<option value="file52">cms-server/internal/entity/method_payment.go (0.0%)</option>
+				
+				<option value="file53">cms-server/internal/entity/module.go (0.0%)</option>
+				
+				<option value="file54">cms-server/internal/entity/module_child.go (0.0%)</option>
+				
+				<option value="file55">cms-server/internal/entity/module_child_role.go (0.0%)</option>
+				
+				<option value="file56">cms-server/internal/entity/order.go (0.0%)</option>
+				
+				<option value="file57">cms-server/internal/entity/order_item.go (0.0%)</option>
+				
+				<option value="file58">cms-server/internal/entity/order_status_history.go (0.0%)</option>
+				
+				<option value="file59">cms-server/internal/entity/post.go (0.0%)</option>
+				
+				<option value="file60">cms-server/internal/entity/post_tag.go (0.0%)</option>
+				
+				<option value="file61">cms-server/internal/entity/product.go (0.0%)</option>
+				
+				<option value="file62">cms-server/internal/entity/product_attribute.go (0.0%)</option>
+				
+				<option value="file63">cms-server/internal/entity/product_variant.go (0.0%)</option>
+				
+				<option value="file64">cms-server/internal/entity/role.go (0.0%)</option>
+				
+				<option value="file65">cms-server/internal/entity/sessions.go (0.0%)</option>
+				
+				<option value="file66">cms-server/internal/entity/status_history.go (0.0%)</option>
+				
+				<option value="file67">cms-server/internal/entity/status_order.go (0.0%)</option>
+				
+				<option value="file68">cms-server/internal/entity/supplier.go (0.0%)</option>
+				
+				<option value="file69">cms-server/internal/entity/tag.go (0.0%)</option>
+				
+				<option value="file70">cms-server/internal/entity/type_mail.go (0.0%)</option>
+				
+				<option value="file71">cms-server/internal/entity/user.go (0.0%)</option>
+				
+				<option value="file72">cms-server/internal/entity/user_role.go (0.0%)</option>
+				
+				<option value="file73">cms-server/internal/entity/variant_value.go (0.0%)</option>
+				
+				<option value="file74">cms-server/internal/entity/warehouse.go (0.0%)</option>
+				
+				<option value="file75">cms-server/internal/entity/web_setting.go (0.0%)</option>
+				
+				<option value="file76">cms-server/internal/schedule/email_system.go (0.0%)</option>
+				
+				<option value="file77">cms-server/internal/service/error/base.go (0.0%)</option>
+				
+				<option value="file78">cms-server/internal/usecase/auth/forgot_usecase.go (0.0%)</option>
+				
+				<option value="file79">cms-server/internal/usecase/auth/login_usecase.go (100.0%)</option>
+				
+				<option value="file80">cms-server/internal/usecase/auth/refresh_usecase.go (0.0%)</option>
+				
+				<option value="file81">cms-server/internal/usecase/auth/register_usecase.go (0.0%)</option>
+				
+				<option value="file82">cms-server/internal/usecase/auth/reset_code_usecase.go (0.0%)</option>
+				
+				<option value="file83">cms-server/internal/usecase/auth/reset_token_usecase.go (0.0%)</option>
+				
+				<option value="file84">cms-server/internal/usecase/auth/verify_account_usecase.go (0.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">not covered</span>
+				<span class="cov8">covered</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package bootstrap
+
+import (
+        pkglog "cms-server/infrastructure/service/logger"
+        "cms-server/internal/entity"
+        "cms-server/internal/service/cache"
+
+        "github.com/go-pg/pg/v10"
+        "go.uber.org/zap/zapcore"
+)
+
+type Application struct {
+        Env         *Env
+        DB          *pg.DB
+        Log         pkglog.Logger
+        QueneClient *queueClient
+        Cache       cache.RedisConfigImpl
+}
+
+func App() *Application <span class="cov0" title="0">{
+        env := Env{}
+        NewEnv(&amp;env)
+
+        logConfig := pkglog.NewConfig()
+        log := pkglog.InitLogger(logConfig, zapcore.DebugLevel, env.IsProduction())
+
+        qc := NewQueueClient(&amp;env)
+
+        entities := []any{
+                new(entity.User),
+                new(entity.Media),
+                new(entity.Session),
+                new(entity.Role),
+                new(entity.UserRole),
+                new(entity.Module),
+                new(entity.ModuleChild),
+                new(entity.ModuleChildRole),
+                new(entity.WebSetting),
+                new(entity.Banner),
+                new(entity.MethodPayment),
+                new(entity.ActivityLog),
+                new(entity.TypeMail),
+                new(entity.MailProvider),
+                new(entity.MailTemplate),
+                new(entity.MailStatus),
+                new(entity.MailHistory),
+                new(entity.StatusHistory),
+                new(entity.Category),
+                new(entity.Post),
+                new(entity.Tag),
+                new(entity.PostTag),
+                new(entity.Comment),
+                new(entity.Like),
+                new(entity.Coupon),
+                new(entity.Product),
+                new(entity.Product),
+                new(entity.ProductVariant),
+                new(entity.Attribute),
+                new(entity.AttributeValue),
+                new(entity.ProductAttribute),
+                new(entity.VariantValue),
+                new(entity.Cart),
+                new(entity.CartItem),
+                new(entity.Order),
+                new(entity.StatusOrder),
+                new(entity.OrderItem),
+                new(entity.OrderStatusHistory),
+                new(entity.Supplier),
+                new(entity.Warehouse),
+                new(entity.Menu),
+        }
+
+        db := NewPostgresDB(&amp;env, entities, log)
+        configRedis := NewRedisConfig(
+                env.DB_CACHE.Addr,
+                env.DB_CACHE.Password,
+                env.DB_CACHE.DB,
+                env.DB_CACHE.Network,
+                env.DB_CACHE.MaxIdle,
+                env.DB_CACHE.MaxActive,
+                env.DB_CACHE.IdleTimeout,
+        )
+        cache := NewRedis(configRedis)
+
+        RegisterValidator()
+        return &amp;Application{
+                Env:         &amp;env,
+                DB:          db,
+                Log:         log,
+                QueneClient: qc,
+                Cache:       cache,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package bootstrap
+
+import (
+        "cms-server/infrastructure/service/database"
+        pkglog "cms-server/infrastructure/service/logger"
+
+        "github.com/go-pg/pg/extra/pgdebug/v10"
+        "github.com/go-pg/pg/v10"
+        "github.com/go-pg/pg/v10/orm"
+)
+
+func NewPostgresDB(env *Env, entities []any, log pkglog.Logger) *pg.DB <span class="cov0" title="0">{
+        // Connect to the database
+        opt, err := pg.ParseURL(env.URL_DB)
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatal("Error parsing the database URL: " + err.Error())
+        }</span>
+
+        <span class="cov0" title="0">db := pg.Connect(opt)
+        // Check the connection
+        if err := db.Ping(db.Context()); err != nil </span><span class="cov0" title="0">{
+                log.Fatal("Error connecting to the database: " + err.Error())
+        }</span>
+
+        <span class="cov0" title="0">if !env.IsProduction() </span><span class="cov0" title="0">{
+                db.AddQueryHook(pgdebug.NewDebugHook())
+                db.AddQueryHook(database.NewQueryHook())
+        }</span>
+        // Create the tables
+        <span class="cov0" title="0">for _, entity := range entities </span><span class="cov0" title="0">{
+                err := db.Model(entity).CreateTable(&amp;orm.CreateTableOptions{
+                        Temp:        false,
+                        IfNotExists: true,
+                })
+                if err != nil </span><span class="cov0" title="0">{
+                        log.Fatal("Error creating table: " + err.Error())
+                }</span>
+        }
+
+        <span class="cov0" title="0">return db</span>
+}
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package bootstrap
+
+import (
+        "log"
+        "os"
+        "path/filepath"
+        "strings"
+
+        "github.com/spf13/viper"
+)
+
+type queue struct {
+        Addr        string
+        DB          int
+        Password    string
+        MaxIdle     int
+        MaxActive   int
+        IdleTimeout int
+        Network     string
+        Concurrency int
+        Queues      map[string]int
+}
+
+type jwtSecret struct {
+        Access  string
+        Refresh string
+        Verify  string
+        Forgot  string
+}
+
+type dbCache struct {
+        Addr        string
+        DB          int
+        Password    string
+        MaxIdle     int
+        MaxActive   int
+        IdleTimeout int
+        Network     string
+}
+
+type Env struct {
+        MODE_ENV string
+
+        URL_DB string
+
+        NAME_APP string
+        PORT_APP string
+        HOST_APP string
+
+        QUEUE    *queue
+        DB_CACHE *dbCache
+
+        SECRET_OTP string
+
+        JWT_SECRET *jwtSecret
+
+        FRONTEND_URL string
+
+        TEST_EMAIL string
+}
+
+func NewEnv(env any) <span class="cov0" title="0">{
+        absPath, err := filepath.Abs("./")
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatal("Error getting the absolute path:", err)
+        }</span>
+
+        <span class="cov0" title="0">mode := os.Getenv("ENV_MODE")
+        viper.SetConfigType("yaml")
+        if mode == "production" </span><span class="cov0" title="0">{
+                viper.SetConfigName("prod.config")
+        }</span> else<span class="cov0" title="0"> {
+                viper.SetConfigName("dev.config")
+        }</span>
+        <span class="cov0" title="0">viper.AddConfigPath(absPath)
+        err = viper.ReadInConfig()
+        if err != nil </span><span class="cov0" title="0">{
+                panic("Error reading config file, " + err.Error())</span>
+        }
+
+        <span class="cov0" title="0">err = viper.UnmarshalExact(env)
+        if err != nil </span><span class="cov0" title="0">{
+                panic("Error unmarshalling config file, " + err.Error())</span>
+        }
+}
+
+func (env *Env) IsProduction() bool <span class="cov0" title="0">{
+        return strings.ToLower(env.MODE_ENV) == "production"
+}</span>
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package bootstrap
+
+import (
+        "crypto/tls"
+        "log"
+        "time"
+
+        "github.com/wneessen/go-mail"
+)
+
+type ConfigMail struct {
+        Host     string
+        Port     int
+        UserName string
+        Password string
+        Email    string
+        Name     string
+        TSL      *tls.Config
+}
+
+type MailProvider interface {
+        SetProvider(cf *ConfigMail) MailProvider
+        SendMail(to []string, subject, body string, data map[string]any) error
+}
+
+type mailProvider struct {
+        mail     *mail.Msg
+        provider *mail.Client
+        config   *ConfigMail
+}
+
+func (m *mailProvider) SendMail(to []string, subject, body string, data map[string]any) error <span class="cov0" title="0">{
+        m.mail.SetGenHeader("Content-Type", "text/html")
+        m.mail.SetGenHeader("charset", "utf-8")
+        m.mail.SetGenHeader("Date", time.Now().Format(time.RFC1123Z))
+        m.mail.Subject(subject)
+        m.mail.AddAlternativeString(mail.TypeTextHTML, body)
+        m.mail.FromFormat(m.config.Name, m.config.Email)
+        m.mail.To(to...)
+        if err := m.provider.DialAndSend(m.mail); err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">m.mail.Reset()
+        return nil</span>
+}
+
+func (m *mailProvider) SetProvider(cf *ConfigMail) MailProvider <span class="cov0" title="0">{
+        opts := []mail.Option{
+                mail.WithSMTPAuth(mail.SMTPAuthPlain),
+                mail.WithTLSPortPolicy(mail.TLSMandatory),
+                mail.WithPort(cf.Port),
+                mail.WithUsername(cf.UserName),
+                mail.WithPassword(cf.Password),
+        }
+        if cf.TSL != nil </span><span class="cov0" title="0">{
+                opts = append(opts, mail.WithTLSConfig(cf.TSL))
+        }</span>
+
+        <span class="cov0" title="0">provider, err := mail.NewClient(cf.Host, opts...)
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatalf("Failed to create mail provider: %v", err)
+        }</span>
+        <span class="cov0" title="0">m.provider = provider
+        m.config = cf
+        return m</span>
+}
+
+func NewMailProvider() MailProvider <span class="cov0" title="0">{
+        return &amp;mailProvider{
+                mail: mail.NewMsg(),
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file4" style="display: none">package bootstrap
+
+import (
+        "cms-server/constants"
+        queueS "cms-server/internal/service/queue"
+        "encoding/json"
+        "log"
+        "time"
+
+        "github.com/hibiken/asynq"
+)
+
+type queueClient struct {
+        client  *asynq.Client
+        retry   int
+        timeout time.Duration
+}
+
+// NewQueueClient creates a new queue client
+func NewQueueClient(env *Env) *queueClient <span class="cov0" title="0">{
+        client := asynq.NewClient(asynq.RedisClientOpt{
+                Addr:     env.QUEUE.Addr,
+                DB:       env.QUEUE.DB,
+                Password: env.QUEUE.Password,
+                Network:  env.QUEUE.Network,
+        })
+
+        if client.Ping() != nil </span><span class="cov0" title="0">{
+                log.Fatal("Failed to connect to the queue server: " + client.Ping().Error())
+        }</span>
+
+        <span class="cov0" title="0">return &amp;queueClient{
+                client:  client,
+                retry:   5,
+                timeout: 10 * time.Minute,
+        }</span>
+}
+
+func (qc *queueClient) EnqueueMail(payload queueS.Payload) (string, error) <span class="cov0" title="0">{
+        return qc.EnqueueAnyTask(constants.QUEUE_EMAIL_SYSTEM, payload)
+}</span>
+
+func (qc *queueClient) EnqueueAnyTask(taskType constants.QueueType, payload queueS.Payload) (string, error) <span class="cov0" title="0">{
+        task, err := qc.NewTask(string(taskType), payload)
+        if err != nil </span><span class="cov0" title="0">{
+                return "", err
+        }</span>
+        <span class="cov0" title="0">i, err := qc.client.Enqueue(task)
+        if err != nil </span><span class="cov0" title="0">{
+                return "", err
+        }</span>
+        <span class="cov0" title="0">return i.ID, nil</span>
+}
+
+func (qc *queueClient) NewTask(typeTask string, payload queueS.Payload, opts ...asynq.Option) (*asynq.Task, error) <span class="cov0" title="0">{
+        defaultOpts := []asynq.Option{
+                asynq.MaxRetry(qc.retry),
+                asynq.Timeout(qc.timeout),
+        }
+        opts = append(defaultOpts, opts...)
+        pl, err := json.Marshal(payload)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">return asynq.NewTask(typeTask, pl, opts...), nil</span>
+}
+
+func (qc *queueClient) Close() <span class="cov0" title="0">{
+        qc.client.Close()
+}</span>
+
+func (qc *queueClient) Ping() error <span class="cov0" title="0">{
+        return qc.client.Ping()
+}</span>
+</pre>
+		
+		<pre class="file" id="file5" style="display: none">package bootstrap
+
+import (
+        "cms-server/internal/service/cache"
+        "context"
+        "time"
+
+        "github.com/redis/go-redis/v9"
+)
+
+type RedisConfig struct {
+        Addr        string
+        Password    string
+        DB          int
+        Network     string
+        MaxIdle     int
+        MaxActive   int
+        IdleTimeout int
+}
+
+type RedisIntance struct {
+        config RedisConfig
+        client *redis.Client
+        ctx    context.Context
+}
+
+func NewRedis(c RedisConfig) cache.RedisConfigImpl <span class="cov0" title="0">{
+        var ctx = context.Background()
+        client := redis.NewClient(&amp;redis.Options{
+                Addr:         c.Addr,
+                Password:     c.Password,
+                DB:           c.DB,
+                Network:      c.Network,
+                PoolSize:     c.MaxActive,
+                MinIdleConns: c.MaxIdle,
+                PoolTimeout:  time.Duration(c.IdleTimeout) * time.Second,
+        })
+
+        ri := &amp;RedisIntance{
+                config: c,
+                client: client,
+                ctx:    ctx,
+        }
+        _, err := ri.client.Ping(ctx).Result()
+        if err != nil </span><span class="cov0" title="0">{
+                panic("Failed to connect to Redis: " + err.Error())</span>
+        }
+
+        <span class="cov0" title="0">return ri</span>
+}
+
+func (ri *RedisIntance) Set(key string, value []byte, time time.Duration) error <span class="cov0" title="0">{
+        err := ri.client.Set(ri.ctx, key, value, time).Err()
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (ri *RedisIntance) Get(key string) ([]byte, error) <span class="cov0" title="0">{
+        value, err := ri.client.Get(ri.ctx, key).Result()
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">return []byte(value), nil</span>
+}
+
+func (ri *RedisIntance) Delete(key string) error <span class="cov0" title="0">{
+        err := ri.client.Del(ri.ctx, key).Err()
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (ri *RedisIntance) Reset() error <span class="cov0" title="0">{
+        err := ri.client.FlushAll(ri.ctx).Err()
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (ri *RedisIntance) Close() error <span class="cov0" title="0">{
+        err := ri.client.Close()
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+// func (ri *RedisIntance) Ping() error {
+//         _, err := ri.client.Ping(ri.ctx).Result()
+//         if err != nil {
+//                 return err
+//         }
+//         return nil
+// }
+
+func NewRedisConfig(
+        addr, password string, db int, network string,
+        maxIde, maxActive, idleTimeout int,
+) RedisConfig <span class="cov0" title="0">{
+        return RedisConfig{
+                Addr:        addr,
+                Password:    password,
+                DB:          db,
+                Network:     network,
+                MaxIdle:     maxIde,
+                MaxActive:   maxActive,
+                IdleTimeout: idleTimeout,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file6" style="display: none">package bootstrap
+
+import (
+        "cms-server/constants"
+        "regexp"
+
+        "github.com/asaskevich/govalidator"
+)
+
+type Validator interface {
+        customEmailOrPhoneValidator(str string, params ...string) bool
+        isPhoneNumber(str, local string) bool
+}
+
+type validator struct{}
+
+func RegisterValidator() <span class="cov0" title="0">{
+        v := &amp;validator{}
+
+        govalidator.ParamTagRegexMap["email_phone"] = regexp.MustCompile(`^email_phone\((\w+)\)$`)
+        govalidator.ParamTagMap["email_phone"] = govalidator.ParamValidator(v.customEmailOrPhoneValidator)
+}</span>
+
+func (v *validator) customEmailOrPhoneValidator(str string, params ...string) bool <span class="cov0" title="0">{
+        if len(params) == 0 </span><span class="cov0" title="0">{
+                return false
+        }</span>
+
+        <span class="cov0" title="0">if govalidator.IsEmail(str) </span><span class="cov0" title="0">{
+                return true
+        }</span>
+        <span class="cov0" title="0">return v.isPhoneNumber(str, params[0])</span>
+}
+
+func (v *validator) isPhoneNumber(str, local string) bool <span class="cov0" title="0">{
+        switch local </span>{
+        case constants.VI:<span class="cov0" title="0">
+                regexp := regexp.MustCompile(`/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/`)
+                return regexp.MatchString(str)</span>
+        default:<span class="cov0" title="0">
+                phoneRegex := regexp.MustCompile(`^\+?[0-9]{9,15}$`)
+                return phoneRegex.MatchString(str)</span>
+        }
+}
+</pre>
+		
+		<pre class="file" id="file7" style="display: none">package main
+
+import (
+        "cms-server/bootstrap"
+        "cms-server/infrastructure/api/router"
+        "time"
+
+        "github.com/gofiber/fiber/v2"
+        "github.com/gofiber/fiber/v2/middleware/cache"
+        "github.com/gofiber/fiber/v2/middleware/compress"
+)
+
+func main() <span class="cov0" title="0">{
+        app := bootstrap.App()
+        env := app.Env
+        db := app.DB
+        log := app.Log
+        cacheApp := app.Cache
+        defer db.Close()
+        defer app.QueneClient.Close()
+
+        fiberApp := fiber.New(fiber.Config{
+                AppName:       env.NAME_APP,
+                CaseSensitive: true,
+                Prefork:       true,
+                StrictRouting: true,
+        })
+
+        fiberApp.Use(compress.New(compress.Config{
+                Level: compress.LevelBestSpeed,
+        }))
+
+        fiberApp.Use(cache.New((cache.Config{
+                Next: func(c *fiber.Ctx) bool </span><span class="cov0" title="0">{
+                        return c.Get("No-Cache") == "true"
+                }</span>,
+                Expiration:   10 * time.Minute,
+                CacheControl: true,
+                Storage:      cacheApp,
+        })))
+
+        // Registering the route
+        <span class="cov0" title="0">router.InitRouter(fiberApp, db, log, app.QueneClient, env, cacheApp)
+
+        if err := fiberApp.Listen(":" + env.PORT_APP); err != nil </span><span class="cov0" title="0">{
+                log.Fatal("Error starting the server: " + err.Error())
+        }</span>
+}
+</pre>
+		
+		<pre class="file" id="file8" style="display: none">package main
+
+import (
+        "cms-server/bootstrap"
+        pkglog "cms-server/infrastructure/service/logger"
+        "cms-server/infrastructure/service/mailS"
+
+        "github.com/hibiken/asynq"
+        "go.uber.org/zap/zapcore"
+)
+
+func main() <span class="cov0" title="0">{
+        var env = bootstrap.Env{}
+        bootstrap.NewEnv(&amp;env)
+        logConfig := pkglog.NewConfig()
+        log := pkglog.InitLogger(logConfig, zapcore.DebugLevel, env.IsProduction())
+        db := bootstrap.NewPostgresDB(&amp;env, []any{}, log)
+        defer db.Close()
+        cf := asynq.Config{
+                Concurrency: env.QUEUE.Concurrency,
+                Queues:      env.QUEUE.Queues,
+        }
+
+        srv := asynq.NewServer(
+                asynq.RedisClientOpt{
+                        Addr:     env.QUEUE.Addr,
+                        DB:       env.QUEUE.DB,
+                        Password: env.QUEUE.Password,
+                        Network:  env.QUEUE.Network,
+                },
+                cf,
+        )
+        mux := asynq.NewServeMux()
+        // Register tasks and handlers
+        mailS.NewEmailHandler(mux, &amp;env, log, db)
+
+        if err := srv.Run(mux); err != nil </span><span class="cov0" title="0">{
+                log.Fatal("Could not run server: " + err.Error())
+        }</span>
+}
+</pre>
+		
+		<pre class="file" id="file9" style="display: none">package authhandler
+
+import (
+        "cms-server/bootstrap"
+        authModel "cms-server/infrastructure/model/auth"
+        "cms-server/infrastructure/repo"
+        pkgjwt "cms-server/infrastructure/service/jwt"
+        pkglog "cms-server/infrastructure/service/logger"
+        pkgres "cms-server/infrastructure/service/response"
+        "cms-server/internal/service/cache"
+        "cms-server/internal/service/queue"
+        authUC "cms-server/internal/usecase/auth"
+        "errors"
+
+        "github.com/asaskevich/govalidator"
+        "github.com/go-pg/pg/v10"
+        "github.com/gofiber/fiber/v2"
+)
+
+type ForgotPasswordHandler interface {
+        Forgot(c *fiber.Ctx) error
+}
+type forgotPasswordHandler struct {
+        forgotUsecase authUC.ForgotPasswordUsecase
+        log           pkglog.Logger
+        env           *bootstrap.Env
+}
+
+func NewForgotPasswordHandler(
+        forgotUsecase authUC.ForgotPasswordUsecase,
+        log pkglog.Logger,
+        env *bootstrap.Env,
+) ForgotPasswordHandler <span class="cov0" title="0">{
+        return &amp;forgotPasswordHandler{
+                forgotUsecase,
+                log,
+                env,
+        }
+}</span>
+
+func NewRouteForgotHandler(
+        db *pg.DB,
+        log pkglog.Logger,
+        env *bootstrap.Env,
+        qc queue.QueueClient,
+        cache cache.RedisConfigImpl,
+) ForgotPasswordHandler <span class="cov0" title="0">{
+        forgotUsecase := authUC.NewForgotPasswordUsecase(
+                repo.NewUserRepository(db),
+                repo.NewSessionRepository(db),
+                repo.NewMailTplRepository(db),
+                repo.NewStatusHistoryRepository(db),
+                repo.NewMailHistoryRepository(db),
+                repo.NewManagerTransaction(db),
+                pkgjwt.NewJWT(env.JWT_SECRET.Forgot),
+                qc,
+                cache,
+        )
+        return NewForgotPasswordHandler(forgotUsecase, log, env)
+}</span>
+
+func (h *forgotPasswordHandler) Forgot(c *fiber.Ctx) error <span class="cov0" title="0">{
+        var body authModel.ForgotPasswordReq
+        if err := c.BodyParser(&amp;body); err != nil </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
+                return h.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if _, err := govalidator.ValidateStruct(body); err != nil </span><span class="cov0" title="0">{
+                err := pkgres.Err(err).UnprocessableEntity()
+                return h.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">os := c.Get("User-Agent")
+        resForpass, err := h.forgotUsecase.ForgotPassword(body.Email, os, body.Type)
+
+        if errors.Is(err, authUC.ErrValidateForgotPassword) </span><span class="cov0" title="0">{
+                err := pkgres.Err(err).BadReq()
+                return h.log.Log(c, err)
+        }</span> else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Không tìm thấy tài khoản, hãy kiểm tra lại").BadReq()
+                return h.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">var link string
+        if body.Type == authUC.ForgotByToken </span><span class="cov0" title="0">{
+                link = h.env.FRONTEND_URL + "/auth/forgot-password?code=" + resForpass.Token
+        }</span>
+        <span class="cov0" title="0">if err := h.forgotUsecase.SendEmailForgotPassword(resForpass.User, resForpass.Code, link); err != nil </span><span class="cov0" title="0">{
+                err := pkgres.Err(err).Code(fiber.StatusInternalServerError)
+                return h.log.Log(c, err)
+        }</span>
+        <span class="cov0" title="0">return c.JSON(pkgres.NewRes("Yêu cầu đặt lại mật khẩu đã được gửi đến email của bạn"))</span>
+}
+</pre>
+		
+		<pre class="file" id="file10" style="display: none">package authhandler
+
+import (
+        "cms-server/bootstrap"
+        "cms-server/constants"
+        authModel "cms-server/infrastructure/model/auth"
+        "cms-server/infrastructure/repo"
+        argonS "cms-server/infrastructure/service/argon"
+        pkgjwt "cms-server/infrastructure/service/jwt"
+        pkglog "cms-server/infrastructure/service/logger"
+        pkgres "cms-server/infrastructure/service/response"
+        "cms-server/internal/service/cache"
+        authUC "cms-server/internal/usecase/auth"
+        "errors"
+        "time"
+
+        "github.com/asaskevich/govalidator"
+        "github.com/go-pg/pg/v10"
+        "github.com/gofiber/fiber/v2"
+)
+
+type LoginHandler interface {
+        Login(c *fiber.Ctx) error
+}
+
+type loginHandler struct {
+        loginUsecase authUC.LoginUsecase
+        log          pkglog.Logger
+        env          *bootstrap.Env
+}
+
+func (lh *loginHandler) Login(c *fiber.Ctx) error <span class="cov0" title="0">{
+        var body authModel.LoginReq
+
+        if err := c.BodyParser(&amp;body); err != nil </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
+                return lh.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if _, err := govalidator.ValidateStruct(body); err != nil </span><span class="cov0" title="0">{
+                err := pkgres.Err(err).UnprocessableEntity()
+                return lh.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">user, err := lh.loginUsecase.GetUserByEmailOrPhone(body.Identifier)
+        if errors.Is(err, pg.ErrNoRows) </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Tài khoản không hợp lệ, hãy kiểm tra lại").Code(fiber.StatusBadRequest)
+                return lh.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if err != nil </span><span class="cov0" title="0">{
+                return lh.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if !lh.loginUsecase.CheckHashPassword(body.Password, user.Password) </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Mật khẩu không chính xác, hãy kiểm tra lại").Code(fiber.StatusBadRequest)
+                return lh.log.Log(c, err)
+        }</span>
+        <span class="cov0" title="0">timeAccess := time.Now().Add(constants.AccessExpiredAt * time.Second)
+        access, _ := lh.loginUsecase.GengerateAccessToken(user.ID, user.FullName, timeAccess)
+        timeRefresh := time.Now().Add(constants.RefreshExpiredAt * time.Second)
+        os := c.Get("User-Agent")
+        refresh, _ := lh.loginUsecase.GengerateRefreshToken(user.ID, user.FullName, timeRefresh, os)
+
+        c.Cookie(&amp;fiber.Cookie{
+                Name:     constants.KeyCookieAccessToken,
+                Value:    access,
+                Path:     "/",
+                Domain:   lh.env.HOST_APP,
+                Secure:   lh.env.IsProduction(),
+                HTTPOnly: true,
+                Expires:  timeAccess,
+        })
+        c.Cookie(&amp;fiber.Cookie{
+                Name:     constants.KeyCookieRefreshToken,
+                Value:    refresh,
+                Path:     "/",
+                Domain:   lh.env.HOST_APP,
+                Secure:   lh.env.IsProduction(),
+                HTTPOnly: true,
+                Expires:  timeRefresh,
+        })
+
+        return c.JSON(pkgres.ResData(user.GetInfor()).SetMessage("Đăng nhập thành công"))</span>
+}
+
+func NewLoginHandler(loginUsecase authUC.LoginUsecase, log pkglog.Logger, env *bootstrap.Env) LoginHandler <span class="cov0" title="0">{
+        return &amp;loginHandler{
+                loginUsecase: loginUsecase,
+                log:          log,
+                env:          env,
+        }
+}</span>
+
+func NewRouteLoginHandler(
+        db *pg.DB,
+        log pkglog.Logger,
+        env *bootstrap.Env,
+        cache cache.RedisConfigImpl,
+) LoginHandler <span class="cov0" title="0">{
+        loginUsecase := authUC.NewLoginUsecase(
+                repo.NewUserRepository(db),
+                repo.NewSessionRepository(db),
+                pkgjwt.NewJWT(env.JWT_SECRET.Access),
+                pkgjwt.NewJWT(env.JWT_SECRET.Refresh),
+                argonS.NewArgon(),
+                cache,
+        )
+        return NewLoginHandler(loginUsecase, log, env)
+}</span>
+</pre>
+		
+		<pre class="file" id="file11" style="display: none">package authhandler
+
+import (
+        "cms-server/bootstrap"
+        "cms-server/constants"
+        "cms-server/infrastructure/repo"
+        pkgjwt "cms-server/infrastructure/service/jwt"
+        pkglog "cms-server/infrastructure/service/logger"
+        pkgres "cms-server/infrastructure/service/response"
+        "cms-server/internal/service/cache"
+        authUC "cms-server/internal/usecase/auth"
+        "time"
+
+        "github.com/go-pg/pg/v10"
+        "github.com/gofiber/fiber/v2"
+)
+
+type RefreshHandler interface {
+        Refresh(c *fiber.Ctx) error
+}
+
+type refreshHandler struct {
+        refreshUsecase authUC.RefreshUsecase
+        log            pkglog.Logger
+        env            *bootstrap.Env
+}
+
+func NewRefreshHandler(
+        refreshUsecase authUC.RefreshUsecase,
+        log pkglog.Logger,
+        env *bootstrap.Env,
+) RefreshHandler <span class="cov0" title="0">{
+        return &amp;refreshHandler{
+                refreshUsecase: refreshUsecase,
+                log:            log,
+                env:            env,
+        }
+}</span>
+
+func NewRouteRefreshHandler(
+        db *pg.DB,
+        log pkglog.Logger,
+        env *bootstrap.Env,
+        cache cache.RedisConfigImpl,
+) RefreshHandler <span class="cov0" title="0">{
+        refreshUsecase := authUC.NewRefreshUsecase(
+                repo.NewSessionRepository(db),
+                pkgjwt.NewJWT(env.JWT_SECRET.Access),
+                pkgjwt.NewJWT(env.JWT_SECRET.Refresh),
+                cache,
+        )
+        return NewRefreshHandler(refreshUsecase, log, env)
+}</span>
+
+func (rh *refreshHandler) Refresh(c *fiber.Ctx) error <span class="cov0" title="0">{
+        refresh := c.Cookies(constants.KeyCookieRefreshToken, "")
+        session, err := rh.refreshUsecase.GetSessionByToken(refresh)
+        if err != nil </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Phiên làm việc không hợp lệ, hãy đăng nhập lại").Unauthorized()
+                return rh.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">go rh.refreshUsecase.ClearSessionExpired()
+
+        claims, err := rh.refreshUsecase.VerifyToken(refresh)
+        if err != nil </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Phiên làm việc không hợp lệ, hãy đăng nhập lại").Unauthorized()
+                return rh.log.Log(c, err)
+        }</span>
+        <span class="cov0" title="0">expAccess := time.Now().Add(constants.AccessExpiredAt * time.Second)
+        access, err := rh.refreshUsecase.GengerateAccessToken(session.UserID, claims.FullName, expAccess)
+        if err != nil </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Không thể tạo token mới").InternalServerError()
+                return rh.log.Log(c, err)
+        }</span>
+        <span class="cov0" title="0">expRefresh := time.Now().Add(constants.RefreshExpiredAt * time.Second)
+        os := c.Get("User-Agent")
+        refreshToken, err := rh.refreshUsecase.GengerateRefreshToken(session.UserID, claims.FullName, expRefresh, os)
+        if err != nil </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Không thể tạo token mới").InternalServerError()
+                return rh.log.Log(c, err)
+        }</span>
+        <span class="cov0" title="0">expR := time.Now().Add(constants.RefreshExpiredAt * time.Second)
+        expA := time.Now().Add(constants.AccessExpiredAt * time.Second)
+        c.Cookie(&amp;fiber.Cookie{
+                Name:     constants.KeyCookieRefreshToken,
+                Value:    refreshToken,
+                Path:     "/",
+                Domain:   rh.env.HOST_APP,
+                Secure:   rh.env.IsProduction(),
+                HTTPOnly: true,
+                Expires:  expR,
+        })
+        c.Cookie(&amp;fiber.Cookie{
+                Name:     constants.KeyCookieAccessToken,
+                Value:    access,
+                Path:     "/",
+                Domain:   rh.env.HOST_APP,
+                Secure:   rh.env.IsProduction(),
+                HTTPOnly: true,
+                Expires:  expA,
+        })
+        return c.JSON(pkgres.ResData(nil).SetMessage("Làm mới phiên làm việc thành công"))</span>
+}
+</pre>
+		
+		<pre class="file" id="file12" style="display: none">package authhandler
+
+import (
+        "cms-server/bootstrap"
+        "cms-server/constants"
+        authModel "cms-server/infrastructure/model/auth"
+        "cms-server/infrastructure/repo"
+        argonS "cms-server/infrastructure/service/argon"
+        goidS "cms-server/infrastructure/service/goid"
+        pkgjwt "cms-server/infrastructure/service/jwt"
+        pkglog "cms-server/infrastructure/service/logger"
+        pkgres "cms-server/infrastructure/service/response"
+        "cms-server/internal/service/cache"
+        "cms-server/internal/service/queue"
+        authUC "cms-server/internal/usecase/auth"
+        "time"
+
+        "github.com/asaskevich/govalidator"
+        "github.com/go-pg/pg/v10"
+        "github.com/gofiber/fiber/v2"
+)
+
+type RegisterHandler interface {
+        Register(c *fiber.Ctx) error
+}
+
+type registerHandler struct {
+        registerUsecase authUC.RegisterUsecase
+        log             pkglog.Logger
+        env             *bootstrap.Env
+}
+
+func (rh *registerHandler) Register(c *fiber.Ctx) error <span class="cov0" title="0">{
+        var body authModel.RegisterReq
+
+        if err := c.BodyParser(&amp;body); err != nil </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
+                return rh.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if _, err := govalidator.ValidateStruct(body); err != nil </span><span class="cov0" title="0">{
+                err := pkgres.Err(err).UnprocessableEntity()
+                return rh.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if body.Password != body.ConfirmPassword </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Mật khẩu không khớp").BadReq()
+                return rh.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if u, err := rh.registerUsecase.CheckUserExist(body.Email); err != nil &amp;&amp; err != pg.ErrNoRows </span><span class="cov0" title="0">{
+                return rh.log.Log(c, err)
+        }</span> else<span class="cov0" title="0"> if u.ID != "" &amp;&amp; u.Veryfied != nil </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Tài khoản đã tồn tại, vui lòng thử lại !").Code(fiber.StatusBadRequest)
+                return rh.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">expAt := time.Now().Add(time.Second * constants.VerifyExpiredAt)
+        body.Code = rh.registerUsecase.GengerateCode(6)
+        os := c.Get("User-Agent")
+        dataRegister := authUC.RegisterReq{
+                Email:           body.Email,
+                FullName:        body.FullName,
+                Password:        body.Password,
+                ConfirmPassword: body.ConfirmPassword,
+                Code:            body.Code,
+        }
+        res, err := rh.registerUsecase.Register(dataRegister, os, expAt)
+        if pg.ErrNoRows == err </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Không tìm thấy mẫu email").NotFound()
+                return rh.log.Log(c, err)
+        }</span> else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                return rh.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">err = rh.registerUsecase.SendMail(res.MailTpl, res.UserInfor, rh.env.FRONTEND_URL+"/auth/verify/"+res.Token)
+        if pg.ErrNoRows == err </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Không tìm thấy mẫu email").NotFound()
+                return rh.log.Log(c, err)
+        }</span> else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                return rh.log.Log(c, err)
+        }</span>
+        <span class="cov0" title="0">return c.JSON(pkgres.ResData(res.UserInfor).SetMessage("Đăng ký thành công"))</span>
+}
+
+func NewRegisterHandler(registerUsecase authUC.RegisterUsecase, log pkglog.Logger, env *bootstrap.Env) RegisterHandler <span class="cov0" title="0">{
+        return &amp;registerHandler{
+                registerUsecase: registerUsecase,
+                log:             log,
+                env:             env,
+        }
+}</span>
+
+func NewRouteRegisterHandler(
+        db *pg.DB,
+        log pkglog.Logger,
+        qc queue.QueueClient,
+        env *bootstrap.Env,
+        cache cache.RedisConfigImpl,
+) RegisterHandler <span class="cov0" title="0">{
+        registerUsecase := authUC.NewRegisterUsecase(
+                repo.NewUserRepository(db),
+                repo.NewMailTplRepository(db),
+                repo.NewMailHistoryRepository(db),
+                repo.NewStatusHistoryRepository(db),
+                repo.NewSessionRepository(db),
+                pkgjwt.NewJWT(env.JWT_SECRET.Verify),
+                qc,
+                repo.NewManagerTransaction(db),
+                goidS.NewGoId(),
+                argonS.NewArgon().SetSaltLength(constants.SaltLength),
+                cache,
+        )
+        return NewRegisterHandler(registerUsecase, log, env)
+}</span>
+</pre>
+		
+		<pre class="file" id="file13" style="display: none">package authhandler
+
+import (
+        "cms-server/bootstrap"
+        "cms-server/constants"
+        authModel "cms-server/infrastructure/model/auth"
+        "cms-server/infrastructure/repo"
+        argonS "cms-server/infrastructure/service/argon"
+        pkgjwt "cms-server/infrastructure/service/jwt"
+        pkglog "cms-server/infrastructure/service/logger"
+        pkgres "cms-server/infrastructure/service/response"
+        "cms-server/internal/service/cache"
+        authUC "cms-server/internal/usecase/auth"
+
+        "github.com/asaskevich/govalidator"
+        "github.com/go-pg/pg/v10"
+        "github.com/gofiber/fiber/v2"
+)
+
+type ResetCodeHandler interface {
+        ResetPassword(c *fiber.Ctx) error
+}
+
+type resetCodeHandler struct {
+        resetCodeUsecase authUC.ResetPasswordByCodeUsecase
+        log              pkglog.Logger
+}
+
+func NewResetCodeHandler(resetCodeUsecase authUC.ResetPasswordByCodeUsecase) ResetCodeHandler <span class="cov0" title="0">{
+        return &amp;resetCodeHandler{
+                resetCodeUsecase: resetCodeUsecase,
+        }
+}</span>
+
+func NewRouteResetByCodeHandler(
+        db *pg.DB,
+        log pkglog.Logger,
+        cache cache.RedisConfigImpl,
+        env *bootstrap.Env,
+) ResetCodeHandler <span class="cov0" title="0">{
+        resetCodeUsecase := authUC.NewResetPasswordCodeUsecase(
+                repo.NewUserRepository(db),
+                repo.NewSessionRepository(db),
+                cache,
+                pkgjwt.NewJWT(env.JWT_SECRET.Forgot),
+                argonS.NewArgon().SetSaltLength(constants.SaltLength),
+        )
+        return &amp;resetCodeHandler{
+                resetCodeUsecase: resetCodeUsecase,
+                log:              log,
+        }
+}</span>
+
+func (rth *resetCodeHandler) ResetPassword(c *fiber.Ctx) error <span class="cov0" title="0">{
+        var req authModel.ResetPasswordByCodeRequest
+        if err := c.BodyParser(&amp;req); err != nil </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
+                return rth.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if _, err := govalidator.ValidateStruct(req); err != nil </span><span class="cov0" title="0">{
+                err := pkgres.Err(err).UnprocessableEntity()
+                return rth.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if req.Password != req.ConfirmPassword </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Mật khẩu không khớp").BadReq()
+                return rth.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">userID, err := rth.resetCodeUsecase.VerifySession(req.Code, req.Email)
+        if err != nil </span><span class="cov0" title="0">{
+                err = pkgres.Err(err).BadReq()
+                return rth.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if err := rth.resetCodeUsecase.ResetPass(userID, req.Password, req.ConfirmPassword); err != nil </span><span class="cov0" title="0">{
+                err = pkgres.Err(err).BadReq()
+                return rth.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">return c.JSON(pkgres.NewRes("Cập nhật mật khẩu thành công"))</span>
+}
+</pre>
+		
+		<pre class="file" id="file14" style="display: none">package authhandler
+
+import (
+        "cms-server/bootstrap"
+        "cms-server/constants"
+        authModel "cms-server/infrastructure/model/auth"
+        "cms-server/infrastructure/repo"
+        argonS "cms-server/infrastructure/service/argon"
+        pkgjwt "cms-server/infrastructure/service/jwt"
+        pkglog "cms-server/infrastructure/service/logger"
+        pkgres "cms-server/infrastructure/service/response"
+        "cms-server/internal/service/cache"
+        authUC "cms-server/internal/usecase/auth"
+
+        "github.com/asaskevich/govalidator"
+        "github.com/go-pg/pg/v10"
+        "github.com/gofiber/fiber/v2"
+)
+
+type ResetTokenHandler interface {
+        ResetPassword(c *fiber.Ctx) error
+}
+
+type resetTokenHandler struct {
+        resetTokenUsecase authUC.ResetPasswordByTokenUsecase
+        log               pkglog.Logger
+}
+
+func NewResetTokenHandler(resetTokenUsecase authUC.ResetPasswordByTokenUsecase) ResetTokenHandler <span class="cov0" title="0">{
+        return &amp;resetTokenHandler{
+                resetTokenUsecase: resetTokenUsecase,
+        }
+}</span>
+
+func NewRouteResetByTokenHandler(
+        db *pg.DB,
+        log pkglog.Logger,
+        cache cache.RedisConfigImpl,
+        env *bootstrap.Env,
+) ResetTokenHandler <span class="cov0" title="0">{
+        resetTokenUsecase := authUC.NewResetPasswordUsecase(
+                repo.NewUserRepository(db),
+                repo.NewSessionRepository(db),
+                cache,
+                pkgjwt.NewJWT(env.JWT_SECRET.Forgot),
+                argonS.NewArgon().SetSaltLength(constants.SaltLength),
+        )
+        return &amp;resetTokenHandler{
+                resetTokenUsecase: resetTokenUsecase,
+                log:               log,
+        }
+}</span>
+
+func (rth *resetTokenHandler) ResetPassword(c *fiber.Ctx) error <span class="cov0" title="0">{
+        var req authModel.ResetPasswordByTokenRequest
+        if err := c.BodyParser(&amp;req); err != nil </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
+                return rth.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if _, err := govalidator.ValidateStruct(req); err != nil </span><span class="cov0" title="0">{
+                err := pkgres.Err(err).UnprocessableEntity()
+                return rth.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if req.Password != req.ConfirmPassword </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Mật khẩu không khớp").BadReq()
+                return rth.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">userID, err := rth.resetTokenUsecase.VerifySession(req.Token)
+        if err != nil </span><span class="cov0" title="0">{
+                err = pkgres.Err(err).BadReq()
+                return rth.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if err := rth.resetTokenUsecase.ResetPass(userID, req.Password, req.ConfirmPassword); err != nil </span><span class="cov0" title="0">{
+                err = pkgres.Err(err).BadReq()
+                return rth.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">return c.JSON(pkgres.NewRes("Cập nhật mật khẩu thành công"))</span>
+}
+</pre>
+		
+		<pre class="file" id="file15" style="display: none">package authhandler
+
+import (
+        "cms-server/bootstrap"
+        "cms-server/infrastructure/repo"
+        pkgjwt "cms-server/infrastructure/service/jwt"
+        pkglog "cms-server/infrastructure/service/logger"
+        pkgres "cms-server/infrastructure/service/response"
+        "cms-server/internal/service/cache"
+        authUC "cms-server/internal/usecase/auth"
+
+        "github.com/go-pg/pg/v10"
+        "github.com/gofiber/fiber/v2"
+)
+
+type VerifyAccountHandler interface {
+        VerifyAccount(c *fiber.Ctx) error
+}
+
+type verifyAccountHandler struct {
+        verifyAccountUsecase authUC.VerifyAccountUsecase
+        log                  pkglog.Logger
+}
+
+func (vah *verifyAccountHandler) VerifyAccount(c *fiber.Ctx) error <span class="cov0" title="0">{
+        t := c.Params("t")
+        if t == "" </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
+                return vah.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">claims, err := vah.verifyAccountUsecase.VerifyRegister(t)
+        if err == pkgjwt.ErrParseToken </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Không thể lấy thông tin")
+                return vah.log.Log(c, err)
+        }</span> else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Xác thực không thành công").BadReq()
+                return vah.log.Log(c, err)
+        }</span>
+        <span class="cov0" title="0">user, err := vah.verifyAccountUsecase.GetUserById(claims.Id)
+        if err == pg.ErrNoRows </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Tài khoản không tồn tại").NotFound()
+                return vah.log.Log(c, err)
+        }</span> else<span class="cov0" title="0"> if err != nil </span><span class="cov0" title="0">{
+                return vah.log.Log(c, err) // internal error
+        }</span> else<span class="cov0" title="0"> if user.Veryfied != nil </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Tài khoản đã được xác thực").BadReq()
+                return vah.log.Log(c, err)
+        }</span> else<span class="cov0" title="0"> if user.CodeVerify != claims.Code </span><span class="cov0" title="0">{
+                err := pkgres.NewErr("Mã xác thực không hợp lệ").BadReq()
+                return vah.log.Log(c, err)
+        }</span>
+
+        <span class="cov0" title="0">if err := vah.verifyAccountUsecase.VerifyAccount(claims.Id); err != nil </span><span class="cov0" title="0">{
+                return vah.log.Log(c, err)
+        }</span>
+        <span class="cov0" title="0">res := pkgres.NewRes("Xác thực tài khoản thành công").Code(fiber.StatusOK)
+        return c.Status(res.GetCode()).JSON(res)</span>
+}
+
+func NewVerifyAccountHandler(
+        db *pg.DB,
+        log pkglog.Logger,
+        env *bootstrap.Env,
+        cache cache.RedisConfigImpl,
+) VerifyAccountHandler <span class="cov0" title="0">{
+        vau := authUC.NewVerifyAccountUsecase(
+                repo.NewUserRepository(db),
+                repo.NewSessionRepository(db),
+                pkgjwt.NewJWT(env.JWT_SECRET.Verify),
+                cache,
+        )
+        return &amp;verifyAccountHandler{
+                vau,
+                log,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file16" style="display: none">package router
+
+import authhandler "cms-server/infrastructure/api/handler/auth"
+
+func (r *Router) initAuthRouter() <span class="cov0" title="0">{
+        authRouter := r.app.Group("/auth")
+        lh := authhandler.NewRouteLoginHandler(r.db, r.log, r.env, r.cache)
+        rh := authhandler.NewRouteRegisterHandler(r.db, r.log, r.qc, r.env, r.cache)
+        vah := authhandler.NewVerifyAccountHandler(r.db, r.log, r.env, r.cache)
+        rfh := authhandler.NewRouteRefreshHandler(r.db, r.log, r.env, r.cache)
+        fh := authhandler.NewRouteForgotHandler(r.db, r.log, r.env, r.qc, r.cache)
+        rth := authhandler.NewRouteResetByTokenHandler(r.db, r.log, r.cache, r.env)
+        rch := authhandler.NewRouteResetByCodeHandler(r.db, r.log, r.cache, r.env)
+        authRouter.Post("/login", lh.Login)
+        authRouter.Post("/register", rh.Register)
+        authRouter.Post("/verify/:t", vah.VerifyAccount)
+        authRouter.Post("/forgot-password", fh.Forgot)
+        // authRouter.Get("/forgot-password", rth.ResetPassword) ?token=...
+        authRouter.Post("/reset-password", rth.ResetPassword)
+        // authRouter.Post("/check-code/reset-password", rch.ResetPassword) body: {code:"...", email:"..."}
+        authRouter.Post("/reset-password/code", rch.ResetPassword)
+        authRouter.Post("/refresh", rfh.Refresh)
+        // authRouter.Post("/logout", r.Logout)
+        // authRouter.Post("/me", r.Me)
+}</span>
+</pre>
+		
+		<pre class="file" id="file17" style="display: none">package router
+
+import (
+        "cms-server/bootstrap"
+        pkglog "cms-server/infrastructure/service/logger"
+        "cms-server/internal/service/cache"
+        "cms-server/internal/service/queue"
+
+        "github.com/go-pg/pg/v10"
+        "github.com/gofiber/fiber/v2"
+)
+
+type Router struct {
+        db    *pg.DB
+        app   *fiber.App
+        log   pkglog.Logger
+        qc    queue.QueueClient
+        env   *bootstrap.Env
+        cache cache.RedisConfigImpl
+}
+
+func InitRouter(
+        app *fiber.App,
+        db *pg.DB,
+        log pkglog.Logger,
+        qc queue.QueueClient,
+        env *bootstrap.Env,
+        cache cache.RedisConfigImpl,
+) <span class="cov0" title="0">{
+        router := &amp;Router{
+                db:    db,
+                app:   app,
+                log:   log,
+                qc:    qc,
+                env:   env,
+                cache: cache,
+        }
+        router.initAuthRouter()
+}</span>
+</pre>
+		
+		<pre class="file" id="file18" style="display: none">package repo
+
+import (
+        "context"
+
+        "github.com/go-pg/pg/v10"
+)
+
+func getTx(ctx context.Context, db pg.DBI) pg.DBI <span class="cov0" title="0">{
+        if tx, ok := ctx.Value(txContextKey{}).(*pg.Tx); ok </span><span class="cov0" title="0">{
+                return tx
+        }</span>
+        <span class="cov0" title="0">return db</span>
+}
+</pre>
+		
+		<pre class="file" id="file19" style="display: none">package repo
+
+import (
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        "context"
+
+        "github.com/go-pg/pg/v10"
+)
+
+type mailHistoryRepositoryImpl struct {
+        db pg.DBI
+}
+
+func NewMailHistoryRepository(db *pg.DB) repository.MailHistoryRepository <span class="cov0" title="0">{
+        return &amp;mailHistoryRepositoryImpl{
+                db: db,
+        }
+}</span>
+
+func (mhr *mailHistoryRepositoryImpl) Create(data *entity.MailHistory) error <span class="cov0" title="0">{
+        _, err := mhr.db.Model(data).Insert()
+        return err
+}</span>
+
+func (mhr *mailHistoryRepositoryImpl) UpdateSubAndBodyById(id, sub, body string) error <span class="cov0" title="0">{
+        var m entity.MailHistory
+        _, err := mhr.db.Model(&amp;m).Where("id = ?", id).Set("subject = ?", sub).Set("body = ?", body).Update()
+        return err
+}</span>
+
+func (mhr *mailHistoryRepositoryImpl) GetMailHistoryById(id string) (*entity.MailHistory, error) <span class="cov0" title="0">{
+        var mail entity.MailHistory
+        err := mhr.db.Model(&amp;mail).Where("id = ?", id).Select()
+        return &amp;mail, err
+}</span>
+
+func (mhr *mailHistoryRepositoryImpl) Tx(ctx context.Context) repository.MailHistoryRepository <span class="cov0" title="0">{
+        tx := getTx(ctx, mhr.db)
+        return &amp;mailHistoryRepositoryImpl{
+                db: tx,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file20" style="display: none">package repo
+
+import (
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        "context"
+
+        "github.com/go-pg/pg/v10"
+)
+
+type mailProviderRepositoryImpl struct {
+        db pg.DBI
+}
+
+func NewMailProviderRepository(db *pg.DB) repository.MailProviderRepository <span class="cov0" title="0">{
+        return &amp;mailProviderRepositoryImpl{
+                db: db,
+        }
+}</span>
+
+func (mhr *mailProviderRepositoryImpl) GetMailProviderByEmail(email string) (*entity.MailProvider, error) <span class="cov0" title="0">{
+        var mail entity.MailProvider
+        err := mhr.db.Model(&amp;mail).Where("email = ?", email).Select()
+        return &amp;mail, err
+}</span>
+
+func (mhr *mailProviderRepositoryImpl) Tx(ctx context.Context) repository.MailProviderRepository <span class="cov0" title="0">{
+        tx := getTx(ctx, mhr.db)
+        return &amp;mailProviderRepositoryImpl{
+                db: tx,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file21" style="display: none">package repo
+
+import (
+        "cms-server/constants"
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        "context"
+
+        "github.com/go-pg/pg/v10"
+)
+
+type mailTemplateRepositoryImpl struct {
+        db pg.DBI
+}
+
+func NewMailTplRepository(db *pg.DB) repository.MailTemplateRepository <span class="cov0" title="0">{
+        return &amp;mailTemplateRepositoryImpl{
+                db: db,
+        }
+}</span>
+
+func (mtr *mailTemplateRepositoryImpl) GetMailTplById(id string) (*entity.MailTemplate, error) <span class="cov0" title="0">{
+        var tml entity.MailTemplate
+        err := mtr.db.Model(&amp;tml).Where("id = ?", id).
+                Where("status = ?", constants.STATUS_ACTICE).
+                Select()
+        return &amp;tml, err
+}</span>
+
+func (mtr *mailTemplateRepositoryImpl) Tx(ctx context.Context) repository.MailTemplateRepository <span class="cov0" title="0">{
+        tx := getTx(ctx, mtr.db)
+        return &amp;mailTemplateRepositoryImpl{
+                db: tx,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file22" style="display: none">package repo
+
+import (
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        "context"
+
+        "github.com/go-pg/pg/v10"
+)
+
+type sessionRepositoryImpl struct {
+        db pg.DBI
+}
+
+func NewSessionRepository(db *pg.DB) repository.SessionRepository <span class="cov0" title="0">{
+        return &amp;sessionRepositoryImpl{
+                db: db,
+        }
+}</span>
+
+func (sr *sessionRepositoryImpl) CreateSession(data entity.Session) error <span class="cov0" title="0">{
+        _, err := sr.db.Model(&amp;data).Insert()
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (sr *sessionRepositoryImpl) GetSessionAliveByToken(typeSession entity.SessionType, token string) (entity.Session, error) <span class="cov0" title="0">{
+        var session entity.Session
+        err := sr.db.Model(&amp;session).Where("token = ?", token).Where("type = ?", typeSession).
+                Where("expired_at &gt; NOW()").
+                Select()
+        if err != nil </span><span class="cov0" title="0">{
+                return session, err
+        }</span>
+        <span class="cov0" title="0">return session, nil</span>
+}
+
+func (sr *sessionRepositoryImpl) GetSessionAliveByTokenAndIdUser(typeSession entity.SessionType, token, idUser string) (entity.Session, error) <span class="cov0" title="0">{
+        var session entity.Session
+        err := sr.db.Model(&amp;session).
+                Where("token = ?", token).
+                Where("type = ?", typeSession).
+                Where("user_id = ?", idUser).
+                Where("expired_at &gt; NOW()").
+                Select()
+        if err != nil </span><span class="cov0" title="0">{
+                return session, err
+        }</span>
+        <span class="cov0" title="0">return session, nil</span>
+}
+
+func (sr *sessionRepositoryImpl) GetSessionForgotAliveByTokenAndIdUser(token, idUser string) (entity.Session, error) <span class="cov0" title="0">{
+        return sr.GetSessionAliveByTokenAndIdUser(entity.SessionTypeForgot, token, idUser)
+}</span>
+
+func (sr *sessionRepositoryImpl) TokenExists(token string) bool <span class="cov0" title="0">{
+        count, err := sr.db.Model(&amp;entity.Session{}).Where("token = ?", token).
+                Where("expired_at &gt; NOW()").
+                Count()
+        if err != nil </span><span class="cov0" title="0">{
+                return false
+        }</span>
+        <span class="cov0" title="0">return count &gt; 0</span>
+}
+
+func (sr *sessionRepositoryImpl) DeleteSessionVerifyByUserID(userID string) error <span class="cov0" title="0">{
+        return sr.DeleteSessionByTypeAndUserID(entity.SessionTypeVerify, userID)
+}</span>
+
+func (sr *sessionRepositoryImpl) DeleteSessionByTypeAndUserID(sessionType entity.SessionType, userID string) error <span class="cov0" title="0">{
+        _, err := sr.db.Model(&amp;entity.Session{}).
+                Where("type = ? AND user_id = ?", sessionType, userID).
+                Delete()
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (sr *sessionRepositoryImpl) DeleteSessionByTypeAndToken(sessionType entity.SessionType, token string) error <span class="cov0" title="0">{
+        _, err := sr.db.Model(&amp;entity.Session{}).
+                Where("type = ? AND token = ?", sessionType, token).
+                Delete()
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (sr *sessionRepositoryImpl) DeleteSessionAuthByToken(token string) error <span class="cov0" title="0">{
+        return sr.DeleteSessionByTypeAndToken(entity.SessionTypeAuth, token)
+}</span>
+
+func (sr *sessionRepositoryImpl) DeleteSessionVerifyByToken(token string) error <span class="cov0" title="0">{
+        return sr.DeleteSessionByTypeAndToken(entity.SessionTypeVerify, token)
+}</span>
+
+func (sr *sessionRepositoryImpl) DeleteSessionForgotByToken(token string) error <span class="cov0" title="0">{
+        return sr.DeleteSessionByTypeAndToken(entity.SessionTypeForgot, token)
+}</span>
+
+func (sr *sessionRepositoryImpl) DeleteAllSessionsExpired() error <span class="cov0" title="0">{
+        _, err := sr.db.Model(&amp;entity.Session{}).
+                Where("expired_at &lt; NOW()").
+                Delete()
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (sr *sessionRepositoryImpl) DeleteSessionForgotByTokenAndIdUser(token, idUser string) error <span class="cov0" title="0">{
+        _, err := sr.db.Model(&amp;entity.Session{}).
+                Where("type = ? AND token = ? AND user_id = ?", entity.SessionTypeForgot, token, idUser).
+                Delete()
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (sr *sessionRepositoryImpl) Tx(ctx context.Context) repository.SessionRepository <span class="cov0" title="0">{
+        tx := getTx(ctx, sr.db)
+        return &amp;sessionRepositoryImpl{
+                db: tx,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file23" style="display: none">package repo
+
+import (
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        "context"
+
+        "github.com/go-pg/pg/v10"
+)
+
+type statusHistoryRepositoryImpl struct {
+        db pg.DBI
+}
+
+func NewStatusHistoryRepository(db *pg.DB) repository.StatusHistoryRepository <span class="cov0" title="0">{
+        return &amp;statusHistoryRepositoryImpl{
+                db: db,
+        }
+}</span>
+
+func (shr *statusHistoryRepositoryImpl) Create(data *entity.StatusHistory) error <span class="cov0" title="0">{
+        _, err := shr.db.Model(data).Insert()
+        return err
+}</span>
+
+func (shr *statusHistoryRepositoryImpl) Tx(ctx context.Context) repository.StatusHistoryRepository <span class="cov0" title="0">{
+        tx := getTx(ctx, shr.db)
+        return &amp;statusHistoryRepositoryImpl{
+                db: tx,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file24" style="display: none">package repo
+
+import (
+        "cms-server/internal/repository"
+        "context"
+        "errors"
+
+        "github.com/go-pg/pg/v10"
+)
+
+type managerTransaction struct {
+        db *pg.DB
+}
+
+var ErrTxContextKey error = errors.New("no transaction in context")
+
+func NewManagerTransaction(db *pg.DB) repository.ManagerTransaction <span class="cov0" title="0">{
+        return &amp;managerTransaction{
+                db: db,
+        }
+}</span>
+
+type txContextKey struct{}
+
+func (mt *managerTransaction) RunInTransaction(fn func(ctx context.Context) error) error <span class="cov0" title="0">{
+        tx, err := mt.db.BeginContext(mt.db.Context())
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">txCtx := context.WithValue(mt.db.Context(), txContextKey{}, tx)
+        // Nếu có lỗi thì rollback
+        if err := fn(txCtx); err != nil </span><span class="cov0" title="0">{
+                tx.Rollback()
+                return err
+        }</span>
+        // Commit transaction
+        <span class="cov0" title="0">return tx.Commit()</span>
+}
+
+func (mt *managerTransaction) Begin() (context.Context, error) <span class="cov0" title="0">{
+        ctx := mt.db.Context()
+        tx, err := mt.db.BeginContext(ctx)
+        if err != nil </span><span class="cov0" title="0">{
+                return ctx, err
+        }</span>
+        <span class="cov0" title="0">return context.WithValue(ctx, txContextKey{}, tx), nil</span>
+}
+
+func (mt *managerTransaction) Commit(ctx context.Context) error <span class="cov0" title="0">{
+        tx, ok := ctx.Value(txContextKey{}).(*pg.Tx)
+        if !ok </span><span class="cov0" title="0">{
+                return ErrTxContextKey
+        }</span>
+        <span class="cov0" title="0">return tx.Commit()</span>
+}
+
+func (mt *managerTransaction) Rollback(ctx context.Context) error <span class="cov0" title="0">{
+        tx, ok := ctx.Value(txContextKey{}).(*pg.Tx)
+        if !ok </span><span class="cov0" title="0">{
+                return ErrTxContextKey
+        }</span>
+        <span class="cov0" title="0">return tx.Rollback()</span>
+}
+</pre>
+		
+		<pre class="file" id="file25" style="display: none">package repo
+
+import (
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        "context"
+        "fmt"
+        "reflect"
+        "strings"
+
+        "github.com/go-pg/pg/v10"
+)
+
+type userRepository struct {
+        db pg.DBI
+}
+
+func NewUserRepository(db *pg.DB) repository.UserRepository <span class="cov0" title="0">{
+        return &amp;userRepository{
+                db: db,
+        }
+}</span>
+
+func (ur *userRepository) CreateUser(user entity.User) (entity.UserInfor, error) <span class="cov0" title="0">{
+        _, err := ur.db.Model(&amp;user).Insert()
+        return user.GetInfor(), err
+}</span>
+
+func (ur *userRepository) GetUserByEmailOrPhone(val string) (entity.User, error) <span class="cov0" title="0">{
+        var user entity.User
+        err := ur.db.Model(&amp;user).Where("email = ?", val).WhereOr("phone = ?", val).Select()
+        return user, err
+}</span>
+
+func (ur *userRepository) CheckUserExist(val string) (bool, error) <span class="cov0" title="0">{
+        var user entity.User
+        count, err := ur.db.Model(&amp;user).Where("email = ?", val).Count()
+        isExist := count &gt; 0
+        return isExist, err
+}</span>
+
+func (ur *userRepository) UpdateUser(id string, user entity.User) (entity.UserInfor, error) <span class="cov0" title="0">{
+        var setClauses []string
+        var params []interface{}
+
+        // Sử dụng reflection để lấy danh sách field cần cập nhật
+        v := reflect.ValueOf(user)
+        if v.Kind() == reflect.Ptr </span><span class="cov0" title="0">{
+                v = v.Elem() // Lấy giá trị thực nếu là pointer
+        }</span>
+        <span class="cov0" title="0">t := v.Type()
+
+        for i := 0; i &lt; v.NumField(); i++ </span><span class="cov0" title="0">{
+                field := t.Field(i)
+                value := v.Field(i)
+
+                // Bỏ qua các trường không cần cập nhật
+                if field.Name == "ID" || field.Name == "CreatedAt" </span><span class="cov0" title="0">{
+                        continue</span>
+                }
+
+                // Chỉ thêm vào danh sách cập nhật nếu giá trị không phải zero-value
+                <span class="cov0" title="0">if !value.IsZero() </span><span class="cov0" title="0">{
+                        columnName := field.Tag.Get("pg")
+                        setClauses = append(setClauses, fmt.Sprintf("%s = ?", columnName))
+                        params = append(params, value.Interface())
+                }</span>
+        }
+
+        // Nếu không có dữ liệu để cập nhật, return sớm
+        <span class="cov0" title="0">if len(setClauses) == 0 </span><span class="cov0" title="0">{
+                return user.GetInfor(), nil
+        }</span>
+
+        <span class="cov0" title="0">setQuery := strings.Join(setClauses, ", ")
+
+        if _, err := ur.db.Model(&amp;user).Where("id = ?", id).Set(setQuery, params...).Update(); err != nil </span><span class="cov0" title="0">{
+                return entity.UserInfor{}, err
+        }</span>
+
+        <span class="cov0" title="0">return user.GetInfor(), nil</span>
+}
+
+func (ur *userRepository) GetUserByID(id string) (entity.User, error) <span class="cov0" title="0">{
+        var user entity.User
+        err := ur.db.Model(&amp;user).Where("id = ?", id).Select()
+        return user, err
+}</span>
+
+func (ur *userRepository) GetUserByEmail(email string) (entity.User, error) <span class="cov0" title="0">{
+        var user entity.User
+        err := ur.db.Model(&amp;user).Where("email = ?", email).Select()
+        return user, err
+}</span>
+
+func (ur *userRepository) UpdateUserByEmail(email string, user entity.User) (bool, error) <span class="cov0" title="0">{
+        r, err := ur.db.Model(&amp;user).Where("email = ?", email).Update(&amp;user)
+        return r.RowsAffected() != -1, err
+}</span>
+
+func (ur *userRepository) Tx(ctx context.Context) repository.UserRepository <span class="cov0" title="0">{
+        tx := getTx(ctx, ur.db)
+        return &amp;userRepository{
+                db: tx,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file26" style="display: none">package argonS
+
+import (
+        "cms-server/internal/service/argon"
+
+        "github.com/alexedwards/argon2id"
+)
+
+type agronImpl struct {
+        params *argon2id.Params
+}
+
+func NewArgon() argon.Argon <span class="cov0" title="0">{
+        return &amp;agronImpl{
+                params: argon2id.DefaultParams,
+        }
+}</span>
+
+func (a *agronImpl) HashPassword(password string) (string, error) <span class="cov0" title="0">{
+        return argon2id.CreateHash(password, a.params)
+}</span>
+
+func (a *agronImpl) VerifyPassword(hashedPassword, password string) (bool, error) <span class="cov0" title="0">{
+        match, err := argon2id.ComparePasswordAndHash(password, hashedPassword)
+        if err != nil </span><span class="cov0" title="0">{
+                return false, err
+        }</span>
+        <span class="cov0" title="0">return match, nil</span>
+}
+
+func (a *agronImpl) SetParams(
+        memory uint32,
+        iterations uint32,
+        parallelism uint8,
+        saltLength uint32,
+        keyLength uint32,
+) argon.Argon <span class="cov0" title="0">{
+        a.params = &amp;argon2id.Params{
+                Memory:      memory,
+                Iterations:  iterations,
+                Parallelism: parallelism,
+                SaltLength:  saltLength,
+                KeyLength:   keyLength,
+        }
+        return a
+}</span>
+
+func (a *agronImpl) SetMemory(memory uint32) argon.Argon <span class="cov0" title="0">{
+        a.params.Memory = memory
+        return a
+}</span>
+
+func (a *agronImpl) SetIterations(iterations uint32) argon.Argon <span class="cov0" title="0">{
+        a.params.Iterations = iterations
+        return a
+}</span>
+
+func (a *agronImpl) SetParallelism(parallelism uint8) argon.Argon <span class="cov0" title="0">{
+        a.params.Parallelism = parallelism
+        return a
+}</span>
+
+func (a *agronImpl) SetSaltLength(saltLength uint32) argon.Argon <span class="cov0" title="0">{
+        a.params.SaltLength = saltLength
+        return a
+}</span>
+
+func (a *agronImpl) SetKeyLength(keyLength uint32) argon.Argon <span class="cov0" title="0">{
+        a.params.KeyLength = keyLength
+        return a
+}</span>
+
+func (a *agronImpl) GetParams() *argon2id.Params <span class="cov0" title="0">{
+        return a.params
+}</span>
+</pre>
+		
+		<pre class="file" id="file27" style="display: none">package database
+
+import (
+        "context"
+        "fmt"
+
+        "github.com/go-pg/pg/v10"
+)
+
+// Hook to log the queries
+type queryHook struct{}
+
+func (h queryHook) BeforeQuery(c context.Context, q *pg.QueryEvent) (context.Context, error) <span class="cov0" title="0">{
+        return c, nil
+}</span>
+
+func (h queryHook) AfterQuery(c context.Context, q *pg.QueryEvent) error <span class="cov0" title="0">{
+        bytes, _ := q.FormattedQuery()
+        fmt.Println("After query\n" + string(bytes) + "\n")
+        return nil
+}</span>
+
+func NewQueryHook() pg.QueryHook <span class="cov0" title="0">{
+        return queryHook{}
+}</span>
+</pre>
+		
+		<pre class="file" id="file28" style="display: none">package goidS
+
+import gonanoid "github.com/matoous/go-nanoid/v2"
+
+type GoId struct {
+        alphabet string
+        size     int
+}
+
+func NewGoId() *GoId <span class="cov0" title="0">{
+        return &amp;GoId{
+                alphabet: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+                size:     18,
+        }
+}</span>
+
+func (g *GoId) Gen() string <span class="cov0" title="0">{
+        return gonanoid.MustGenerate(g.alphabet, g.size)
+}</span>
+
+func (g *GoId) GenWithLength(length int) string <span class="cov0" title="0">{
+        return gonanoid.MustGenerate(g.alphabet, length)
+}</span>
+
+func (g *GoId) SetAlphabet(alphabet string) <span class="cov0" title="0">{
+        g.alphabet = alphabet
+}</span>
+func (g *GoId) SetSize(size int) <span class="cov0" title="0">{
+        g.size = size
+}</span>
+</pre>
+		
+		<pre class="file" id="file29" style="display: none">package pkgjwt
+
+import (
+        "time"
+
+        "github.com/golang-jwt/jwt/v5"
+)
+
+type AuthClaims struct {
+        Id       string
+        FullName string
+        jwt.RegisteredClaims
+}
+
+func NewAuthClaims(id, fullName string, exp time.Time) AuthClaims <span class="cov0" title="0">{
+        return AuthClaims{
+                Id:       id,
+                FullName: fullName,
+                RegisteredClaims: jwt.RegisteredClaims{
+                        ExpiresAt: jwt.NewNumericDate(exp),
+                        Subject:   "Xác thực tài khoản " + id,
+                        NotBefore: jwt.NewNumericDate(time.Now()),
+                        IssuedAt:  jwt.NewNumericDate(time.Now()),
+                },
+        }
+}</span>
+
+type ForgotPasswordClaims struct {
+        Code string
+        Id   string
+        jwt.RegisteredClaims
+}
+
+func NewForgotClaims(id, code string, exp time.Time) ForgotPasswordClaims <span class="cov0" title="0">{
+        return ForgotPasswordClaims{
+                Code: code,
+                Id:   id,
+                RegisteredClaims: jwt.RegisteredClaims{
+                        ExpiresAt: jwt.NewNumericDate(exp),
+                        Subject:   "Lấy lại mật khẩu " + id,
+                        NotBefore: jwt.NewNumericDate(time.Now()),
+                        IssuedAt:  jwt.NewNumericDate(time.Now()),
+                },
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file30" style="display: none">package pkgjwt
+
+import (
+        serviceJwt "cms-server/internal/service/jwt"
+        "time"
+
+        "github.com/golang-jwt/jwt/v5"
+)
+
+type jwtImpl struct {
+        secretKey string
+}
+
+func NewJWT(secretKey string) serviceJwt.JwtService <span class="cov0" title="0">{
+        return &amp;jwtImpl{
+                secretKey: secretKey,
+        }
+}</span>
+
+func (j *jwtImpl) SetSecretKey(secretKey string) serviceJwt.JwtService <span class="cov0" title="0">{
+        j.secretKey = secretKey
+        return j
+}</span>
+
+func (j *jwtImpl) generateToken(data jwt.Claims) *jwt.Token <span class="cov0" title="0">{
+        return jwt.NewWithClaims(jwt.SigningMethodHS256, data)
+}</span>
+
+func (j *jwtImpl) verifyClaim(token string, data jwt.Claims) (*jwt.Token, error) <span class="cov0" title="0">{
+        t, err := jwt.ParseWithClaims(token, data, func(t *jwt.Token) (interface{}, error) </span><span class="cov0" title="0">{
+                if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok </span><span class="cov0" title="0">{
+                        return nil, jwt.ErrInvalidKeyType
+                }</span>
+                <span class="cov0" title="0">return []byte(j.secretKey), nil</span>
+        })
+        <span class="cov0" title="0">return t, err</span>
+}
+
+func (j *jwtImpl) VerifyRegisterToken(token string) (*serviceJwt.VerifyClaims, error) <span class="cov0" title="0">{
+        t, err := j.verifyClaim(token, &amp;VerifyClaims{})
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">claim, ok := t.Claims.(*VerifyClaims)
+        if !ok </span><span class="cov0" title="0">{
+                return nil, ErrParseToken
+        }</span>
+        <span class="cov0" title="0">return &amp;serviceJwt.VerifyClaims{
+                Code: claim.Code,
+                Id:   claim.Id,
+                RegisteredClaims: serviceJwt.RegisteredClaims{
+                        ExpiresAt: claim.ExpiresAt.Time,
+                        Subject:   claim.Subject,
+                        Audience:  claim.Audience,
+                        NotBefore: claim.NotBefore.Time,
+                        IssuedAt:  claim.IssuedAt.Time,
+                },
+        }, nil</span>
+}
+
+func (j *jwtImpl) GenRegisterToken(id, code string, exp time.Time) (string, error) <span class="cov0" title="0">{
+        data := NewRegisterClaims(id, code, exp)
+        token := j.generateToken(data)
+        return token.SignedString([]byte(j.secretKey))
+}</span>
+
+func (j *jwtImpl) GenAuthToken(id, fullName string, exp time.Time) (string, error) <span class="cov0" title="0">{
+        data := NewAuthClaims(id, fullName, exp)
+        token := j.generateToken(data)
+        return token.SignedString([]byte(j.secretKey))
+}</span>
+
+func (j *jwtImpl) VerifyAuthToken(token string) (*serviceJwt.AuthClaims, error) <span class="cov0" title="0">{
+        t, err := j.verifyClaim(token, &amp;AuthClaims{})
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">claim, ok := t.Claims.(*AuthClaims)
+        if !ok </span><span class="cov0" title="0">{
+                return nil, ErrParseToken
+        }</span>
+        <span class="cov0" title="0">return &amp;serviceJwt.AuthClaims{
+                Id:       claim.Id,
+                FullName: claim.FullName,
+                RegisteredClaims: serviceJwt.RegisteredClaims{
+                        ExpiresAt: claim.ExpiresAt.Time,
+                        Subject:   claim.Subject,
+                        Audience:  claim.Audience,
+                        NotBefore: claim.NotBefore.Time,
+                        IssuedAt:  claim.IssuedAt.Time,
+                },
+        }, nil</span>
+}
+
+func (j *jwtImpl) GenForgotPasswordToken(id, fullName string, exp time.Time) (string, error) <span class="cov0" title="0">{
+        data := NewForgotClaims(id, fullName, exp)
+        token := j.generateToken(data)
+        return token.SignedString([]byte(j.secretKey))
+}</span>
+
+func (j *jwtImpl) VerifyForgotPasswordToken(token string) (*serviceJwt.ForgotPasswordClaims, error) <span class="cov0" title="0">{
+        t, err := j.verifyClaim(token, &amp;ForgotPasswordClaims{})
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">claim, ok := t.Claims.(*ForgotPasswordClaims)
+        if !ok </span><span class="cov0" title="0">{
+                return nil, ErrParseToken
+        }</span>
+        <span class="cov0" title="0">return &amp;serviceJwt.ForgotPasswordClaims{
+                Code: claim.Code,
+                Id:   claim.Id,
+                RegisteredClaims: serviceJwt.RegisteredClaims{
+                        ExpiresAt: claim.ExpiresAt.Time,
+                        Subject:   claim.Subject,
+                        Audience:  claim.Audience,
+                        NotBefore: claim.NotBefore.Time,
+                        IssuedAt:  claim.IssuedAt.Time,
+                },
+        }, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file31" style="display: none">package pkgjwt
+
+import (
+        "time"
+
+        "github.com/golang-jwt/jwt/v5"
+)
+
+type VerifyClaims struct {
+        Code string
+        Id   string
+        jwt.RegisteredClaims
+}
+
+func NewRegisterClaims(id, code string, exp time.Time) VerifyClaims <span class="cov0" title="0">{
+        return VerifyClaims{
+                Code: code,
+                Id:   id,
+                RegisteredClaims: jwt.RegisteredClaims{
+                        ExpiresAt: jwt.NewNumericDate(exp),
+                        Subject:   "Đăng ký tài khoản " + id,
+                        NotBefore: jwt.NewNumericDate(time.Now()),
+                        IssuedAt:  jwt.NewNumericDate(time.Now()),
+                },
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file32" style="display: none">package pkglog
+
+import (
+        pkgres "cms-server/infrastructure/service/response"
+        serviceLogger "cms-server/internal/service/logger"
+        "fmt"
+        "os"
+        "time"
+
+        "github.com/gofiber/fiber/v2"
+        "go.uber.org/zap"
+        "go.uber.org/zap/zapcore"
+        "gopkg.in/natefinch/lumberjack.v2"
+)
+
+type Logger interface {
+        Log(c *fiber.Ctx, err error) error
+        serviceLogger.Logger
+}
+
+type logger struct {
+        Logger *zap.Logger
+}
+
+func NewConfig() *lumberjack.Logger <span class="cov0" title="0">{
+        if _, err := os.Stat("logs"); os.IsNotExist(err) </span><span class="cov0" title="0">{
+                os.Mkdir("logs", os.ModePerm)
+        }</span>
+        <span class="cov0" title="0">date := time.Now().Format("2006-01-02")
+        return &amp;lumberjack.Logger{
+                Filename:   fmt.Sprintf("logs/%s.log", date), // Tạo file theo ngày
+                MaxSize:    10,                               // MB, giới hạn file log
+                MaxBackups: 7,                                // Giữ lại 7 file log cũ
+                MaxAge:     30,                               // Giữ log trong 30 ngày
+                Compress:   true,                             // Nén log cũ
+        }</span>
+}
+
+// InitLogger thiết lập Logger với Lumberjack và Zap
+func InitLogger(config *lumberjack.Logger, logLevel zapcore.Level, logFile bool) Logger <span class="cov0" title="0">{
+        encoderConfig := zapcore.EncoderConfig{
+                LevelKey:         "level",
+                MessageKey:       "message",
+                CallerKey:        "caller",
+                TimeKey:          "time",
+                LineEnding:       zapcore.DefaultLineEnding,
+                EncodeTime:       zapcore.ISO8601TimeEncoder, // Format thời gian
+                EncodeCaller:     zapcore.ShortCallerEncoder, // Hiển thị file.go:line
+                EncodeLevel:      zapcore.CapitalLevelEncoder,
+                ConsoleSeparator: " | ",
+        }
+
+        var coreLogs []zapcore.Core
+
+        // Nếu log ra file thì thêm vào coreLogs
+        if logFile </span><span class="cov0" title="0">{
+                configFile := encoderConfig
+                fileEncoder := zapcore.NewJSONEncoder(configFile)
+                fileWriter := zapcore.AddSync(config)
+                coreLogs = append(coreLogs, zapcore.NewCore(fileEncoder, fileWriter, logLevel))
+        }</span>
+
+        <span class="cov0" title="0">encoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder // Hiển thị màu
+        encoderConfig.StacktraceKey = "stack"
+        consoleEncoder := zapcore.NewConsoleEncoder(encoderConfig)
+        consoleWriter := zapcore.Lock(os.Stdout)
+        coreLogs = append(coreLogs, zapcore.NewCore(consoleEncoder, consoleWriter, logLevel))
+
+        // Kết hợp nhiều writer
+        core := zapcore.NewTee(coreLogs...)
+
+        return &amp;logger{
+                Logger: zap.New(
+                        core,
+                        zap.AddCaller(),
+                        zap.AddCallerSkip(2),
+                        zap.AddStacktrace(zapcore.ErrorLevel),
+                ),
+        }</span>
+}
+
+func convertToZapFields(fields ...any) []zap.Field <span class="cov0" title="0">{
+        var zapFields []zap.Field
+        for i := 0; i &lt; len(fields)-1; i += 2 </span><span class="cov0" title="0">{
+                key, ok := fields[i].(string)
+                if !ok </span><span class="cov0" title="0">{
+                        continue</span> // bỏ qua nếu key không phải string
+                }
+                <span class="cov0" title="0">value := fields[i+1]
+                zapFields = append(zapFields, zap.Any(key, value))</span>
+        }
+        <span class="cov0" title="0">return zapFields</span>
+}
+
+// Các hàm tiện ích
+func (l *logger) Info(msg string, fields ...any) <span class="cov0" title="0">{
+        zapFields := convertToZapFields(fields...)
+        if len(zapFields) &gt; 0 </span><span class="cov0" title="0">{
+                zapFields = append(zapFields, zap.String("info", msg))
+        }</span>
+        <span class="cov0" title="0">l.Logger.Info(msg, zapFields...)</span>
+}
+
+func (l *logger) Debug(msg string, fields ...any) <span class="cov0" title="0">{
+        zapFields := convertToZapFields(fields...)
+        if len(zapFields) &gt; 0 </span><span class="cov0" title="0">{
+                zapFields = append(zapFields, zap.String("debug", msg))
+        }</span>
+        <span class="cov0" title="0">l.Logger.Debug(msg, zapFields...)</span>
+}
+
+func (l *logger) Warn(msg string, fields ...any) <span class="cov0" title="0">{
+        zapFields := convertToZapFields(fields...)
+        if len(zapFields) &gt; 0 </span><span class="cov0" title="0">{
+                zapFields = append(zapFields, zap.String("warning", msg))
+        }</span>
+        <span class="cov0" title="0">l.Logger.Warn(msg, zapFields...)</span>
+}
+
+func (l *logger) Error(msg string, fields ...any) <span class="cov0" title="0">{
+        zapFields := convertToZapFields(fields...)
+        if len(zapFields) &gt; 0 </span><span class="cov0" title="0">{
+                zapFields = append(zapFields, zap.String("error", msg))
+        }</span>
+        <span class="cov0" title="0">l.Logger.Error(msg, zapFields...)</span>
+}
+
+func (l *logger) Fatal(msg string, fields ...any) <span class="cov0" title="0">{
+        zapFields := convertToZapFields(fields...)
+        if len(zapFields) &gt; 0 </span><span class="cov0" title="0">{
+                zapFields = append(zapFields, zap.String("fatal", msg))
+        }</span>
+        <span class="cov0" title="0">l.Logger.Fatal(msg, zapFields...)</span>
+}
+
+func (l *logger) Log(c *fiber.Ctx, err error) error <span class="cov0" title="0">{
+        l.Error(
+                err.Error(),
+                zap.String("path", c.Path()),
+                zap.String("method", c.Method()),
+                zap.String("ip", c.IP()),
+                zap.String("user-agent", c.Get("User-Agent")),
+        )
+        var er error
+        switch e := err.(type) </span>{
+        case *pkgres.ErrorApp:<span class="cov0" title="0">
+                er = c.Status(e.GetCode()).JSON(e)</span>
+        case *fiber.Error:<span class="cov0" title="0">
+                er = c.Status(e.Code).JSON(fiber.Map{
+                        "Message": e.Message,
+                })</span>
+        default:<span class="cov0" title="0">
+                er = c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+                        "Message": e.Error(),
+                })</span>
+        }
+        <span class="cov0" title="0">return er</span>
+}
+</pre>
+		
+		<pre class="file" id="file33" style="display: none">package mailS
+
+import (
+        "cms-server/bootstrap"
+        "cms-server/constants"
+        "cms-server/infrastructure/repo"
+        "cms-server/infrastructure/service/mailtemplate"
+        "cms-server/internal/schedule"
+        serviceLogger "cms-server/internal/service/logger"
+        "context"
+
+        "github.com/go-pg/pg/v10"
+        "github.com/hibiken/asynq"
+)
+
+type MailHandler struct {
+        mailS schedule.EmailSystemImpl
+}
+
+func (e *MailHandler) ProcessTask(ctx context.Context, task *asynq.Task) error <span class="cov0" title="0">{
+        return e.mailS.SendMailQueue(task.Payload(), task.ResultWriter().TaskID())
+}</span>
+
+func NewEmailHandler(
+        mux *asynq.ServeMux,
+        env *bootstrap.Env,
+        log serviceLogger.Logger,
+        db *pg.DB,
+) <span class="cov0" title="0">{
+        var mailS = schedule.NewEmailSystem(
+                log,
+                mailtemplate.NewMailTemplate(),
+                bootstrap.NewMailProvider(),
+                repo.NewMailTplRepository(db),
+                repo.NewMailProviderRepository(db),
+                repo.NewMailHistoryRepository(db),
+                repo.NewStatusHistoryRepository(db),
+                []string{env.TEST_EMAIL}, // Danh sách email dùng để test
+        )
+        mailS.ConfigTest().SetIsProduction(env.IsProduction())
+        mux.Handle(string(constants.QUEUE_EMAIL_SYSTEM), &amp;MailHandler{mailS})
+}</span>
+</pre>
+		
+		<pre class="file" id="file34" style="display: none">package mailtemplate
+
+import (
+        mailtpl "cms-server/internal/service/mailTpl"
+
+        "github.com/cbroglie/mustache"
+)
+
+type mailTemplate struct{}
+
+func NewMailTemplate() mailtpl.MailTemplate <span class="cov0" title="0">{
+        return &amp;mailTemplate{}
+}</span>
+
+func (m *mailTemplate) RenderWithLayout(layout, subject, body string, data map[string]any) (*mailtpl.Result, error) <span class="cov0" title="0">{
+        var err error
+        var result mailtpl.Result
+        if subject, err = mustache.Render(subject, data); err != nil </span><span class="cov0" title="0">{
+                return &amp;result, err
+        }</span> else<span class="cov0" title="0"> if body, err = mustache.RenderInLayout(body, layout, data); err != nil </span><span class="cov0" title="0">{
+                return &amp;result, err
+        }</span>
+        <span class="cov0" title="0">result.Subject = subject
+        result.Body = body
+        return &amp;result, nil</span>
+}
+
+func (m *mailTemplate) Render(subject, body string, data map[string]any) (*mailtpl.Result, error) <span class="cov0" title="0">{
+        var err error
+        var result mailtpl.Result
+        if subject, err = mustache.Render(subject, data); err != nil </span><span class="cov0" title="0">{
+                return &amp;result, err
+        }</span> else<span class="cov0" title="0"> if body, err = mustache.Render(body, data); err != nil </span><span class="cov0" title="0">{
+                return &amp;result, err
+        }</span>
+        <span class="cov0" title="0">result.Subject = subject
+        result.Body = body
+        return &amp;result, nil</span>
+}
+
+func (m *mailTemplate) RenderLayoutFile(fileLayout, subject, body string, data map[string]any) (*mailtpl.Result, error) <span class="cov0" title="0">{
+        var result mailtpl.Result
+        if layout, err := mustache.ParseFile(fileLayout); err != nil </span><span class="cov0" title="0">{
+                return &amp;result, err
+        }</span> else<span class="cov0" title="0"> if subject, err = mustache.Render(subject, data); err != nil </span><span class="cov0" title="0">{
+                return &amp;result, err
+        }</span> else<span class="cov0" title="0"> if renderedBody, err := layout.Render(data); err != nil </span><span class="cov0" title="0">{
+                return &amp;result, err
+        }</span> else<span class="cov0" title="0"> {
+                result.Subject = subject
+                result.Body = renderedBody
+        }</span>
+        <span class="cov0" title="0">return &amp;result, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file35" style="display: none">package pkgres
+
+import (
+        serviceError "cms-server/internal/service/error"
+        serviceRes "cms-server/internal/service/response"
+        "net/http"
+)
+
+type ErrorApp struct {
+        Message string `json:",omitempty"`
+        Data    any    `json:",omitempty"`
+        code    int
+}
+
+func NewErr(msg string) serviceError.ErrorApp <span class="cov0" title="0">{
+        return &amp;ErrorApp{
+                Message: msg,
+                code:    http.StatusInternalServerError,
+        }
+}</span>
+
+func Err(err error) serviceError.ErrorApp <span class="cov0" title="0">{
+        return &amp;ErrorApp{
+                Message: err.Error(),
+                code:    http.StatusInternalServerError,
+        }
+}</span>
+
+func (r *ErrorApp) Error() string <span class="cov0" title="0">{
+        return r.Message
+}</span>
+
+func (r *ErrorApp) SetMessage(message string) serviceError.ErrorApp <span class="cov0" title="0">{
+        r.Message = message
+        return r
+}</span>
+
+func (r *ErrorApp) SetData(data any) serviceError.ErrorApp <span class="cov0" title="0">{
+        r.Data = data
+        return r
+}</span>
+
+func (r *ErrorApp) Code(code int) serviceError.ErrorApp <span class="cov0" title="0">{
+        r.code = code
+        return r
+}</span>
+
+func (r *ErrorApp) GetCode() int <span class="cov0" title="0">{
+        return r.code
+}</span>
+
+func (r *ErrorApp) BadReq() serviceError.ErrorApp <span class="cov0" title="0">{
+        return r.Code(http.StatusBadRequest)
+}</span>
+
+func (r *ErrorApp) UnprocessableEntity() serviceError.ErrorApp <span class="cov0" title="0">{
+        return r.Code(http.StatusUnprocessableEntity)
+}</span>
+
+func (r *ErrorApp) InternalServerError() serviceError.ErrorApp <span class="cov0" title="0">{
+        return r.Code(http.StatusInternalServerError)
+}</span>
+
+func (r *ErrorApp) NotFound() serviceError.ErrorApp <span class="cov0" title="0">{
+        return r.Code(http.StatusNotFound)
+}</span>
+
+func (r *ErrorApp) Unauthorized() serviceError.ErrorApp <span class="cov0" title="0">{
+        return r.Code(http.StatusUnauthorized)
+}</span>
+
+func (r *ErrorApp) Forbidden() serviceError.ErrorApp <span class="cov0" title="0">{
+        return r.Code(http.StatusForbidden)
+}</span>
+
+func (r *ErrorApp) Conflict() serviceError.ErrorApp <span class="cov0" title="0">{
+        return r.Code(http.StatusConflict)
+}</span>
+
+type res struct {
+        Message string `json:",omitempty"`
+        Data    any    `json:",omitempty"`
+        code    int
+}
+
+func NewRes(msg string) serviceRes.Response <span class="cov0" title="0">{
+        return &amp;res{
+                Message: msg,
+        }
+}</span>
+
+func ResData(data any) serviceRes.Response <span class="cov0" title="0">{
+        return &amp;res{
+                Data: data,
+        }
+}</span>
+
+func (r *res) New(msg string) serviceRes.Response <span class="cov0" title="0">{
+        return &amp;res{
+                Message: msg,
+                code:    http.StatusOK,
+        }
+}</span>
+
+func (r *res) SetMessage(message string) serviceRes.Response <span class="cov0" title="0">{
+        r.Message = message
+        return r
+}</span>
+
+func (r *res) SetData(data any) serviceRes.Response <span class="cov0" title="0">{
+        r.Data = data
+        return r
+}</span>
+
+func (r *res) Code(code int) serviceRes.Response <span class="cov0" title="0">{
+        r.code = code
+        return r
+}</span>
+
+func (r *res) GetCode() int <span class="cov0" title="0">{
+        return r.code
+}</span>
+</pre>
+		
+		<pre class="file" id="file36" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type ActivityLog struct {
+        tableName struct{}  `pg:"activity_logs,alias:al"`
+        ID        string    `pg:"id,pk"`
+        UserID    string    `pg:"user_id"`
+        User      *User     `pg:"rel:has-one"`
+        Url       string    `pg:"url"`
+        Activity  string    `pg:"activity"`
+        IP        string    `pg:"ip"`
+        CreatedAt time.Time `pg:"created_at"`
+}
+
+func (al *ActivityLog) NameTable() any <span class="cov0" title="0">{
+        return al.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file37" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Attribute struct {
+        tableName struct{}   `pg:"attributes,alias:a"`
+        ID        string     `pg:"id,pk"`
+        Name      string     `pg:"name"`
+        CreatedAt time.Time  `pg:"created_at"`
+        UpdatedAt *time.Time `pg:"updated_at"`
+}
+
+func (a *Attribute) NameTable() any <span class="cov0" title="0">{
+        return a.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file38" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type AttributeValue struct {
+        tableName   struct{}   `pg:"attribute_values,alias:av"`
+        ID          string     `pg:"id,pk"`
+        AttributeID string     `pg:"attribute_id"`
+        Attribute   *Attribute `pg:"rel:has-one"`
+        Value       string     `pg:"value"`
+        CreatedAt   time.Time  `pg:"created_at"`
+        UpdatedAt   *time.Time `pg:"updated_at"`
+}
+
+func (a *AttributeValue) NameTable() any <span class="cov0" title="0">{
+        return a.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file39" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Banner struct {
+        tableName struct{}   `pg:"banners,alias:b"`
+        ID        string     `pg:"id,pk"`
+        Title     string     `pg:"title"`
+        Content   string     `pg:"content"`
+        Image     string     `pg:"image"`
+        Url       string     `pg:"url"`
+        Order     int        `pg:"order"`
+        Target    string     `pg:"target"`
+        CreatedBy string     `pg:"created_by"`
+        CreatedAt time.Time  `pg:"created_at"`
+        UpdatedAt *time.Time `pg:"updated_at"`
+}
+
+func (b *Banner) NameTable() any <span class="cov0" title="0">{
+        return b.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file40" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Cart struct {
+        tableName     struct{}  `pg:"carts,alias:c"`
+        ID            string    `pg:"id,pk"`
+        UserID        string    `pg:"user_id"`
+        User          *User     `pg:"rel:has-one"`
+        SessionsToken string    `pg:"sessions_token"`
+        Sessions      *Session  `pg:"rel:has-one"`
+        CreatedAt     time.Time `pg:"created_at"`
+}
+
+func (c *Cart) NameTable() any <span class="cov0" title="0">{
+        return c.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file41" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type CartItem struct {
+        tableName        struct{}        `pg:"cart_items,alias:ci"`
+        ID               string          `pg:"id,pk"`
+        CartID           string          `pg:"cart_id"`
+        ProductID        string          `pg:"product_id"`
+        ProductVariantID string          `pg:"product_variant_id"`
+        Product          *Product        `pg:"rel:has-one"`
+        ProductVariant   *ProductVariant `pg:"rel:has-one"`
+        Quantity         int             `pg:"quantity"`
+        Price            float64         `pg:"price"`
+        CreatedAt        time.Time       `pg:"created_at"`
+        UpdatedAt        time.Time       `pg:"updated_at"`
+}
+
+func (ci *CartItem) NameTable() any <span class="cov0" title="0">{
+        return ci.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file42" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Category struct {
+        tableName   struct{}   `pg:"categories,alias:c"`
+        ID          string     `pg:"id,pk"`
+        Name        string     `pg:"name"`
+        Slug        string     `pg:"slug"`
+        Description string     `pg:"description"`
+        Thumbnail   string     `pg:"thumbnail"`
+        ViewCount   int        `pg:"view_count"`
+        Type        string     `pg:"type"`
+        Status      string     `pg:"status"`
+        ParentID    string     `pg:"parent_id"`
+        CreatedBy   string     `pg:"created_by"`
+        CreatedAt   time.Time  `pg:"created_at"`
+        UpdatedAt   *time.Time `pg:"updated_at"`
+}
+
+func (c *Category) NameTable() any <span class="cov0" title="0">{
+        return c.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file43" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Comment struct {
+        tableName struct{}  `pg:"comments,alias:c"`
+        ID        string    `pg:"id,pk"`
+        UserID    string    `pg:"user_id"`
+        User      *User     `pg:"rel:has-one"`
+        PostID    string    `pg:"post_id"`
+        Post      *Post     `pg:"rel:has-one"`
+        ParentID  string    `pg:"parent_id"`
+        Parent    *Comment  `pg:"rel:has-one"`
+        Content   string    `pg:"content"`
+        Meida     string    `pg:"media"`
+        Status    string    `pg:"status"`
+        TypeMedia string    `pg:"type_media"`
+        CreatedAt time.Time `pg:"created_at"`
+}
+
+func (c *Comment) NameTable() any <span class="cov0" title="0">{
+        return c.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file44" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Coupon struct {
+        tableName      struct{}   `pg:"coupons,alias:c"`
+        ID             string     `pg:"id,pk"`
+        CreatedBy      string     `pg:"created_by"`
+        Name           string     `pg:"name"`
+        Code           *string    `pg:"code"`
+        Type           string     `pg:"type"`
+        Value          float64    `pg:"value"`
+        Quantity       int        `pg:"quantity"`
+        Description    string     `pg:"description"`
+        TimeStart      time.Time  `pg:"time_start"`
+        TimeEnd        time.Time  `pg:"time_end"`
+        MinOrderValue  float64    `pg:"min_order_value"`
+        MaxValue       float64    `pg:"max_value"`
+        LimitPreUser   int        `pg:"limit_pre_user"`
+        Status         string     `pg:"status"`
+        CouponForType  string     `pg:"coupon_for_type"`
+        RefIds         []string   `pg:"ref_ids,array"`
+        PaymentMethods []string   `pg:"payment_methods,array"`
+        CreatedAt      time.Time  `pg:"created_at"`
+        UpdatedAt      *time.Time `pg:"updated_at"`
+}
+
+func (c *Coupon) NameTable() any <span class="cov0" title="0">{
+        return c.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file45" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Like struct {
+        tableName struct{}  `pg:"likes,alias:l"`
+        ID        string    `pg:"id,pk"`
+        UserID    string    `pg:"user_id"`
+        User      *User     `pg:"rel:has-one"`
+        RefId     string    `pg:"ref_id"`
+        Type      string    `pg:"type"`
+        CreatedAt time.Time `pg:"created_at"`
+}
+
+func (l *Like) NameTable() any <span class="cov0" title="0">{
+        return l.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file46" style="display: none">package entity
+
+import "time"
+
+type MailHistory struct {
+        tableName     struct{}       `pg:"mail_histories,alias:mh"`
+        ID            string         `pg:"id,pk"`
+        TemplateId    string         `pg:"template_id"`
+        Subject       string         `pg:"subject"`
+        Body          string         `pg:"body"`
+        To            string         `pg:"to"`
+        Tos           []string       `pg:"tos"`
+        Data          map[string]any `pg:"data"`
+        EmailProvider string         `pg:"email_provider"`
+        CreatedBy     string         `pg:"created_by"`
+        CreatedAt     time.Time      `pg:"created_at"`
+        UpdatedAt     *time.Time     `pg:"updated_at"`
+}
+
+func (mh *MailHistory) NameTable() any <span class="cov0" title="0">{
+        return mh.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file47" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type MailProvider struct {
+        tableName  struct{}  `pg:"mail_providers,alias:mp"`
+        Email      string    `pg:"email,pk"`
+        Password   string    `pg:"password"`
+        UserName   string    `pg:"user_name"`
+        Port       int       `pg:"port"`
+        Host       string    `pg:"host"`
+        Encryption string    `pg:"encryption"`
+        Name       string    `pg:"name"`
+        TypeId     string    `pg:"type_id"`
+        Type       TypeMail  `pg:"rel:has-one"`
+        CreatedBy  string    `pg:"created_by"`
+        CreatedAt  time.Time `pg:"created_at"`
+        UpdatedAt  time.Time `pg:"updated_at"`
+}
+
+func (mp *MailProvider) GetNameTable() any <span class="cov0" title="0">{
+        return mp.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file48" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type StatusMail string
+
+const (
+        MAIL_STATUS_PENDING   StatusMail = "pending"
+        MAIL_STATUS_SENT      StatusMail = "sent"
+        MAIL_STATUS_DELIVERED StatusMail = "delivered"
+        MAIL_STATUS_FAILED    StatusMail = "failed"
+        MAIL_STATUS_CANCELED  StatusMail = "canceled"
+        MAIL_STATUS_CLICKED   StatusMail = "clicked"
+        MAIL_STATUS_OPENED    StatusMail = "opened"
+)
+
+type MailStatus struct {
+        table     struct{}   `pg:"mail_status,alias:ms"`
+        Status    StatusMail `pg:"status,pk"`
+        Name      string     `pg:"name"`
+        CreatedAt time.Time  `pg:"created_at"`
+}
+
+func (ms *MailStatus) GetNameTable() any <span class="cov0" title="0">{
+        return ms.table
+}</span>
+</pre>
+		
+		<pre class="file" id="file49" style="display: none">package entity
+
+import (
+        "cms-server/constants"
+        "time"
+)
+
+type MailTemplate struct {
+        tableName     struct{}         `pg:"mail_templates,alias:mt"`
+        ID            string           `pg:"id,pk"`
+        Name          string           `pg:"name"`
+        Subject       string           `pg:"subject,unique"`
+        Body          string           `pg:"body"`
+        Keys          []string         `pg:"keys,array"`
+        ProviderEmail string           `pg:"provider_email"`
+        Provider      *MailProvider    `pg:"rel:has-one"`
+        Status        constants.Status `pg:"status"`
+        CreatedBy     string           `pg:"created_by"`
+        CreatedAt     time.Time        `pg:"created_at"`
+        UpdatedAt     *time.Time       `pg:"updated_at"`
+}
+
+func (mt *MailTemplate) GetNameTable() any <span class="cov0" title="0">{
+        return mt.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file50" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Media struct {
+        tableName struct{}   `pg:"medias,alias:m"`
+        ID        string     `pg:"id,pk"`
+        CreatedBy string     `pg:"created_by"`
+        Name      string     `pg:"name"`
+        MimeType  string     `pg:"mime_type"`
+        Size      int64      `pg:"size"`
+        Url       string     `pg:"url"`
+        Width     float32    `pg:"width"`
+        Height    float32    `pg:"height"`
+        CreatedAt time.Time  `pg:"created_at"`
+        UpdatedAt *time.Time `pg:"updated_at"`
+}
+
+func (m *Media) NameTable() any <span class="cov0" title="0">{
+        return m.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file51" style="display: none">package entity
+
+import "time"
+
+type Menu struct {
+        tableName struct{}   `pg:"menus,alias:m"`
+        ID        string     `pg:"id,pk"`
+        Name      string     `pg:"name"`
+        Url       string     `pg:"url"`
+        Icon      string     `pg:"icon"`
+        ParentID  string     `pg:"parent_id"`
+        Order     int        `pg:"order"`
+        Target    string     `pg:"target"`
+        Image     string     `pg:"image"`
+        CreatedAt time.Time  `pg:"created_at"`
+        UpdatedAt *time.Time `pg:"updated_at"`
+}
+
+func (m *Menu) NameTable() any <span class="cov0" title="0">{
+        return m.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file52" style="display: none">package entity
+
+type MethodPayment struct {
+        tableName struct{} `pg:"method_payments,alias:mp"`
+        Id        string   `pg:"id,pk"`
+        Name      string   `pg:"name"`
+        CreatedAt string   `pg:"created_at"`
+        UpdatedAt string   `pg:"updated_at"`
+}
+
+func (mp *MethodPayment) NameTable() any <span class="cov0" title="0">{
+        return mp.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file53" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Module struct {
+        tableName struct{}   `pg:"modules,alias:m"`
+        ID        string     `pg:"id,pk"`
+        Name      string     `pg:"name"`
+        Status    string     `pg:"status"`
+        CreatedAt time.Time  `pg:"created_at"`
+        UpdatedAt *time.Time `pg:"updated_at"`
+}
+
+func (m *Module) NameTable() any <span class="cov0" title="0">{
+        return m.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file54" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type ModuleChild struct {
+        tableName struct{}   `pg:"module_childs,alias:mc"`
+        ID        string     `pg:"id,pk"`
+        ModuleID  string     `pg:"module_id"`
+        Name      string     `pg:"name"`
+        Path      string     `pg:"path"`
+        Method    string     `pg:"method"`
+        IsPrivate bool       `pg:"is_private"`
+        CreatedAt time.Time  `pg:"created_at"`
+        UpdatedAt *time.Time `pg:"updated_at"`
+}
+
+func (mc *ModuleChild) NameTable() any <span class="cov0" title="0">{
+        return mc.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file55" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type ModuleChildRole struct {
+        tableName struct{}   `pg:"module_child_roles,alias:mcr"`
+        ID        string     `pg:"id,pk"`
+        RoleID    string     `pg:"role_id"`
+        ModuleID  string     `pg:"module_id"`
+        ChildID   string     `pg:"child_id"`
+        CreatedAt time.Time  `pg:"created_at"`
+        UpdatedAt *time.Time `pg:"updated_at"`
+}
+
+func (mcr *ModuleChildRole) NameTable() any <span class="cov0" title="0">{
+        return mcr.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file56" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Order struct {
+        tableName         struct{}   `pg:"orders,alias:o"`
+        ID                string     `pg:"id,pk"`
+        UserID            string     `pg:"user_id"`
+        User              *User      `pg:"rel:has-one"`
+        Code              string     `pg:"code"`
+        FullName          string     `pg:"full_name"`
+        Email             string     `pg:"email"`
+        Phone             string     `pg:"phone"`
+        Address           string     `pg:"address"`
+        Location          string     `pg:"location"`
+        MethodPayment     string     `pg:"method_payment"`
+        PaymentStatus     string     `pg:"payment_status"`
+        SubTotal          float64    `pg:"sub_total"`
+        Shipping          float64    `pg:"shipping"`
+        ShippingDiscount  float64    `pg:"shipping_discount"`
+        Note              string     `pg:"note"`
+        TotalPriceProduct float64    `pg:"total_price_product"`
+        DiscountProduct   float64    `pg:"discount_product"`
+        ToAddress         string     `pg:"to_address"`
+        ToLocation        string     `pg:"to_location"`
+        Total             float64    `pg:"total"`
+        CreatedAt         time.Time  `pg:"created_at"`
+        UpdatedAt         *time.Time `pg:"updated_at"`
+}
+
+func (o *Order) NameTable() any <span class="cov0" title="0">{
+        return o.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file57" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type OrderItem struct {
+        tableName        struct{}   `pg:"order_items,alias:oi"`
+        Id               string     `pg:"id,pk"`
+        OrderId          string     `pg:"order_id"`
+        Order            *Order     `pg:"rel:has-one"`
+        ProductId        string     `pg:"product_id"`
+        ProductVariantId string     `pg:"product_variant_id"`
+        Name             string     `pg:"name"`
+        TypeVariant      string     `pg:"type_variant"`
+        Quantity         int        `pg:"quantity"`
+        Price            int        `pg:"price"`
+        Discount         int        `pg:"discount"`
+        TypeDiscount     string     `pg:"type_discount"`
+        CreatedAt        time.Time  `pg:"created_at"`
+        UpdatedAt        *time.Time `pg:"updated_at"`
+}
+
+func (oi *OrderItem) NameTable() any <span class="cov0" title="0">{
+        return oi.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file58" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type OrderStatusHistory struct {
+        tableName struct{}   `pg:"order_status_histories,alias:osh"`
+        ID        string     `pg:"id,pk"`
+        OrderID   string     `pg:"order_id"`
+        StatusID  string     `pg:"status_id"`
+        Note      string     `pg:"note"`
+        CreatedBy string     `pg:"created_by"`
+        CreatedAt time.Time  `pg:"created_at"`
+        UpdatedAt *time.Time `pg:"updated_at"`
+}
+
+func (osh *OrderStatusHistory) NameTable() any <span class="cov0" title="0">{
+        return osh.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file59" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Post struct {
+        tableName   struct{}   `pg:"posts,alias:p"`
+        ID          string     `pg:"id,pk"`
+        Title       string     `pg:"title"`
+        Slug        string     `pg:"slug"`
+        Content     string     `pg:"content"`
+        TypeContent string     `pg:"type_content"`
+        Thumbnail   string     `pg:"thumbnail"`
+        CategoryId  string     `pg:"category_id"`
+        Category    *Category  `pg:"rel:has-one"`
+        ViewCount   int        `pg:"view_count"`
+        Order       int        `pg:"order"`
+        Target      string     `pg:"target"`
+        Media       []string   `pg:"media,array"`
+        Status      string     `pg:"status"`
+        CreatedBy   string     `pg:"created_by"`
+        Author      *User      `pg:"rel:has-one"`
+        CreatedAt   time.Time  `pg:"created_at"`
+        UpdatedAt   *time.Time `pg:"updated_at"`
+}
+
+func (p *Post) NameTable() any <span class="cov0" title="0">{
+        return p.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file60" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type PostTag struct {
+        tableName struct{}  `pg:"post_tags,alias:pt"`
+        PostID    string    `pg:"post_id"`
+        TagID     string    `pg:"tag_id"`
+        CreatedBy string    `pg:"created_by"`
+        CreatedAt time.Time `pg:"created_at"`
+}
+
+func (pt *PostTag) NameTable() any <span class="cov0" title="0">{
+        return pt.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file61" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Product struct {
+        tableName      struct{}   `pg:"products,alias:p"`
+        ID             string     `pg:"id,pk"`
+        CreatedBy      string     `pg:"created_by"`
+        Name           string     `pg:"name"`
+        Description    string     `pg:"description"`
+        CategoryID     string     `pg:"category_id"`
+        Category       *Category  `pg:"rel:has-one"`
+        Thumbnail      string     `pg:"thumbnail"`
+        Images         []string   `pg:"images,array"`
+        Width          float32    `pg:"width"`
+        Height         float32    `pg:"height"`
+        Weight         float32    `pg:"weight"`
+        Length         float32    `pg:"length"`
+        Condition      string     `pg:"condition"` // new, used
+        Type           string     `pg:"type"`      // physical, digital
+        PerOrder       bool       `pg:"per_order"`
+        Sku            string     `pg:"sku"`
+        MethodPayments []string   `pg:"method_payment,array"`
+        Status         string     `pg:"status"`
+        CreatedAt      time.Time  `pg:"created_at"`
+        UpdatedAt      *time.Time `pg:"updated_at"`
+}
+
+func (p *Product) NameTable() any <span class="cov0" title="0">{
+        return p.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file62" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type ProductAttribute struct {
+        tableName   struct{}   `pg:"product_attributes,alias:pa"`
+        ProductId   string     `pg:"product_id"`
+        Product     *Product   `pg:"rel:has-one"`
+        AttributeId string     `pg:"attribute_id"`
+        Attribute   *Attribute `pg:"rel:has-one"`
+        CreatedAt   time.Time  `pg:"created_at"`
+}
+
+func (a *ProductAttribute) NameTable() any <span class="cov0" title="0">{
+        return a.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file63" style="display: none">package entity
+
+import "time"
+
+type ProductVariant struct {
+        tableName    struct{}   `pg:"product_variants,alias:pv"`
+        ID           string     `pg:"id,pk"`
+        ProductID    string     `pg:"product_id"`
+        Product      *Product   `pg:"rel:has-one"`
+        Sku          string     `pg:"sku"`
+        Price        float64    `pg:"price"`
+        Discount     float64    `pg:"discount"`
+        TypeDiscount string     `pg:"type_discount"`
+        Quantity     int        `pg:"quantity"`
+        Thumbnail    string     `pg:"thumbnail"`
+        Weight       float64    `pg:"weight"`
+        Length       float64    `pg:"length"`
+        Width        float64    `pg:"width"`
+        Height       float64    `pg:"height"`
+        CreatedAt    time.Time  `pg:"created_at"`
+        UpdatedAt    *time.Time `pg:"updated_at"`
+}
+
+func (pv *ProductVariant) NameTable() any <span class="cov0" title="0">{
+        return pv.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file64" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Role struct {
+        tableName   struct{}   `pg:"roles,alias:r"`
+        Key         string     `pg:"key,pk"`
+        Name        string     `pg:"name,unique"`
+        Description string     `pg:"description"`
+        Status      string     `pg:"status"`
+        CreatedAt   time.Time  `pg:"created_at"`
+        UpdatedAt   *time.Time `pg:"updated_at"`
+}
+
+func (r *Role) GetNameTable() any <span class="cov0" title="0">{
+        return r.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file65" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type SessionType string
+
+const (
+        SessionTypeAuth   SessionType = "authorization"
+        SessionTypeForgot SessionType = "forgot"
+        SessionTypeReset  SessionType = "reset"
+        SessionTypeVerify SessionType = "verify"
+)
+
+type Session struct {
+        tableName struct{}    `pg:"sessions,alias:s"`
+        Token     string      `pg:"token,pk"`
+        UserID    string      `pg:"user_id,pk"`
+        User      *User       `pg:"rel:has-one"`
+        Type      SessionType `pg:"type"`
+        Os        string      `pg:"os"`
+        ExpiredAt time.Time   `pg:"expired_at"`
+        CreatedAt time.Time   `pg:"created_at"`
+}
+
+func (s *Session) NameTable() any <span class="cov0" title="0">{
+        return s.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file66" style="display: none">package entity
+
+import "time"
+
+type StatusHistory struct {
+        tableName     struct{}   `pg:"status_histories,alias:sh"`
+        Status        StatusMail `pg:"status"`
+        MailHistoryId string     `pg:"mail_history_id"`
+        Message       string     `pg:"message"`
+        CreatedAt     time.Time  `pg:"created_at"`
+}
+
+func (sh *StatusHistory) GetNameTable() any <span class="cov0" title="0">{
+        return sh.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file67" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type StatusOrder struct {
+        tableName   struct{}  `pg:"status_orders,alias:so"`
+        ID          string    `pg:"id,pk"`
+        Name        string    `pg:"name"`
+        Description string    `pg:"description"`
+        Variant     string    `pg:"variant"`
+        CreatedAt   time.Time `pg:"created_at"`
+}
+
+func (so *StatusOrder) NameTable() any <span class="cov0" title="0">{
+        return so.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file68" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Supplier struct {
+        tableName      struct{}   `pg:"suppliers,alias:s"`
+        ID             string     `pg:"id,pk"`
+        CreatedBy      string     `pg:"created_by"`
+        Name           string     `pg:"name"`
+        Type           string     `pg:"type"`
+        Service        string     `pg:"service"`
+        Address        string     `pg:"address"`
+        TaxCode        string     `pg:"tax_code"`
+        Representative string     `pg:"representative"`
+        Phone          string     `pg:"phone"`
+        Email          string     `pg:"email"`
+        BankAccount    string     `pg:"bank_account"`
+        BankName       string     `pg:"bank_name"`
+        BankNumber     string     `pg:"bank_number"`
+        Note           string     `pg:"note"`
+        Status         string     `pg:"status"`
+        CreatedAt      time.Time  `pg:"created_at"`
+        UpdatedAt      *time.Time `pg:"updated_at"`
+}
+
+func (s *Supplier) NameTable() any <span class="cov0" title="0">{
+        return s.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file69" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Tag struct {
+        tableName struct{}   `pg:"tags,alias:t"`
+        ID        string     `pg:"id,pk"`
+        Name      string     `pg:"name"`
+        Variant   string     `pg:"variant"`
+        Status    string     `pg:"status"`
+        CreatedBy string     `pg:"created_by"`
+        CreatedAt time.Time  `pg:"created_at"`
+        UpdatedAt *time.Time `pg:"updated_at"`
+}
+
+func (t *Tag) NameTable() any <span class="cov0" title="0">{
+        return t.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file70" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type TypeMail struct {
+        tableName struct{} `pg:"type_mails,alias:tm"`
+        ID        string   `pg:"id,pk"`
+        Name      string   `pg:"name,unique"`
+        CreatedBy string   `pg:"created_by"`
+        CreatedAt time.Time  `pg:"created_at"`
+        UpdatedAt *time.Time `pg:"updated_at"`
+}
+
+func (tm *TypeMail) GetNameTable() any <span class="cov0" title="0">{
+        return tm.tableName
+}</pre>
+		
+		<pre class="file" id="file71" style="display: none">package entity
+
+import "time"
+
+type User struct {
+        tableName  struct{}   `pg:"users,alias:u"`
+        ID         string     `pg:"id,pk"`
+        Email      string     `pg:"email,unique"`
+        Phone      string     `pg:"phone,unique"`
+        Password   string     `pg:"password"`
+        FullName   string     `pg:"full_name"`
+        Avatar     string     `pg:"avatar"`
+        Bio        string     `pg:"bio"`
+        Address    string     `pg:"address"`
+        CodeVerify string     `pg:"code_verify"`
+        Veryfied   *time.Time `pg:"veryfied"`
+        CreatedBy  string     `pg:"created_by"`
+        Birthday   *time.Time `pg:"birthday"`
+        CreatedAt  time.Time  `pg:"created_at"`
+        UpdatedAt  *time.Time `pg:"updated_at"`
+}
+
+type UserInfor struct {
+        ID       string
+        Email    string
+        Phone    string
+        FullName string
+        Avatar   string
+        Bio      string
+        Address  string
+        Birthday *time.Time
+}
+
+func (u *User) GetID() string <span class="cov0" title="0">{
+        return u.ID
+}</span>
+
+func (u *User) GetNameTable() any <span class="cov0" title="0">{
+        return u.tableName
+}</span>
+
+func (u *User) GetInfor() UserInfor <span class="cov0" title="0">{
+        return UserInfor{
+                ID:       u.ID,
+                Email:    u.Email,
+                Phone:    u.Phone,
+                FullName: u.FullName,
+                Avatar:   u.Avatar,
+                Bio:      u.Bio,
+                Address:  u.Address,
+                Birthday: u.Birthday,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file72" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type UserRole struct {
+        tableName struct{}   `pg:"user_roles,alias:ur"`
+        ID        string     `pg:"id,pk"`
+        UserID    string     `pg:"user_id,unique:role_key"`
+        RoleKey   string     `pg:"role_key,unique:user_id"`
+        CreatedBy string     `pg:"created_by"`
+        CreatedAt time.Time  `pg:"created_at"`
+        UpdatedAt *time.Time `pg:"updated_at"`
+}
+
+func (ur *UserRole) GetNameTable() any <span class="cov0" title="0">{
+        return ur.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file73" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type VariantValue struct {
+        tableName        struct{}  `pg:"variant_values,alias:vv"`
+        AttributeValueID string    `pg:"attribute_value_id,pk"`
+        VariantID        string    `pg:"variant_id,pk"`
+        CreatedAt        time.Time `pg:"created_at"`
+}
+
+func (vv *VariantValue) NameTable() any <span class="cov0" title="0">{
+        return vv.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file74" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type Warehouse struct {
+        tableName        struct{}   `pg:"warehouses,alias:w"`
+        Id               string     `pg:"id,pk"`
+        CreatedBy        string     `pg:"created_by"`
+        Quantity         int        `pg:"quantity"`
+        Total            int        `pg:"total"`
+        Name             string     `pg:"name"`
+        Cateogty         string     `pg:"category"`
+        Unit             string     `pg:"unit"`
+        Location         string     `pg:"location"`
+        LocatioWarehouse string     `pg:"location_warehouse"`
+        Note             string     `pg:"note"`
+        Type             string     `pg:"type"`
+        StoreName        string     `pg:"store_name"`
+        ReceiverName     string     `pg:"receiver_name"`
+        ReceiverPhone    string     `pg:"receiver_phone"`
+        ReceiverAddress  string     `pg:"receiver_address"`
+        SupplierId       string     `pg:"supplier_id"`
+        Supplier         *Supplier  `pg:"rel:has-one"`
+        CreatedAt        time.Time  `pg:"created_at"`
+        UpdatedAt        *time.Time `pg:"updated_at"`
+}
+
+func (w *Warehouse) NameTable() any <span class="cov0" title="0">{
+        return w.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file75" style="display: none">package entity
+
+import (
+        "time"
+)
+
+type WebSetting struct {
+        tableName struct{}   `pg:"web_settings,alias:ws"`
+        Key       string     `pg:"key,pk"`
+        Value     string     `pg:"value"`
+        CreatedBy string     `pg:"created_by"`
+        CreatedAt time.Time  `pg:"created_at"`
+        UpdatedAt *time.Time `pg:"updated_at"`
+}
+
+func (ws *WebSetting) NameTable() any <span class="cov0" title="0">{
+        return ws.tableName
+}</span>
+</pre>
+		
+		<pre class="file" id="file76" style="display: none">package schedule
+
+import (
+        "cms-server/bootstrap"
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        serviceLogger "cms-server/internal/service/logger"
+        mailtpl "cms-server/internal/service/mailTpl"
+        "cms-server/internal/service/queue"
+        "crypto/tls"
+        "encoding/json"
+        "errors"
+        "time"
+)
+
+type EmailSystemImpl interface {
+        SendMailQueue(Payload []byte, Id string) error
+        ConfigTest() EmailTestingImpl
+}
+
+type EmailTestingImpl interface {
+        SetIsProduction(mode bool) *EmailTesting
+        SetIsAppedMail(mode bool) *EmailTesting
+        SetTestMails(mails []string) *EmailTesting
+}
+
+type EmailTesting struct {
+        TestMails    []string // Danh sách email dùng để test
+        IsAppedMail  bool
+        IsProduction bool // Biến để xác định môi trường
+}
+
+type EmailSystem struct {
+        configTest        EmailTesting
+        log               serviceLogger.Logger
+        mailTemplate      mailtpl.MailTemplate
+        mailProvider      bootstrap.MailProvider
+        mailTplRepo       repository.MailTemplateRepository
+        mailProvierRepo   repository.MailProviderRepository
+        mailHistoryRepo   repository.MailHistoryRepository
+        statusHistoryRepo repository.StatusHistoryRepository
+}
+
+func (e *EmailSystem) SendMailQueue(Payload []byte, Id string) error <span class="cov0" title="0">{
+        var payload queue.Payload
+        statusErr := entity.StatusHistory{
+                Status:        entity.MAIL_STATUS_FAILED,
+                MailHistoryId: Id,
+                CreatedAt:     time.Now(),
+        }
+        if err := json.Unmarshal(Payload, &amp;payload); err != nil </span><span class="cov0" title="0">{
+                statusErr.Message = "Failed to parse payload: " + err.Error()
+                e.statusHistoryRepo.Create(&amp;statusErr)
+                e.log.Warn(statusErr.Message)
+                return errors.New(statusErr.Message)
+        }</span>
+        <span class="cov0" title="0">tpl, err := e.mailTplRepo.GetMailTplById(payload.Template)
+        if err != nil </span><span class="cov0" title="0">{
+                statusErr.Message = "Failed to get mail template: " + err.Error()
+                e.statusHistoryRepo.Create(&amp;statusErr)
+                return err
+        }</span> else<span class="cov0" title="0"> if tpl == nil </span><span class="cov0" title="0">{
+                statusErr.Message = "Template not found"
+                e.statusHistoryRepo.Create(&amp;statusErr)
+                return errors.New("không tìm thấy mẫu email")
+        }</span>
+
+        <span class="cov0" title="0">mailT, err := e.mailTemplate.Render(tpl.Subject, tpl.Body, payload.Data)
+        if err != nil </span><span class="cov0" title="0">{
+                statusErr.Message = "Failed to render mail template: " + err.Error()
+                e.statusHistoryRepo.Create(&amp;statusErr)
+                return err
+        }</span>
+
+        // Lấy thông tin cấu hình gửi email
+        <span class="cov0" title="0">provider, err := e.mailProvierRepo.GetMailProviderByEmail(payload.Provider)
+        if err != nil </span><span class="cov0" title="0">{
+                statusErr.Message = "Failed to get mail provider: " + err.Error()
+                e.statusHistoryRepo.Create(&amp;statusErr)
+                return err
+        }</span> else<span class="cov0" title="0"> if provider == nil </span><span class="cov0" title="0">{
+                statusErr.Message = "Mail provider not found"
+                e.statusHistoryRepo.Create(&amp;statusErr)
+                return errors.New("không tìm thấy cấu hình gửi email")
+        }</span>
+        // Set cấu hình gửi email
+        <span class="cov0" title="0">e.mailProvider.SetProvider(&amp;bootstrap.ConfigMail{
+                Host:     provider.Host,
+                Port:     provider.Port,
+                UserName: provider.UserName,
+                Password: provider.Password,
+                Email:    provider.Email,
+                Name:     provider.Name,
+                TSL:      &amp;tls.Config{InsecureSkipVerify: true},
+        })
+        tos := []string{}
+        if payload.To != nil </span><span class="cov0" title="0">{
+                tos = append(tos, *payload.To)
+        }</span> else<span class="cov0" title="0"> if payload.Tos != nil </span><span class="cov0" title="0">{
+                tos = *payload.Tos
+        }</span>
+        <span class="cov0" title="0">if !e.configTest.IsProduction &amp;&amp; len(e.configTest.TestMails) &gt; 0 </span><span class="cov0" title="0">{
+                tos = e.configTest.TestMails
+        }</span>
+        // Gửi email
+        <span class="cov0" title="0">if err := e.mailProvider.SendMail(tos, mailT.Subject, mailT.Body, payload.Data); err != nil </span><span class="cov0" title="0">{
+                statusErr.Message = "Failed to send mail: " + err.Error()
+                e.statusHistoryRepo.Create(&amp;statusErr)
+                return err
+        }</span>
+
+        // Update lại subject và body vào mail history
+        <span class="cov0" title="0">err = e.mailHistoryRepo.UpdateSubAndBodyById(Id, mailT.Subject, mailT.Body)
+        if err != nil </span><span class="cov0" title="0">{
+                statusErr.Message = "Failed to update mail history: " + err.Error()
+                e.statusHistoryRepo.Create(&amp;statusErr)
+                return err
+        }</span>
+
+        // Thêm trạng thái gửi email thành công
+        <span class="cov0" title="0">statusErr.Status = entity.MAIL_STATUS_SENT
+        statusErr.Message = "Send mail success"
+        return e.statusHistoryRepo.Create(&amp;statusErr)</span>
+}
+
+func (e *EmailSystem) ConfigTest() EmailTestingImpl <span class="cov0" title="0">{
+        return &amp;e.configTest
+}</span>
+
+func NewEmailSystem(
+        log serviceLogger.Logger,
+        mailtemplate mailtpl.MailTemplate,
+        mailProvider bootstrap.MailProvider,
+        mailTplRepo repository.MailTemplateRepository,
+        mailProvierRepo repository.MailProviderRepository,
+        mailHistoryRepo repository.MailHistoryRepository,
+        statusHistoryRepo repository.StatusHistoryRepository,
+        testMails []string,
+) EmailSystemImpl <span class="cov0" title="0">{
+        return &amp;EmailSystem{
+                configTest:        EmailTesting{TestMails: testMails, IsAppedMail: false, IsProduction: true},
+                log:               log,
+                mailTemplate:      mailtemplate,
+                mailProvider:      mailProvider,
+                mailTplRepo:       mailTplRepo,
+                mailProvierRepo:   mailProvierRepo,
+                mailHistoryRepo:   mailHistoryRepo,
+                statusHistoryRepo: statusHistoryRepo,
+        }
+}</span>
+
+func (et *EmailTesting) SetIsProduction(mode bool) *EmailTesting <span class="cov0" title="0">{
+        et.IsProduction = mode
+        return et
+}</span>
+
+func (et *EmailTesting) SetIsAppedMail(mode bool) *EmailTesting <span class="cov0" title="0">{
+        et.IsAppedMail = mode
+        return et
+}</span>
+
+func (et *EmailTesting) SetTestMails(mails []string) *EmailTesting <span class="cov0" title="0">{
+        et.TestMails = mails
+        return et
+}</span>
+</pre>
+		
+		<pre class="file" id="file77" style="display: none">package serviceError
+
+type ErrorApp interface {
+        Error() string
+        SetMessage(message string) ErrorApp
+        SetData(data any) ErrorApp
+        Code(code int) ErrorApp
+        GetCode() int
+        BadReq() ErrorApp
+        UnprocessableEntity() ErrorApp
+        NotFound() ErrorApp
+        Unauthorized() ErrorApp
+        Forbidden() ErrorApp
+        Conflict() ErrorApp
+        InternalServerError() ErrorApp
+}
+
+type errorApp struct {
+        message string
+}
+
+func NewErrorApp(message string) *errorApp <span class="cov0" title="0">{
+        return &amp;errorApp{
+                message: message,
+        }
+}</span>
+
+func (e *errorApp) Error() string <span class="cov0" title="0">{
+        return e.message
+}</span>
+</pre>
+		
+		<pre class="file" id="file78" style="display: none">package authUC
+
+import (
+        "cms-server/constants"
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        "cms-server/internal/service/cache"
+        serviceError "cms-server/internal/service/error"
+        serviceJwt "cms-server/internal/service/jwt"
+        "cms-server/internal/service/queue"
+        "context"
+        "math/rand"
+        "strconv"
+        "time"
+)
+
+type ForgotPasswordType string
+
+const (
+        ForgotByCode  ForgotPasswordType = "ForgotByCode"
+        ForgotByToken ForgotPasswordType = "ForgotByToken"
+)
+
+var (
+        ErrValidateForgotPassword = serviceError.NewErrorApp("Phương thức xác thực không hợp lệ, vui lòng chọn code hoặc token")
+)
+
+type ForgotPasswordRes struct {
+        User  entity.UserInfor
+        Token string
+        Code  string
+}
+
+type ForgotPasswordUsecase interface {
+        ForgotPassword(email, os string, method ForgotPasswordType) (ForgotPasswordRes, error)
+        saveCodeOrToken(typeForgot ForgotPasswordType, userID, codeOrToken, os string, exp time.Time) error
+        SendEmailForgotPassword(user entity.UserInfor, code, link string) error
+        generateRandomCode(length int) string
+}
+
+type forgotPasswordUsecaseImpl struct {
+        userRepo          repository.UserRepository
+        sessionRepo       repository.SessionRepository
+        mailTplRepo       repository.MailTemplateRepository
+        statusHistoryRepo repository.StatusHistoryRepository
+        mailHistoryRepo   repository.MailHistoryRepository
+        tx                repository.ManagerTransaction
+        jwtService        serviceJwt.JwtService
+        qc                queue.QueueClient
+        cache             cache.RedisConfigImpl
+}
+
+func NewForgotPasswordUsecase(
+        userRepo repository.UserRepository,
+        sessionRepo repository.SessionRepository,
+        mailTplRepo repository.MailTemplateRepository,
+        statusHistoryRepo repository.StatusHistoryRepository,
+        mailHistoryRepo repository.MailHistoryRepository,
+        tx repository.ManagerTransaction,
+        jwtService serviceJwt.JwtService,
+        qc queue.QueueClient,
+        cache cache.RedisConfigImpl,
+) ForgotPasswordUsecase <span class="cov0" title="0">{
+        return &amp;forgotPasswordUsecaseImpl{
+                userRepo,
+                sessionRepo,
+                mailTplRepo,
+                statusHistoryRepo,
+                mailHistoryRepo,
+                tx,
+                jwtService,
+                qc,
+                cache,
+        }
+}</span>
+
+func (uc *forgotPasswordUsecaseImpl) saveCodeOrToken(typeForgot ForgotPasswordType, userID, codeOrToken, os string, exp time.Time) error <span class="cov0" title="0">{
+        session := entity.Session{
+                Token:     codeOrToken,
+                UserID:    userID,
+                Type:      entity.SessionTypeForgot,
+                Os:        os,
+                ExpiredAt: exp,
+                CreatedAt: time.Now(),
+        }
+        key := codeOrToken
+        if typeForgot == ForgotByCode &amp;&amp; len(codeOrToken) == 6 </span><span class="cov0" title="0">{
+                key = codeOrToken + userID
+        }</span>
+        <span class="cov0" title="0">if err := uc.cache.Set(key, []byte(codeOrToken), constants.ForgotExpiredAt*time.Minute); err != nil </span><span class="cov0" title="0">{
+                if err := uc.sessionRepo.CreateSession(session); err != nil </span><span class="cov0" title="0">{
+                        return serviceError.NewErrorApp("không thể tạo phiên làm việc")
+                }</span>
+        } else<span class="cov0" title="0"> {
+                go uc.sessionRepo.CreateSession(session)
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (uc *forgotPasswordUsecaseImpl) SendEmailForgotPassword(user entity.UserInfor, code, link string) error <span class="cov0" title="0">{
+        tpl, err := uc.mailTplRepo.GetMailTplById(constants.TPL_FORGOT_MAIL)
+        if err != nil </span><span class="cov0" title="0">{
+                return repository.ErrNotFoundTpl
+        }</span>
+        <span class="cov0" title="0">data := map[string]any{
+                "code": code,
+                "link": link,
+                "user": user,
+        }
+        payload := queue.Payload{
+                Provider: tpl.ProviderEmail,
+                Template: tpl.ID,
+                Data:     data,
+                To:       &amp;user.Email,
+        }
+
+        Id, err := uc.qc.EnqueueMail(payload)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">return uc.tx.RunInTransaction(func(ctx context.Context) error </span><span class="cov0" title="0">{
+                err = uc.mailHistoryRepo.Tx(ctx).Create(&amp;entity.MailHistory{
+                        ID:            Id,
+                        TemplateId:    tpl.ID,
+                        To:            user.Email,
+                        Data:          data,
+                        EmailProvider: tpl.ProviderEmail,
+                })
+                if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+                <span class="cov0" title="0">return uc.statusHistoryRepo.Tx(ctx).Create(&amp;entity.StatusHistory{
+                        Status:        entity.MAIL_STATUS_PENDING,
+                        MailHistoryId: Id,
+                        Message:       "Send mail pending",
+                        CreatedAt:     time.Now(),
+                })</span>
+        })
+}
+
+func (uc *forgotPasswordUsecaseImpl) ForgotPassword(email, os string, method ForgotPasswordType) (ForgotPasswordRes, error) <span class="cov0" title="0">{
+        var resForgotPassword ForgotPasswordRes
+        user, err := uc.userRepo.GetUserByEmail(email)
+        if err != nil </span><span class="cov0" title="0">{
+                return resForgotPassword, err
+        }</span>
+        <span class="cov0" title="0">resForgotPassword.User = user.GetInfor()
+
+        exp := time.Now().Add(constants.ForgotExpiredAt * time.Minute)
+        switch method </span>{
+        case ForgotByCode:<span class="cov0" title="0">
+                resForgotPassword.Code = uc.generateRandomCode(6)
+                if err := uc.saveCodeOrToken(ForgotByCode, user.ID, resForgotPassword.Code, os, exp); err != nil </span><span class="cov0" title="0">{
+                        return resForgotPassword, err
+                }</span>
+                <span class="cov0" title="0">return resForgotPassword, nil</span>
+        case ForgotByToken:<span class="cov0" title="0">
+                code := uc.generateRandomCode(6)
+                resForgotPassword.Token, err = uc.jwtService.GenForgotPasswordToken(user.ID, code, exp)
+                if err != nil </span><span class="cov0" title="0">{
+                        return resForgotPassword, err
+                }</span>
+                <span class="cov0" title="0">if err := uc.saveCodeOrToken(ForgotByToken, user.ID, resForgotPassword.Token, os, exp); err != nil </span><span class="cov0" title="0">{
+                        return resForgotPassword, err
+                }</span>
+                <span class="cov0" title="0">return resForgotPassword, nil</span>
+        }
+        <span class="cov0" title="0">return resForgotPassword, ErrValidateForgotPassword</span>
+}
+
+func (uc *forgotPasswordUsecaseImpl) generateRandomCode(length int) string <span class="cov0" title="0">{
+        r := rand.New(rand.NewSource(time.Now().UnixNano()))
+        min := int64(1)
+        for i := 1; i &lt; length; i++ </span><span class="cov0" title="0">{
+                min *= 10
+        }</span>
+        <span class="cov0" title="0">max := min*10 - 1
+        num := r.Int63n(max-min+1) + min
+        return strconv.FormatInt(num, 10)</span>
+}
+</pre>
+		
+		<pre class="file" id="file79" style="display: none">package authUC
+
+import (
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        "cms-server/internal/service/argon"
+        "cms-server/internal/service/cache"
+        serviceJwt "cms-server/internal/service/jwt"
+        "time"
+)
+
+type LoginUsecase interface {
+        GetUserByEmailOrPhone(val string) (entity.User, error)
+        CheckHashPassword(password, hash string) bool
+        GengerateAccessToken(id string, fullName string, exp time.Time) (string, error)
+        GengerateRefreshToken(id string, fullName string, exp time.Time, os string) (string, error)
+}
+
+type loginUsecaseImpl struct {
+        userRepo    repository.UserRepository
+        sessionRepo repository.SessionRepository
+        jwtAccess   serviceJwt.JwtService
+        jwtRefresh  serviceJwt.JwtService
+        argon       argon.Argon
+        cache       cache.RedisConfigImpl
+}
+
+func NewLoginUsecase(
+        userRepo repository.UserRepository,
+        sessionRepo repository.SessionRepository,
+        jwtAccess serviceJwt.JwtService,
+        jwtRefresh serviceJwt.JwtService,
+        argon argon.Argon,
+        cache cache.RedisConfigImpl,
+) LoginUsecase <span class="cov8" title="1">{
+        return &amp;loginUsecaseImpl{
+                userRepo,
+                sessionRepo,
+                jwtAccess,
+                jwtRefresh,
+                argon,
+                cache,
+        }
+}</span>
+
+func (uc *loginUsecaseImpl) GetUserByEmailOrPhone(val string) (entity.User, error) <span class="cov8" title="1">{
+        return uc.userRepo.GetUserByEmailOrPhone(val)
+}</span>
+
+func (uc *loginUsecaseImpl) CheckHashPassword(password, hash string) bool <span class="cov8" title="1">{
+        mach, err := uc.argon.VerifyPassword(hash, password)
+        if err != nil </span><span class="cov8" title="1">{
+                return false
+        }</span>
+        <span class="cov8" title="1">return mach</span>
+}
+
+func (uc *loginUsecaseImpl) GengerateAccessToken(id string, fullName string, exp time.Time) (string, error) <span class="cov8" title="1">{
+        return uc.jwtAccess.GenAuthToken(id, fullName, exp)
+}</span>
+
+func (uc *loginUsecaseImpl) GengerateRefreshToken(id string, fullName string, exp time.Time, os string) (string, error) <span class="cov8" title="1">{
+        token, err := uc.jwtRefresh.GenAuthToken(id, fullName, exp)
+        if err != nil </span><span class="cov8" title="1">{
+                return "", err
+        }</span>
+
+        <span class="cov8" title="1">session := entity.Session{
+                Token:     token,
+                UserID:    id,
+                Os:        os,
+                Type:      (entity.SessionTypeAuth),
+                ExpiredAt: exp,
+                CreatedAt: time.Now(),
+        }
+
+        if err := uc.cache.Set(token, []byte(id), time.Until(exp)); err != nil </span><span class="cov8" title="1">{
+                if err := uc.sessionRepo.CreateSession(session); err != nil </span><span class="cov8" title="1">{
+                        return "", err
+                }</span>
+        } else<span class="cov8" title="1"> {
+                go uc.sessionRepo.CreateSession(session)
+        }</span>
+        <span class="cov8" title="1">return token, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file80" style="display: none">package authUC
+
+import (
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        "cms-server/internal/service/cache"
+        serviceJwt "cms-server/internal/service/jwt"
+        "time"
+)
+
+type RefreshUsecase interface {
+        GetSessionByToken(token string) (entity.Session, error)
+        ClearSessionExpired() error
+        VerifyToken(token string) (*serviceJwt.AuthClaims, error)
+        GengerateAccessToken(id string, fullName string, exp time.Time) (string, error)
+        GengerateRefreshToken(id string, fullName string, exp time.Time, os string) (string, error)
+}
+
+type refreshUsecaseImpl struct {
+        sessionRepo repository.SessionRepository
+        jwtAccess   serviceJwt.JwtService
+        jwtRefresh  serviceJwt.JwtService
+        cache       cache.RedisConfigImpl
+}
+
+func NewRefreshUsecase(
+        sessionRepo repository.SessionRepository,
+        jwtAccess serviceJwt.JwtService,
+        jwtRefresh serviceJwt.JwtService,
+        cache cache.RedisConfigImpl,
+) RefreshUsecase <span class="cov0" title="0">{
+        return &amp;refreshUsecaseImpl{
+                sessionRepo: sessionRepo,
+                jwtAccess:   jwtAccess,
+                jwtRefresh:  jwtRefresh,
+                cache:       cache,
+        }
+}</span>
+
+func (uc *refreshUsecaseImpl) GetSessionByToken(token string) (entity.Session, error) <span class="cov0" title="0">{
+        session, err := uc.sessionRepo.GetSessionAliveByToken(entity.SessionTypeAuth, token)
+        if err != nil </span><span class="cov0" title="0">{
+                return entity.Session{}, err
+        }</span>
+        <span class="cov0" title="0">if err := uc.sessionRepo.DeleteSessionAuthByToken(token); err != nil </span><span class="cov0" title="0">{
+                return entity.Session{}, err
+        }</span>
+        <span class="cov0" title="0">return session, nil</span>
+}
+
+func (uc *refreshUsecaseImpl) ClearSessionExpired() error <span class="cov0" title="0">{
+        if err := uc.sessionRepo.DeleteAllSessionsExpired(); err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (uc *refreshUsecaseImpl) VerifyToken(token string) (*serviceJwt.AuthClaims, error) <span class="cov0" title="0">{
+        claims, err := uc.jwtRefresh.VerifyAuthToken(token)
+        if err != nil </span><span class="cov0" title="0">{
+                return claims, err
+        }</span>
+        <span class="cov0" title="0">return claims, nil</span>
+}
+
+func (uc *refreshUsecaseImpl) GengerateAccessToken(id string, fullName string, exp time.Time) (string, error) <span class="cov0" title="0">{
+        return uc.jwtAccess.GenAuthToken(id, fullName, exp)
+}</span>
+
+func (uc *refreshUsecaseImpl) GengerateRefreshToken(id string, fullName string, exp time.Time, os string) (string, error) <span class="cov0" title="0">{
+        token, err := uc.jwtRefresh.GenAuthToken(id, fullName, exp)
+        if err != nil </span><span class="cov0" title="0">{
+                return "", err
+        }</span>
+
+        <span class="cov0" title="0">session := entity.Session{
+                Token:     token,
+                UserID:    id,
+                Os:        os,
+                Type:      entity.SessionTypeAuth,
+                ExpiredAt: exp,
+                CreatedAt: time.Now(),
+        }
+
+        if err := uc.cache.Set(token, []byte(id), time.Until(exp)); err != nil </span><span class="cov0" title="0">{
+                if err := uc.sessionRepo.CreateSession(session); err != nil </span><span class="cov0" title="0">{
+                        return "", err
+                }</span>
+        } else<span class="cov0" title="0"> {
+                go uc.sessionRepo.CreateSession(session)
+        }</span>
+        <span class="cov0" title="0">return token, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file81" style="display: none">package authUC
+
+import (
+        "cms-server/constants"
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        "cms-server/internal/service/argon"
+        "cms-server/internal/service/cache"
+        "cms-server/internal/service/goid"
+        serviceJwt "cms-server/internal/service/jwt"
+        "cms-server/internal/service/queue"
+        "context"
+        "math/rand"
+        "time"
+)
+
+type ResRegister struct {
+        UserInfor entity.UserInfor
+        MailTpl   *entity.MailTemplate
+        Token     string
+}
+
+type RegisterReq struct {
+        Email           string
+        FullName        string
+        Password        string
+        ConfirmPassword string
+        Code            string
+}
+
+type RegisterUsecase interface {
+        CheckUserExist(email string) (entity.User, error)
+        hashPassword(password string) (string, error)
+        Register(user RegisterReq, os string, exp time.Time) (ResRegister, error)
+        GengerateCode(length int8) string
+        createOrUpdateUser(user RegisterReq, ctx context.Context) (entity.UserInfor, *entity.MailTemplate, error)
+        saveToken(token string, id string, os string) error
+        SendMail(tlp *entity.MailTemplate, user entity.UserInfor, linkVerify string) error
+}
+
+type registerUsecaseImpl struct {
+        userRepo          repository.UserRepository
+        mailTplRepo       repository.MailTemplateRepository
+        mailHistoryRepo   repository.MailHistoryRepository
+        statusHistoryRepo repository.StatusHistoryRepository
+        sessionRepo       repository.SessionRepository
+        jwt               serviceJwt.JwtService
+        qc                queue.QueueClient
+        tx                repository.ManagerTransaction
+        goid              goid.GoId
+        argon             argon.Argon
+        cahe              cache.RedisConfigImpl
+}
+
+func NewRegisterUsecase(
+        userRepo repository.UserRepository,
+        mailTplRepo repository.MailTemplateRepository,
+        mailHistoryRepo repository.MailHistoryRepository,
+        statusHistoryRepo repository.StatusHistoryRepository,
+        sessionRepo repository.SessionRepository,
+        jwt serviceJwt.JwtService,
+        qc queue.QueueClient,
+        tx repository.ManagerTransaction,
+        goid goid.GoId,
+        argon argon.Argon,
+        cache cache.RedisConfigImpl,
+) RegisterUsecase <span class="cov0" title="0">{
+        return &amp;registerUsecaseImpl{
+                userRepo:          userRepo,
+                mailHistoryRepo:   mailHistoryRepo,
+                mailTplRepo:       mailTplRepo,
+                statusHistoryRepo: statusHistoryRepo,
+                sessionRepo:       sessionRepo,
+                qc:                qc,
+                tx:                tx,
+                jwt:               jwt,
+                goid:              goid,
+                argon:             argon,
+                cahe:              cache,
+        }
+}</span>
+
+func (uc *registerUsecaseImpl) CheckUserExist(email string) (entity.User, error) <span class="cov0" title="0">{
+        return uc.userRepo.GetUserByEmail(email)
+}</span>
+func (uc *registerUsecaseImpl) GengerateCode(length int8) string <span class="cov0" title="0">{
+        const digits = "0123456789"
+        r := rand.New(rand.NewSource(time.Now().UnixNano()))
+        result := make([]byte, length)
+        for i := range result </span><span class="cov0" title="0">{
+                result[i] = digits[r.Intn(len(digits))]
+        }</span>
+        <span class="cov0" title="0">return string(result)</span>
+}
+func (uc *registerUsecaseImpl) hashPassword(password string) (string, error) <span class="cov0" title="0">{
+        return uc.argon.HashPassword(password)
+}</span>
+
+func (uc *registerUsecaseImpl) Register(user RegisterReq, os string, exp time.Time) (ResRegister, error) <span class="cov0" title="0">{
+        res := ResRegister{}
+        err := uc.tx.RunInTransaction(func(ctx context.Context) error </span><span class="cov0" title="0">{
+                var err error
+                if res.UserInfor, res.MailTpl, err = uc.createOrUpdateUser(user, ctx); err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+                <span class="cov0" title="0">if err = uc.sessionRepo.DeleteSessionVerifyByUserID(res.UserInfor.ID); err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+                <span class="cov0" title="0">if res.Token, err = uc.jwt.GenRegisterToken(res.UserInfor.ID, user.Code, exp); err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+                <span class="cov0" title="0">if err = uc.saveToken(res.Token, res.UserInfor.ID, os); err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+                <span class="cov0" title="0">return nil</span>
+        })
+        <span class="cov0" title="0">return res, err</span>
+}
+
+func (uc *registerUsecaseImpl) createOrUpdateUser(user RegisterReq, ctx context.Context) (entity.UserInfor, *entity.MailTemplate, error) <span class="cov0" title="0">{
+        var userInfo entity.UserInfor
+        var tpl *entity.MailTemplate
+        var err error
+        id := uc.goid.GenWithLength(10)
+        newUser := entity.User{
+                ID:         id,
+                Email:      user.Email,
+                Password:   user.Password,
+                FullName:   user.FullName,
+                CodeVerify: user.Code,
+        }
+        if newUser.Password, err = uc.hashPassword(newUser.Password); err != nil </span><span class="cov0" title="0">{
+                return userInfo, tpl, err
+        }</span>
+
+        <span class="cov0" title="0">if isExist, err := uc.userRepo.CheckUserExist(newUser.Email); err != nil </span><span class="cov0" title="0">{
+                return userInfo, tpl, err
+        }</span> else<span class="cov0" title="0"> if !isExist </span><span class="cov0" title="0">{
+                if userInfo, err = uc.userRepo.Tx(ctx).CreateUser(newUser); err != nil </span><span class="cov0" title="0">{
+                        return userInfo, tpl, err
+                }</span>
+        } else<span class="cov0" title="0"> {
+                newUser.ID = "" // Nó sẽ không cập nhật ID bởi ID là khóa chính | thêm cho dễ hiểu
+                if ok, err := uc.userRepo.Tx(ctx).UpdateUserByEmail(newUser.Email, newUser); err != nil </span><span class="cov0" title="0">{
+                        return userInfo, tpl, err
+                }</span> else<span class="cov0" title="0"> if u, err := uc.userRepo.GetUserByEmail(newUser.Email); ok &amp;&amp; err == nil </span><span class="cov0" title="0">{
+                        userInfo = u.GetInfor()
+                }</span> else<span class="cov0" title="0"> {
+                        return userInfo, tpl, err
+                }</span>
+        }
+        <span class="cov0" title="0">if tpl, err = uc.mailTplRepo.GetMailTplById(constants.TPL_REGISTER_MAIL); err != nil </span><span class="cov0" title="0">{
+                return userInfo, tpl, err
+        }</span>
+
+        <span class="cov0" title="0">return userInfo, tpl, nil</span>
+}
+
+func (uc *registerUsecaseImpl) saveToken(token string, userId string, os string) error <span class="cov0" title="0">{
+        session := entity.Session{
+                Token:     token,
+                UserID:    userId,
+                Os:        os,
+                Type:      entity.SessionTypeVerify,
+                CreatedAt: time.Now(),
+                ExpiredAt: time.Now().Add(constants.VerifyExpiredAt * time.Second),
+        }
+        if err := uc.cahe.Set(token, []byte(token), constants.VerifyExpiredAt*time.Second); err != nil </span><span class="cov0" title="0">{
+                if err := uc.sessionRepo.CreateSession(session); err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+        } else<span class="cov0" title="0"> {
+                go uc.sessionRepo.CreateSession(session)
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (uc *registerUsecaseImpl) SendMail(tlp *entity.MailTemplate, user entity.UserInfor, linkVerify string) error <span class="cov0" title="0">{
+        data := map[string]any{
+                "link": linkVerify,
+                "user": user,
+        }
+        payload := queue.Payload{
+                Provider: tlp.ProviderEmail,
+                Template: tlp.ID,
+                Data:     data,
+                To:       &amp;user.Email,
+        }
+        Id, err := uc.qc.EnqueueMail(payload)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">return uc.tx.RunInTransaction(func(ctx context.Context) error </span><span class="cov0" title="0">{
+                err := uc.mailHistoryRepo.Tx(ctx).Create(&amp;entity.MailHistory{
+                        ID:            Id,
+                        TemplateId:    tlp.ID,
+                        To:            user.Email,
+                        Data:          data,
+                        EmailProvider: tlp.ProviderEmail,
+                })
+                if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+                <span class="cov0" title="0">err = uc.statusHistoryRepo.Tx(ctx).Create(&amp;entity.StatusHistory{
+                        Status:        entity.MAIL_STATUS_PENDING,
+                        MailHistoryId: Id,
+                        Message:       "Send mail pending",
+                        CreatedAt:     time.Now(),
+                })
+                return err</span>
+        })
+}
+</pre>
+		
+		<pre class="file" id="file82" style="display: none">package authUC
+
+import (
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        "cms-server/internal/service/argon"
+        "cms-server/internal/service/cache"
+        serviceError "cms-server/internal/service/error"
+        serviceJwt "cms-server/internal/service/jwt"
+)
+
+type ResetPasswordByCodeUsecase interface {
+        VerifySession(code, email string) (string, error)
+        ResetPass(IdUser, Password, NewPassword string) error
+}
+
+type ResetPasswordByCodeUsecaseImpl struct {
+        userRepo    repository.UserRepository
+        sessionRepo repository.SessionRepository
+        cache       cache.RedisConfigImpl
+        jwt         serviceJwt.JwtService
+        argon       argon.Argon
+}
+
+func NewResetPasswordCodeUsecase(
+        userRepo repository.UserRepository,
+        sessionRepo repository.SessionRepository,
+        cache cache.RedisConfigImpl,
+        jwt serviceJwt.JwtService,
+        argon argon.Argon,
+) ResetPasswordByCodeUsecase <span class="cov0" title="0">{
+        return &amp;ResetPasswordByCodeUsecaseImpl{
+                userRepo,
+                sessionRepo,
+                cache,
+                jwt,
+                argon,
+        }
+}</span>
+
+func (uc *ResetPasswordByCodeUsecaseImpl) VerifySession(code, email string) (string, error) <span class="cov0" title="0">{
+        user, err := uc.userRepo.GetUserByEmail(email)
+        if err != nil </span><span class="cov0" title="0">{
+                return "", serviceError.NewErrorApp("Không tìm thấy người dùng")
+        }</span>
+        <span class="cov0" title="0">key := code + user.ID
+        if _, err := uc.cache.Get(key); err != nil </span><span class="cov0" title="0">{
+                if _, err := uc.sessionRepo.GetSessionForgotAliveByTokenAndIdUser(code, user.ID); err != nil </span><span class="cov0" title="0">{
+                        return "", serviceError.NewErrorApp("Phiên làm việc không hợp lệ hoặc đã hết hạn")
+                }</span>
+        }
+        <span class="cov0" title="0">go func() </span><span class="cov0" title="0">{
+                uc.sessionRepo.DeleteSessionForgotByTokenAndIdUser(code, user.ID)
+                uc.cache.Delete(key)
+        }</span>()
+        <span class="cov0" title="0">return user.ID, nil</span>
+}
+
+func (uc *ResetPasswordByCodeUsecaseImpl) ResetPass(IdUser, Password, ConfirmPassword string) error <span class="cov0" title="0">{
+        ConfirmPassword, err := uc.argon.HashPassword(ConfirmPassword)
+        if err != nil </span><span class="cov0" title="0">{
+                return serviceError.NewErrorApp("Không thể mã hóa mật khẩu")
+        }</span>
+
+        <span class="cov0" title="0">if _, err = uc.userRepo.UpdateUser(IdUser, entity.User{Password: ConfirmPassword}); err != nil </span><span class="cov0" title="0">{
+                return serviceError.NewErrorApp("Không thể cập nhật mật khẩu")
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file83" style="display: none">package authUC
+
+import (
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        "cms-server/internal/service/argon"
+        "cms-server/internal/service/cache"
+        serviceError "cms-server/internal/service/error"
+        serviceJwt "cms-server/internal/service/jwt"
+)
+
+type ResetPasswordByTokenUsecase interface {
+        VerifySession(token string) (string, error)
+        ResetPass(IdUser, Password, NewPassword string) error
+}
+
+type ResetPasswordByTokenUsecaseImpl struct {
+        userRepo    repository.UserRepository
+        sessionRepo repository.SessionRepository
+        cache       cache.RedisConfigImpl
+        jwt         serviceJwt.JwtService
+        argon       argon.Argon
+}
+
+func NewResetPasswordUsecase(
+        userRepo repository.UserRepository,
+        sessionRepo repository.SessionRepository,
+        cache cache.RedisConfigImpl,
+        jwt serviceJwt.JwtService,
+        argon argon.Argon,
+) ResetPasswordByTokenUsecase <span class="cov0" title="0">{
+        return &amp;ResetPasswordByTokenUsecaseImpl{
+                userRepo,
+                sessionRepo,
+                cache,
+                jwt,
+                argon,
+        }
+}</span>
+
+func (uc *ResetPasswordByTokenUsecaseImpl) VerifySession(token string) (string, error) <span class="cov0" title="0">{
+        if _, err := uc.cache.Get(token); err != nil </span><span class="cov0" title="0">{
+                if isExist := uc.sessionRepo.TokenExists(token); !isExist </span><span class="cov0" title="0">{
+                        return "", serviceError.NewErrorApp("Phiên làm việc không hợp lệ hoặc đã hết hạn")
+                }</span>
+        }
+        <span class="cov0" title="0">go func() </span><span class="cov0" title="0">{
+                uc.sessionRepo.DeleteSessionForgotByToken(token)
+                uc.cache.Delete(token)
+        }</span>()
+        <span class="cov0" title="0">claim, err := uc.jwt.VerifyForgotPasswordToken(token)
+        if err != nil </span><span class="cov0" title="0">{
+                return "", err
+        }</span>
+
+        <span class="cov0" title="0">return claim.Id, nil</span>
+}
+
+func (uc *ResetPasswordByTokenUsecaseImpl) ResetPass(IdUser, Password, ConfirmPassword string) error <span class="cov0" title="0">{
+        user, err := uc.userRepo.GetUserByID(IdUser)
+        if err != nil </span><span class="cov0" title="0">{
+                return serviceError.NewErrorApp("Không tìm thấy người dùng")
+        }</span>
+
+        <span class="cov0" title="0">ConfirmPassword, err = uc.argon.HashPassword(ConfirmPassword)
+        if err != nil </span><span class="cov0" title="0">{
+                return serviceError.NewErrorApp("Không thể mã hóa mật khẩu")
+        }</span>
+
+        <span class="cov0" title="0">if _, err = uc.userRepo.UpdateUser(user.ID, entity.User{Password: ConfirmPassword}); err != nil </span><span class="cov0" title="0">{
+                return serviceError.NewErrorApp("Không thể cập nhật mật khẩu")
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file84" style="display: none">package authUC
+
+import (
+        pkgjwt "cms-server/infrastructure/service/jwt"
+        "cms-server/internal/entity"
+        "cms-server/internal/repository"
+        "cms-server/internal/service/cache"
+        serviceJwt "cms-server/internal/service/jwt"
+        "time"
+)
+
+type VerifyAccountUsecase interface {
+        VerifyRegister(t string) (*serviceJwt.VerifyClaims, error)
+        GetUserById(id string) (entity.User, error)
+        VerifyAccount(id string) error
+}
+
+type verifyAccountUsecaseImpl struct {
+        userRepo    repository.UserRepository
+        sessionRepo repository.SessionRepository
+        jwt         serviceJwt.JwtService
+        cache       cache.RedisConfigImpl
+}
+
+func NewVerifyAccountUsecase(
+        userRepo repository.UserRepository,
+        sessionRepo repository.SessionRepository,
+        jwt serviceJwt.JwtService,
+        cache cache.RedisConfigImpl,
+) VerifyAccountUsecase <span class="cov0" title="0">{
+        return &amp;verifyAccountUsecaseImpl{
+                userRepo,
+                sessionRepo,
+                jwt,
+                cache,
+        }
+}</span>
+
+func (u *verifyAccountUsecaseImpl) VerifyRegister(t string) (*serviceJwt.VerifyClaims, error) <span class="cov0" title="0">{
+        if _, err := u.cache.Get(t); err != nil </span><span class="cov0" title="0">{
+                if isExist := u.sessionRepo.TokenExists(t); !isExist </span><span class="cov0" title="0">{
+                        return nil, pkgjwt.ErrTokenNotFound
+                }</span>
+        } else<span class="cov0" title="0"> {
+                go u.sessionRepo.DeleteSessionAuthByToken(t)
+                go u.cache.Delete(t)
+        }</span>
+
+        <span class="cov0" title="0">data, err := u.jwt.VerifyRegisterToken(t)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">return data, nil</span>
+}
+
+func (u *verifyAccountUsecaseImpl) GetUserById(id string) (entity.User, error) <span class="cov0" title="0">{
+        user, err := u.userRepo.GetUserByID(id)
+        if err != nil </span><span class="cov0" title="0">{
+                return user, err
+        }</span>
+        <span class="cov0" title="0">return user, nil</span>
+}
+
+func (u *verifyAccountUsecaseImpl) VerifyAccount(id string) error <span class="cov0" title="0">{
+        t := time.Now()
+        user := entity.User{
+                ID:         id,
+                CodeVerify: "",
+                Veryfied:   &amp;t,
+        }
+        _, err := u.userRepo.UpdateUser(id, user)
+        return err
+}</span>
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>
