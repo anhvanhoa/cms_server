@@ -2,23 +2,21 @@ package handler
 
 import (
 	authUC "cms-server/domain/usecase/auth"
-	authModel "cms-server/infrastructure/model/auth"
 	pkgres "cms-server/infrastructure/service/response"
 	"errors"
 
-	"github.com/asaskevich/govalidator"
 	"github.com/gofiber/fiber/v2"
 )
 
 func (h *authHandlerImpl) Forgot(c *fiber.Ctx) error {
-	var body authModel.ForgotPasswordReq
+	var body forgotPasswordReq
 	if err := c.BodyParser(&body); err != nil {
 		err := pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
 		return h.log.Log(c, err)
 	}
 
-	if _, err := govalidator.ValidateStruct(body); err != nil {
-		err := pkgres.Err(err).UnprocessableEntity()
+	if err := h.validate.ValidateStruct(body); err != nil {
+		err := pkgres.NewErr("Dữ liệu không hợp lệ").SetData(err.Data).BadReq()
 		return h.log.Log(c, err)
 	}
 

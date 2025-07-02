@@ -1,9 +1,9 @@
 package typeMail
 
 import (
+	"cms-server/bootstrap"
 	typeMailUC "cms-server/domain/usecase/type_mail"
 	pkglog "cms-server/infrastructure/service/logger"
-	"cms-server/infrastructure/service/valid"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -23,7 +23,7 @@ type TypeMailHandlerImpl struct {
 	updateUseCase typeMailUC.UpdateUseCase
 	deleteUseCase typeMailUC.DeleteUseCase
 	log           pkglog.Logger
-	validate      *valid.Validator
+	validate      bootstrap.IValidator
 }
 
 func NewTypeMailHandler(
@@ -33,7 +33,7 @@ func NewTypeMailHandler(
 	updateUseCase typeMailUC.UpdateUseCase,
 	deleteUseCase typeMailUC.DeleteUseCase,
 	log pkglog.Logger,
-	validate *valid.Validator,
+	validate bootstrap.IValidator,
 ) TypeMailHandler {
 	return &TypeMailHandlerImpl{
 		getUseCase:    getUseCase,

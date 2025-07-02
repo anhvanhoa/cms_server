@@ -1,22 +1,20 @@
 package handler
 
 import (
-	authModel "cms-server/infrastructure/model/auth"
 	pkgres "cms-server/infrastructure/service/response"
 
-	"github.com/asaskevich/govalidator"
 	"github.com/gofiber/fiber/v2"
 )
 
 func (h *authHandlerImpl) CheckCode(c *fiber.Ctx) error {
-	var req authModel.CheckCodeReq
+	var req checkCodeReq
 	if err := c.BodyParser(&req); err != nil {
 		err := pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
 		return h.log.Log(c, err)
 	}
 
-	if _, err := govalidator.ValidateStruct(req); err != nil {
-		err := pkgres.NewErr("Dữ liệu không hợp lệ").UnprocessableEntity()
+	if err := h.validate.ValidateStruct(req); err != nil {
+		err := pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
 		return h.log.Log(c, err)
 	}
 

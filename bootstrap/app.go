@@ -16,7 +16,7 @@ type Application struct {
 	Log         pkglog.Logger
 	QueneClient *queueClient
 	Cache       cache.RedisConfigImpl
-	Valid       *valid.Validate
+	Valid       IValidator
 }
 
 func App() *Application {
@@ -25,7 +25,6 @@ func App() *Application {
 
 	logConfig := pkglog.NewConfig()
 	log := pkglog.InitLogger(logConfig, zapcore.DebugLevel, env.IsProduction())
-	valid := valid.New()
 	qc := NewQueueClient(&env)
 
 	entities := []any{
@@ -83,8 +82,7 @@ func App() *Application {
 		env.DB_CACHE.IdleTimeout,
 	)
 	cache := NewRedis(configRedis)
-
-	RegisterValidator()
+	valid := RegisterCustomValidations(valid.New())
 	return &Application{
 		Env:         &env,
 		DB:          db,

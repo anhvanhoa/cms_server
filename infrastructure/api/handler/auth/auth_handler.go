@@ -23,6 +23,7 @@ type AuthHandler interface {
 
 type authHandlerImpl struct {
 	env             *bootstrap.Env
+	validate        bootstrap.IValidator
 	log             pkglog.Logger
 	checkTokenUc    authUC.CheckTokenUsecase
 	checkCodeUc     authUC.CheckCodeUsecase
@@ -49,8 +50,10 @@ func NewAuthHandler(
 	verifyAccountUc authUC.VerifyAccountUsecase,
 	log pkglog.Logger,
 	env *bootstrap.Env,
+	validate bootstrap.IValidator,
 ) AuthHandler {
 	return &authHandlerImpl{
+		validate:        validate,
 		env:             env,
 		log:             log,
 		checkCodeUc:     checkCodeUc,

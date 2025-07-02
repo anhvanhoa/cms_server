@@ -36,6 +36,7 @@ func (r *Router) initAuthRouter() {
 		authUC.NewVerifyAccountUsecase(userRepo, sessionRepo, jwtVerify, r.cache),
 		r.log,
 		r.env,
+		r.valid,
 	)
 	authR.Post("/login", h.Login)
 	authR.Post("/register", h.Register)

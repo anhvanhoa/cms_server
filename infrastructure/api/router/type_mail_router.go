@@ -5,14 +5,12 @@ import (
 	handler "cms-server/infrastructure/api/handler/type_mail"
 	"cms-server/infrastructure/repo"
 	goidS "cms-server/infrastructure/service/goid"
-	"cms-server/infrastructure/service/valid"
 )
 
 func (r *Router) initTypeMailRouter() {
 	tmRouter := r.app.Group("/type-mails")
 	typeMailRepo := repo.NewTypeMailRepository(r.db)
 	goid := goidS.NewGoId()
-	validate := valid.NewValidator(r.valid)
 	h := handler.NewTypeMailHandler(
 		typeMail.NewGetUseCase(typeMailRepo),
 		typeMail.NewGetAllUseCase(typeMailRepo),
@@ -20,7 +18,7 @@ func (r *Router) initTypeMailRouter() {
 		typeMail.NewUpdateUseCase(typeMailRepo),
 		typeMail.NewDeleteUseCase(typeMailRepo),
 		r.log,
-		validate,
+		r.valid,
 	)
 	tmRouter.Get("", h.GetAll)
 	tmRouter.Post("", h.Create)

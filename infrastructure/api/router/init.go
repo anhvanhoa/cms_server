@@ -7,7 +7,6 @@ import (
 	pkglog "cms-server/infrastructure/service/logger"
 
 	"github.com/go-pg/pg/v10"
-	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -18,7 +17,7 @@ type Router struct {
 	qc    queue.QueueClient
 	env   *bootstrap.Env
 	cache cache.RedisConfigImpl
-	valid *validator.Validate
+	valid bootstrap.IValidator
 }
 
 func InitRouter(
@@ -28,7 +27,7 @@ func InitRouter(
 	qc queue.QueueClient,
 	env *bootstrap.Env,
 	cache cache.RedisConfigImpl,
-	valid *validator.Validate,
+	valid bootstrap.IValidator,
 ) {
 	router := &Router{
 		db:    db,

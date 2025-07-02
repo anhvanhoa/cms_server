@@ -3,25 +3,22 @@ package handler
 import (
 	"cms-server/constants"
 	authUC "cms-server/domain/usecase/auth"
-	authModel "cms-server/infrastructure/model/auth"
 	pkgres "cms-server/infrastructure/service/response"
 	"time"
 
-	"github.com/asaskevich/govalidator"
 	"github.com/go-pg/pg/v10"
 	"github.com/gofiber/fiber/v2"
 )
 
 func (rh *authHandlerImpl) Register(c *fiber.Ctx) error {
-	var body authModel.RegisterReq
-
+	var body registerReq
 	if err := c.BodyParser(&body); err != nil {
 		err := pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
 		return rh.log.Log(c, err)
 	}
 
-	if _, err := govalidator.ValidateStruct(body); err != nil {
-		err := pkgres.Err(err).UnprocessableEntity()
+	if err := rh.validate.ValidateStruct(body); err != nil {
+		err := pkgres.NewErr("Dữ liệu không hợp lệ").BadReq()
 		return rh.log.Log(c, err)
 	}
 
